@@ -17,30 +17,233 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i>
   </div>
   <div class="kicker">Part 2 · Bayesian Thinking 贝叶斯思维</div>
   <h1>2.4 Why Conspiracy Theorists Think They're Bayesians
     <span class="zh">为什么阴谋论者也自认是贝叶斯主义者</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>你也在内</b></span>
+    <span>前置 <b><a href="2-2-bayes-update.html">2.2 贝叶斯更新</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>八条反证之后</h2>
+  <p>某人相信一个理论，初始信心 <b>60%</b>。接下来他连续遇到 <b>8 条</b>反驳它的证据：原始数据被公开了、独立机构复核结论相反、内部人士出面否认、连提出者本人都承认当初弄错了……</p>
+  <p>每一条证据都不是决定性的，但每一条都实打实地把「这个理论为真」的赔率<b>砍到四分之一</b>。</p>
+  <p class="big">八条之后，一个诚实做贝叶斯更新的人，信心会掉到——</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="20">两成左右</button>
+      <button data-g="5">5% 上下</button>
+      <button data-g="1">1% 以下</button>
+      <button data-g="0">万分之一以下</button>
+    </div>
+    <div class="after">押好了。真正的问题在后面：同样这八条证据，为什么有人的信心反而涨到了 97%？而且他觉得自己算得没错。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>他们不是不做更新，是把更新做废了</h2>
+
+  <p>先说一件让人不太舒服的事：<b>典型的阴谋论者，在自己看来完全是在做贝叶斯推理。</b>他有先验，他收集证据，他更新信念，他甚至比多数人更执着于「follow the evidence」。他不缺推理的形式，缺的是别的东西。</p>
+
+  <p>缺在哪？<a href="2-2-bayes-update.html">2.2 章</a>那个乘法里只有两个零件，所以也只有两个地方能坏：<b>先验</b>，和<b>似然比</b>。两个都坏了。</p>
+
+  <h3>故障一：先验被钉死在 0 或 1</h3>
+  <p>回忆那个公式：后验赔率 = 先验赔率 × 似然比。<b>如果先验赔率是 0 或者无穷大，那么无论似然比是多少，后验都纹丝不动。</b>0 乘以一百万还是 0。</p>
+  <p>这在统计学里有个专门的告诫，叫 <span class="term">Cromwell's rule</span>（克伦威尔规则），由统计学家 Dennis Lindley 提出，名字来自 1650 年克伦威尔写给苏格兰教会的那句话——大意是「我恳请你们，设想一下你们有可能是错的」。规则本身是一条纪律：</p>
+  <div class="callout k">
+    <p style="margin:0"><b>除非某件事在逻辑上不可能，否则永远不要给它 0 或 1 的概率。</b>因为一旦你给了，你就把自己从证据的管辖范围里永久移出去了——此后无论世界呈现什么，你的信念都不会再动一毫米。<b>「我绝对不可能错」不是一种自信，它是一种数学上的自我除名。</b></p>
+  </div>
+  <p>值得注意的是，这条故障<b>并不专属于阴谋论者</b>。任何一个「这事没有任何讨论余地」的立场，都在做同一件事。</p>
+
+  <h3>故障二：似然比被「解释掉」</h3>
+  <p>第二处故障更隐蔽，也更普遍。它不需要你把先验钉死，只需要你<b>对每一条反证都能想出一个说法</b>：</p>
+  <table class="data">
+    <tr><th>反驳证据</th><th>解释</th><th>结果</th></tr>
+    <tr><td>官方公开了原始数据</td><td>数据是他们自己造的</td><td class="s">LR → 1</td></tr>
+    <tr><td>独立机构复核结论一致</td><td>那家机构也被收买了</td><td class="s">LR → 1</td></tr>
+    <tr><td>内部人士出面否认</td><td>他被威胁了</td><td class="s">LR → 1</td></tr>
+    <tr><td>提出者本人承认弄错了</td><td>他被收编了</td><td class="s">LR → 1</td></tr>
+  </table>
+  <p>每一个说法单独听都不算荒唐——数据确实可以造假，机构确实可能被收买，人确实会被威胁。问题在于它们的<b>累积效果</b>：如果<b>任何</b>反驳证据都能被解释掉，那么</p>
+  <div class="formula">P(看到这条证据 | 阴谋为真) ≈ P(看到这条证据 | 阴谋为假)<br><br>→ 似然比 ≈ <b>1</b> → 这条证据<b>不含任何信息</b></div>
+
+  <p>而这正是 <a href="2-2-bayes-update.html">2.2 章</a>那个警告的极端版本：<b>似然比为 1 的证据不该让你的信念移动分毫。</b>可当事人的体验恰恰相反——他觉得自己刚刚又「破解」了一条掩盖，信心更足了。<b>他把「我成功解释了这条证据」当成了「这条证据支持我」，而这两件事在贝叶斯里毫无关系。</b></p>
+
+  <h3>致命的一步：当反证开始变成正证</h3>
+  <p>还有更糟的一档。如果一个理论预测「他们必然会掩盖、必然会否认、必然会派人辟谣」，那么<b>否认本身就被算成了证据</b>——似然比从 1 翻到了 1 以上。此时：</p>
+  <p class="big">反驳越多，信心越强。理论变成了永动机。</p>
+  <p>这就是<span class="term">unfalsifiability</span>（不可证伪性）在算术上的样子。哲学家 Karl Popper 说「不可证伪的理论没有科学价值」，用贝叶斯的语言说就是：<b>一个能预测任何观测结果的理论，任何观测结果对它的似然比都是 1，因此它永远无法从数据中学到任何东西。</b></p>
+
+  <div class="callout">
+    <p style="margin:0"><b>请把这一段读慢一点，因为它不只关于「那些人」。</b>「反对我的人越多，越说明我戳到了痛处」「主流媒体不报道，正好证明这事是真的」——这类推理的结构和上面完全一致，而它出现在各种立场的人身上，包括受过良好教育的人，包括你我。<b>本章真正的用处不是识别别人，是在自己身上装一个警报器。</b></p>
+  </div>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>把「解释掉」调成一个旋钮</h2>
+  <p>下面这个实验把同一串反驳证据同时喂给两个人。<b>青绿线</b>是照实采纳的人，<b>红线</b>是把每条证据都打了折的人。「防御性折扣」这个旋钮就是「我能不能给这条证据想出一个说法」的强度：0 表示照单全收，1 表示证据完全失效，超过 1 表示<b>反驳反而让他更相信</b>。</p>
+  <p>默认（折扣 0.7）下，八条反证之后：诚实更新的人掉到 <b>0.0023%</b>，打折的人只掉到 <b>5.1%</b>——而后者会觉得自己已经「认真考虑过反面意见」了。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动三个滑块。打印版展示默认场景：先验 60%，8 条反驳证据（每条真实似然比 0.25×），防御性折扣 0.7 → 有效似然比 0.66×。诚实更新者的信念降到 0.0023%，打折者只降到 5.1%。另两个预设：「开放心态」折扣 0 → 两条线重合，都降到 0.0023%；「完全免疫」折扣 1.3 → 有效似然比 1.52×，信念反而升到 97.7%，同一串反驳证据把他推向了相反方向。）">
+    <div class="lab-head">
+      <span class="t">Immunity Simulator · 先验封闭模拟器</span>
+      <span class="presets">
+        <button data-p="60,0,8">开放心态</button>
+        <button data-p="60,0.7,8">确认偏误</button>
+        <button data-p="60,1.3,8">完全免疫</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>他一开始有多信 <b id="vPrior2">60%</b></label>
+          <input type="range" id="sPrior2" min="5" max="95" step="1" value="60">
+        </div>
+        <div class="sl">
+          <label>防御性折扣（能不能给反证想出说法）<b id="vDisc">0.70</b></label>
+          <input type="range" id="sDisc" min="0" max="1.5" step="0.05" value="0.7">
+        </div>
+        <div class="sl">
+          <label>遇到多少条反驳证据 <b id="vCount">8 条</b></label>
+          <input type="range" id="sCount" min="1" max="8" step="1" value="8">
+        </div>
+      </div>
+
+      <div class="chart">
+        <svg viewBox="0 0 600 200" role="img" aria-label="同一串反驳证据下两种信念轨迹的对比">
+          <line x1="46" y1="14" x2="46" y2="166" class="axis"></line>
+          <line x1="46" y1="166" x2="588" y2="166" class="axis"></line>
+          <line x1="46" y1="90" x2="588" y2="90" class="gridline"></line>
+          <text x="40" y="18" text-anchor="end">100%</text>
+          <text x="40" y="94" text-anchor="end">50%</text>
+          <text x="40" y="170" text-anchor="end">0%</text>
+          <text x="46" y="188">先验</text>
+          <text x="588" y="188" text-anchor="end">最后一条证据之后</text>
+          <polyline id="openLine" class="line k" points=""></polyline>
+          <polyline id="closedLine" class="line s" points=""></polyline>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="k"><i></i>诚实更新（照实采纳每条证据）</span>
+        <span class="s"><i></i>打折之后（每条都被解释掉一部分）</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nOpen">0.0023%</div><div class="l">诚实更新者的最终信念</div></div>
+        <div class="bignum"><div class="n s" id="nClosed">5.1%</div><div class="l">打折者的最终信念</div></div>
+        <div class="bignum"><div class="n a" id="vLrEff">0.66×</div><div class="l">打折后每条证据<br>实际剩下的力度</div></div>
+      </div>
+
+      <p style="margin:20px 0 8px;font-size:14px;color:var(--ink-soft)">这一串证据，以及配套的说辞：</p>
+      <div id="evStream"></div>
+    </div>
+  </div>
+
+  <p>请务必把折扣滑块拖过 <b>1.0</b> 那条线。在 1.0 以下，红线只是<b>下降得慢</b>——那还只是固执。一旦越过 1.0，红线掉头<b>向上</b>：同一串反驳证据，现在每一条都在加强他的信念。<b>1.0 不是程度上的分界，是性质上的分界。</b>在它左边，你只是学得慢；在它右边，你是在反向学习，而且再多的证据只会让你错得更彻底。</p>
+  <p>另一个值得试的：把折扣设成 1.0 整。两条线会分道扬镳成一条陡降线和一条<b>完全水平</b>的线。水平意味着——这个人经历了八条反驳证据，信念一动没动。<b>从外面看，他「认真研究过所有材料」；从算术上看，他什么也没读。</b></p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>世界末日没来的那天早上</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Festinger 等 ·《When Prophecy Fails》, 1956</div>
+    <div class="case-body">
+      <p>1954 年，美国心理学家 Leon Festinger 和两位同事听说了一个小型信仰团体。该团体的核心人物声称收到外星文明的讯息：<b>某个具体日期的凌晨，一场大洪水将毁灭世界，而信徒会在此前被飞碟接走。</b></p>
+      <p>Festinger 团队做了一件在当时颇为大胆的事：他们<b>以信徒身份加入了这个团体</b>，就为了亲眼看到一件事——<b>当预言的日期到来、什么也没发生时，这些人会怎么办。</b></p>
+      <p>这是一个近乎完美的天然实验。因为预言极其具体（日期、时间、事件），它提供了一条<b>力度极大的反证</b>：如果预言为真，「什么都没发生」几乎不可能出现；如果预言为假，这几乎是必然结果。用本章的语言说，这条证据的似然比接近 <b>0</b>。</p>
+      <p>指定的时刻到了。信徒们聚在一起等待。飞碟没有来。午夜过去，凌晨过去，天亮了，洪水没有发生。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">≈ 0</div><div class="l">「什么也没发生」这条证据的似然比</div></div>
+        <div class="stat"><div class="n bad">信念未崩塌</div><div class="l">核心成员的反应</div></div>
+        <div class="stat"><div class="n bad">传教增强</div><div class="l">此后一段时间的行为变化</div></div>
+      </div>
+      <p>几小时后，团体宣布收到了新的讯息：<b>正是因为这个小团体彻夜守候、散发出的光明拯救了世界，上帝决定不再降下洪水。</b></p>
+      <p>接下来发生的事才是这项研究出名的原因。此前这个团体一直回避媒体、不主动传教；预言失败之后，<b>核心成员反而开始积极联系新闻界、主动向外界宣讲</b>。Festinger 用他提出的<span class="term">cognitive dissonance</span>（认知失调）理论解释：当行动的代价已经付出（有人辞掉工作、变卖家产），推翻信念的心理成本高到无法承受，于是大脑选择了另一条路——<b>不是修改信念去适应证据，而是修改对证据的解释去保护信念</b>，并通过说服他人来补充信心。</p>
+      <p>用本章的旋钮说：<b>这个团体把防御性折扣从 1 拨过了 1。</b>「洪水没来」这条本该归零信念的证据，被重新解释成「我们的守候奏效了」——似然比从接近 0 直接翻转成大于 1。反证变成了正证，而当事人真诚地认为自己是在跟随证据。</p>
+      <div class="callout">
+        <p style="margin:0"><b>需要如实说明的是，这项研究本身是有争议的。</b>它是一项参与式观察，样本极小（团体核心成员仅十余人），研究者的加入本身可能影响了团体的行为和规模感知，而「传教增强」的观察在后来的复现尝试中并不总是稳定出现。<b>它作为一个生动的个案是有价值的，作为一条普适定律则证据不足。</b>认知失调理论本身在后续几十年得到了大量实验支持，但「预言失败必然导致传教增强」这个具体推论并未被牢固确立。</p>
+      </div>
+      <div class="src">来源：Leon Festinger, Henry W. Riecken, Stanley Schachter,《When Prophecy Fails: A Social and Psychological Study of a Modern Group That Predicted the Destruction of the World》, University of Minnesota Press, 1956。团体与成员姓名在原书中均为化名。对该研究方法论的批评见后续社会心理学文献中关于参与观察与失败复现的讨论。Cromwell's rule 见 Dennis Lindley,《Making Decisions》, 1971。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>先验 60%，遇到 8 条反证、每条似然比 0.25。诚实更新后的信念是多少？如果每条被打折到 0.66，结果又是多少？</summary>
+      <div class="answer">
+        <p><b>诚实更新：</b>先验赔率 = 60 : 40 = <b>1.5</b>。总似然比 = 0.25⁸ = 1/65536 ≈ 0.0000153。</p>
+        <p>后验赔率 = 1.5 × 0.0000153 ≈ 0.0000229 → 概率 ≈ <b>0.0023%</b>，约四万分之一。</p>
+        <p><b>打折之后：</b>0.66⁸ ≈ 0.036。后验赔率 = 1.5 × 0.036 ≈ 0.054 → 概率 ≈ <b>5.1%</b>。</p>
+        <p>请体会这个差距的形状：<b>每条证据只被削弱了不到三分之二的力度，八条累积下来，终点差了两千多倍。</b>因为更新是连乘，任何对单条证据力度的系统性折扣都会被指数放大。这也解释了一个常见现象：两个人看了完全相同的材料，结论可以相差几个数量级，而双方都觉得对方不讲道理。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「他们否认，正说明这事是真的」——用似然比说清楚这句话错在哪。如果某种情况下它其实是对的，那会是什么情况？</summary>
+      <div class="answer">
+        <p>这句话主张 P(否认 | 阴谋为真) &gt; P(否认 | 阴谋为假)，即似然比大于 1。</p>
+        <p><b>它错在忽略了分母。</b>没有阴谋的人在被指控时也会否认——而且几乎是必然会否认。所以 P(否认 | 无阴谋) 同样接近 1，两边一比，似然比接近 1，<b>「否认」这条证据几乎不含信息。</b>它之所以感觉像证据，是因为人只盯着「有阴谋的话他会否认」这一边，忘了问「没阴谋的话他会不会也否认」。</p>
+        <p><b>什么情况下它会是对的？</b>当否认的<b>形式</b>异常时。比如：被问到的是一个外界本不该知道的细节，而对方的否认精确地针对了那个细节；或者否认的时间点早于任何公开指控。这类情形下 P(这样否认 | 无阴谋) 确实很低，似然比才真正大于 1。</p>
+        <p><b>区别在于：泛泛的否认没有信息，具体到只有「真」才解释得通的否认才有信息。</b>这也是一条通用的检验：一条证据要有力度，必须是「如果结论是反的，就很难看到它」。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>你的朋友坚信某种保健品有效。你给他看了三项严格的随机对照试验，结论都是无效。他说：「这些研究都是药厂资助的。」这个回应在什么条件下是合理的贝叶斯推理，什么条件下是先验封闭？</summary>
+      <div class="answer">
+        <p><b>合理的情况：</b>如果他<b>事先</b>（在看到结论之前）就认为资助来源会影响结论，并且能给出一个可检验的具体机制，那这是一个正当的似然比调整。资助偏倚是真实存在的现象，有大量元研究支持。此时正确的做法是：把这三项研究的力度<b>打折但不清零</b>，然后去寻找独立资助的研究——<b>他应该主动去找，而且应该预先说明什么样的结果会让他改变想法。</b></p>
+        <p><b>先验封闭的情况：</b>如果这个理由是在看到不利结论<b>之后</b>才被搬出来的，而且是可以无限复用的——独立机构的研究出来了，那就是「他们也被收买了」；政府资助的出来了，那就是「政府有问题」——那么它就不是似然比调整，而是一台<b>把任何反证都归零的机器</b>。</p>
+        <p><b>判别方法只有一个，而且非常干净：问他「什么样的证据会让你改变想法？」</b>如果他能给出一个具体的、可能真的出现的答案（「如果有一项由某某独立基金资助、样本超过一千人的试验显示无效，我就放弃」），他还在贝叶斯的游戏里。如果答案是「不可能有那样的证据」或者答不上来，那先验已经是 1 了，再拿证据去说服他只是浪费彼此的时间。</p>
+        <p><b>这个问题也值得你偶尔问自己一次。</b>对于你最确信的那几个判断，你能说出什么证据会推翻它们吗？</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>本章讲的机制会不会同样适用于科学界？科学家维护一个受到挑战的理论时，和阴谋论者的「解释掉」有什么结构性区别？</summary>
+      <div class="answer">
+        <p><b>会，而且确实发生过。</b>科学史上到处是「用辅助假设保护核心理论」的例子——天文学家用本轮来保住地心说，物理学家用以太拖曳来保住以太。科学哲学家 Imre Lakatos 甚至认为这是科学的常态：核心理论周围有一圈「保护带」，反常先由保护带吸收。<b>所以「给反证找说法」本身不是病，它是理论发展的正常动作。</b></p>
+        <p>结构性区别有三条，都很具体：</p>
+        <p><b>一、新的辅助假设必须自己带来新预测。</b>Lakatos 把研究纲领分成「进步的」和「退化的」：如果你的补丁除了挡掉这条反证之外还预言了别的可观测现象，而且预言兑现了，那是进步的；如果它只是挡箭牌、不产生任何新预测，那是退化的。<b>「他们被收买了」不预测任何新东西，所以是退化的。</b></p>
+        <p><b>二、代价必须被记账。</b>每加一个辅助假设，理论的先验就该降一点——因为你在要求世界同时满足更多条件。阴谋论的「解释」是免费的：每加一层掩盖，它从不认为自己的理论变得更不可能了，可实际上「有一个阴谋」比「有一个阴谋且媒体、学界、内部人士、提出者本人全部配合掩盖」要简单得多。<b>诚实的贝叶斯会为复杂度付费。</b></p>
+        <p><b>三、必须存在公开的、事先声明的投降条件。</b>科学共同体的运作方式（预注册、同行评审、独立复现）本质上是在制度层面强制回答那个问题：<b>什么结果会让我们放弃这个理论？</b>这套制度经常运转得不好、也经常很慢，但它至少<b>存在</b>。而不可证伪的理论连这个位置都是空的。</p>
+        <p>所以最终的分界线不在「有没有为理论辩护」，而在<b>「辩护是否付出了代价、是否产生了新的可检验内容」</b>。这也是你可以用在自己身上的那把尺子。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="2-3-prosecutor.html">← 2.3 检察官谬误与法庭上的概率</a></span>
+  <span><a href="2-3-prosecutor.html">← 2.3 检察官谬误</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="3-1-monty-hall.html">3.1 蒙提霍尔问题：换门为什么赢面翻倍 →</a></span>
+  <span><a href="3-1-monty-hall.html">3.1 蒙提霍尔问题 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/2-4-conspiracy.js"></script>
 </body>
 </html>
