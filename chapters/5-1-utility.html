@@ -17,30 +17,242 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="s"></i>
   </div>
-  <div class="kicker">Part 5 · Risk & Decisions 风险与决策</div>
+  <div class="kicker">Part 5 · Risk &amp; Decisions 风险与决策</div>
   <h1>5.1 Expected Value Is Not a Decision
-    <span class="zh">期望值 ≠ 好决策</span>
+    <span class="zh">期望值 ≠ 好决策：破产是一扇单向门</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="1-3-expected-value.html">1.3 期望值</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>一场期望值无穷大的游戏</h2>
+  <p>规则：连续抛硬币，直到<b>第一次出现反面</b>为止。如果你抛了 <b>n</b> 次才出现反面，你得到 <b>2ⁿ</b> 元。</p>
+  <p>第 1 次就反面 → 2 元。第 2 次才反面 → 4 元。第 10 次 → 1024 元。第 30 次 → 十亿元以上。</p>
+  <p>这个游戏的<b>期望值是无穷大</b>（下面会算给你看）。</p>
+  <p class="big">你愿意花多少钱买一次玩的机会？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="inf">多少都值</button>
+      <button data-g="10000">上万元</button>
+      <button data-g="100">一百元左右</button>
+      <button data-g="10">十几块吧</button>
+    </div>
+    <div class="after">押好了。几乎所有人的答案都在 10–20 元之间——<b>而期望值是无穷大。</b>这个矛盾困扰了数学界三百年，它的解法是整个 Part 5 的地基。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>期望值这把尺子，量错了东西</h2>
+
+  <p>先把那个无穷大算出来：</p>
+  <div class="formula">第 1 次就反面：概率 1/2，拿 2 元 → 贡献 <b>1 元</b><br>
+  第 2 次才反面：概率 1/4，拿 4 元 → 贡献 <b>1 元</b><br>
+  第 3 次才反面：概率 1/8，拿 8 元 → 贡献 <b>1 元</b><br>
+  …每一项都贡献 1 元，而项数是无限的<br><br>
+  期望值 = 1 + 1 + 1 + … = <b>∞</b></div>
+
+  <p>按 <a href="1-3-expected-value.html">1.3 章</a>的标准，你应该愿意付出全部身家来玩这个游戏。<b>但没有人会这么做，而且他们是对的。</b>这就是<span class="term">St. Petersburg paradox</span>（圣彼得堡悖论）。</p>
+
+  <h3>Bernoulli 的解法：钱的价值不是线性的</h3>
+  <p>1738 年，Daniel Bernoulli 给出了至今仍是标准答案的解释：<b>人在乎的不是钱的数量，而是钱带来的效用；而效用随财富增长是递减的。</b></p>
+  <p>第一个 100 万能改变你的人生，第一百个 100 万只是账户上多了一行数字。<b>翻倍的钱，不带来翻倍的好处。</b></p>
+  <p>Bernoulli 提出用<b>对数</b>来刻画这种递减：效用 = ln(财富)。于是决策标准从「期望值最大」变成了<span class="term">expected utility</span>（期望效用）最大：</p>
+  <div class="formula"><b>期望值：</b>Σ 概率 × <b>金额</b>　　← 圣彼得堡游戏给出 ∞<br>
+  <b>期望效用：</b>Σ 概率 × <b>ln(财富)</b>　← 圣彼得堡游戏给出一个很小的有限数</div>
+  <p>为什么会收敛？因为 2ⁿ 涨得快，但 ln(2ⁿ) = n·ln2 只是线性增长——<b>奖金的增长追不上概率的衰减了。</b>用对数效用算，这个游戏值多少？<b>通常只有十几到二十几元</b>（具体取决于你的初始财富）。这和普通人的直觉几乎完全吻合。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>请注意这里发生了什么：三百年前的一个数学难题，最终的答案是「普通人的直觉是对的，公式错了」。</b>这在本书里是罕见的一次——前面四个 Part 都在讲直觉如何翻车。<b>而这里，直觉抓住了一个期望值这把尺子根本量不到的东西：破产的不可逆性。</b></p>
+  </div>
+
+  <h3>真正的核心：破产是一扇单向门</h3>
+  <p>对数效用有一个性质，比「边际递减」更要命：<b>ln(0) = −∞</b>。也就是说，<b>财富归零的效用是负无穷，无论概率多小，它都会让期望效用变成负无穷。</b></p>
+  <p>这不是数学上的怪癖，它精确地描述了现实：<span class="term">absorbing state</span>（吸收态）——<b>一旦进去就再也出不来的状态</b>。破产之后没有「下一次」，而期望值这个概念的全部合法性，恰恰建立在「可以重复很多次」之上（<a href="1-1-what-is-probability.html">1.1 章</a>的大数定律）。</p>
+  <div class="formula"><b>期望值的隐含假设：</b>你可以一直玩下去，让平均值兑现。<br>
+  <b>破产做的事：</b>把「一直玩下去」这个前提删掉。<br><br>
+  → 只要存在归零的可能，期望值就不再是有效的决策依据。</div>
+  <p>所以那句「期望值为正就该做」需要加一个前提：<b>而且下注规模不至于让你出局。</b>至于「多大算不至于出局」——那正是 <a href="5-2-kelly.html">5.2 章</a>凯利公式要回答的问题，而下面的实验里，你会先亲眼看到那个答案的形状。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>同一个赌局，两把尺子</h2>
+  <p>赌局：押上一笔钱，<b>赢了拿回 1.5 倍的净收益，输了本金全没</b>。用两把尺子量它——<b>期望值</b>（只看平均赚多少）和<b>对数效用</b>（看财富的相对变化，因此天然厌恶归零）。</p>
+  <p>默认设定：身家 100 万，押上 5%，胜率 50%。两把尺子都说「接受」。<b>但把下注比例拖到 50%，它们就吵起来了。</b></p>
+
+  <div class="lab" data-print-note="（在线版可拖动身家、下注比例与胜率。打印版展示默认场景：身家 100 万元、下注 5%（5 万元）、胜率 50%、赢则净赚 1.5 倍。期望值 +12,500 元，对数效用下的确定性等价 +10,569 元——两把尺子都建议接受。把下注比例提到 50%：期望值升到 +125,000 元（仍建议接受），确定性等价却变成 −64,586 元（建议拒绝）——同一个赌局，两把尺子给出相反的结论。全押（100%）时确定性等价为 −100 万元，即赌上全部身家等于确定失去它。曲线在下注比例 16.7% 处达到峰值 +20,621 元，这正是 5.2 章的凯利比例 f* = p −(1−p)/1.5。）">
+    <div class="lab-head">
+      <span class="t">Two Rulers · 期望值 vs 期望效用</span>
+      <span class="presets">
+        <button data-p="6,5,50">小注（5%）</button>
+        <button data-p="6,50,50">重注（50%）</button>
+        <button data-p="6,100,50">全押</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>你的全部身家 <b id="vWealth">100.0 万 元</b></label>
+          <input type="range" id="sWealth" min="4" max="8" step="0.1" value="6">
+        </div>
+        <div class="sl">
+          <label>押上其中多少 <b id="vFrac">5%（5.0 万 元）</b></label>
+          <input type="range" id="sFrac" min="1" max="100" step="1" value="5">
+        </div>
+        <div class="sl">
+          <label>赢的概率 <b id="vProb">50%</b></label>
+          <input type="range" id="sProb" min="20" max="80" step="1" value="50">
+        </div>
+      </div>
+
+      <div class="readout">
+        <div class="bignum"><div class="n" id="nEv">+1.3 万 元</div><div class="l">期望值<br>（线性尺子）</div></div>
+        <div class="bignum"><div class="n" id="nCe">+1.1 万 元</div><div class="l">确定性等价<br>（对数尺子）</div></div>
+      </div>
+      <div class="readout" style="margin-top:14px">
+        <div class="bignum"><div class="n" id="advEv">接受</div><div class="l">期望值的建议</div></div>
+        <div class="bignum"><div class="n" id="advCe">接受</div><div class="l">对数效用的建议</div></div>
+      </div>
+
+      <h3>下注比例 → 这个赌局值多少</h3>
+      <div class="chart">
+        <svg id="ceCurve" viewBox="0 0 600 220" role="img" aria-label="确定性等价随下注比例变化的曲线">
+          <line x1="66" y1="14" x2="66" y2="180" class="axis"></line>
+          <line id="zeroRef" x1="66" y1="100" x2="586" y2="100" class="gridline"></line>
+          <line id="kellyRef" x1="152" y1="14" x2="152" y2="180" class="ref"></line>
+          <text id="yHi" x="60" y="18" text-anchor="end">—</text>
+          <text id="yLo" x="60" y="184" text-anchor="end">—</text>
+          <polyline id="ceLine" class="line k" points=""></polyline>
+          <circle id="nowDot" class="dot s" cx="92" cy="100" r="5"></circle>
+          <text x="66" y="204">押 0%</text>
+          <text x="586" y="204" text-anchor="end">押上全部身家</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="k"><i></i>对数效用下这个赌局值多少钱</span>
+        <span class="s"><i></i>你现在的位置</span>
+        <span>竖虚线 = 最优下注比例</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n a" id="nKelly">16.7%</div><div class="l">让这条曲线最高的下注比例<br>（即 5.2 章的凯利比例）</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+    </div>
+  </div>
+
+  <p>三个预设讲的是同一件事的三个阶段。</p>
+  <p><b>「小注」：</b>期望值 +12,500 元，确定性等价 +10,569 元。两把尺子一致，只是对数尺子略保守——它扣掉了一点「承担波动」的代价。</p>
+  <p><b>「重注」：</b>期望值涨到 +125,000 元，看起来好了十倍。可确定性等价掉到了 <b>−64,586 元</b>。<b>同一个赌局，一把尺子说接受，另一把说拒绝。</b>——而且对数那把是对的：这个下注规模下，输一次的伤害远大于赢一次的好处。</p>
+  <p><b>「全押」：</b>确定性等价 <b>−100 万元</b>，也就是等于确定失去全部身家。期望值依然是正的 25 万。<b>期望值这把尺子对「有一半概率归零」这件事完全没有反应。</b></p>
+  <p>最后看那条曲线的形状：<b>它先升后降，在 16.7% 处见顶，然后掉进深渊。</b>这个形状是 Part 5 后半程的路线图——它说明「该不该赌」和「该赌多大」是两个独立的问题，<b>而后者往往才是决定生死的那个</b>。那个顶点的名字叫凯利比例，下一章见。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>三百年前，一群数学家被一枚硬币难住了</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>圣彼得堡悖论 · 1713–1738</div>
+    <div class="case-body">
+      <p>1713 年，瑞士数学家 <b>Nicolas Bernoulli</b> 在给友人的信中提出了本章开头那个游戏。它立刻成了当时概率论最尴尬的问题：<b>数学给出无穷大，而所有人都只肯出几块钱。</b></p>
+      <p>这个矛盾之所以严重，是因为当时的概率论把「期望值」当作理性决策的<b>定义</b>。如果期望值给出的答案明显荒谬，那么要么所有人都不理性，要么这个定义有问题。</p>
+      <p>1738 年，他的堂弟 <b>Daniel Bernoulli</b> 在圣彼得堡科学院的院刊上发表了解答（这个悖论的名字就是这么来的）。他提出的核心主张，在今天读来依然锋利：</p>
+      <div class="formula">「一件物品的价值不能基于它的价格，<br>而应基于它带来的<b>效用</b>……<br>一千金币对穷人的意义，远大于对富人的意义，<br>尽管两者的数额完全相同。」<br><span style="font-size:12px;color:var(--ink-soft)">——大意转述，原文为拉丁文</span></div>
+      <div class="stats">
+        <div class="stat"><div class="n bad">∞</div><div class="l">期望值给出的答案</div></div>
+        <div class="stat"><div class="n good">10–20 元</div><div class="l">普通人愿意支付的量级</div></div>
+        <div class="stat"><div class="n good">1738</div><div class="l">Bernoulli 提出效用递减</div></div>
+      </div>
+      <p>Bernoulli 由此建立了<b>期望效用</b>的雏形，并明确提出用对数函数来刻画财富的边际递减。这个思路在此后两百年里成了经济学的支柱之一：1944 年 von Neumann 与 Morgenstern 为它建立了公理化基础，风险厌恶、保险定价、投资组合理论都从这里生长出来。</p>
+      <p><b>值得强调的是这个案例的方法论意义：</b>当一个数学模型和几乎所有人的直觉发生冲突时，<b>有两种可能，而不是一种</b>。可能是人错了（本书前四个 Part 讲的都是这种），也可能是模型漏掉了某个真实存在的东西。<b>圣彼得堡悖论属于后者</b>——期望值这个模型漏掉的，是「你只有一条命」这件事。</p>
+      <p>顺带一提，这个悖论还有一个更朴素的解法，常被称为「有限庄家」论证：<b>现实中没有任何庄家付得起无穷大的奖金。</b>如果庄家的总资产是一万亿元，那么游戏在第 40 次左右就必须封顶，期望值立刻从无穷大掉到 40 元上下——已经和人们的直觉出价在同一个量级了。<b>这两个解法并不冲突：一个说明奖金实际上是有限的，另一个说明即便奖金无限，效用也是有限的。</b></p>
+      <div class="src">来源：Daniel Bernoulli, "Specimen Theoriae Novae de Mensura Sortis", Commentarii Academiae Scientiarum Imperialis Petropolitanae, Vol. 5, 1738；英译本见 Econometrica, Vol. 22, 1954, pp. 23–36（译者 Louise Sommer）。问题最早由 Nicolas Bernoulli 于 1713 年在通信中提出。期望效用的公理化见 von Neumann &amp; Morgenstern《Theory of Games and Economic Behavior》, 1944。上引 Bernoulli 之语为大意转述，非逐字翻译。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>一个赌局：50% 概率让你的财富翻倍，50% 概率让你的财富减半。期望值是多少？用对数效用看呢？值得赌吗？</summary>
+      <div class="answer">
+        <p><b>期望值：</b>0.5 × 2W + 0.5 × 0.5W = <b>1.25W</b>。<b>比不赌多 25%，期望值说：赌！而且应该反复赌！</b></p>
+        <p><b>对数效用：</b>0.5 × ln(2W) + 0.5 × ln(0.5W) = 0.5(ln2 + lnW) + 0.5(lnW − ln2) = <b>lnW</b>。</p>
+        <p>和不赌<b>完全相同</b>。对数效用说：赌不赌无所谓，一点便宜也没占到。</p>
+        <p><b>谁对？看重复下去会怎样。</b>赌 100 次，你大约会赢 50 次、输 50 次，财富变成 W × 2⁵⁰ × 0.5⁵⁰ = <b>W</b>。原地踏步——对数效用是对的。</p>
+        <p>那 1.25 倍的期望增长跑哪去了？<b>它集中在极少数「几乎一直赢」的路径上。</b>赌 100 次全赢的概率是 2⁻¹⁰⁰，但那条路径上的财富是 W × 2¹⁰⁰。这一条路径的天文数字，把平均值单枪匹马地拉了上去，而其余几乎所有路径都在原地或亏损。</p>
+        <p><b>这就是「集合平均」与「时间平均」的分裂：期望值描述的是平行宇宙的平均，而你只活在其中一条时间线上。</b><a href="5-4-when-to-ignore.html">5.4 章</a>会把这件事讲透。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么说「破产是吸收态」这件事，让期望值失去了决策依据的地位？</summary>
+      <div class="answer">
+        <p>因为<b>期望值是一个关于「重复很多次」的承诺</b>（<a href="1-1-what-is-probability.html">1.1 章</a>的大数定律）。它说的是：如果你玩足够多次，平均结果会接近这个数。</p>
+        <p><b>而破产删掉的正是「足够多次」这个前提。</b>一旦归零，你的序列就终止了，后面所有本该出现的好结果都不会到来。你不是「拿到了平均值」，你是<b>退出了那个平均</b>。</p>
+        <p>一个能锁死这个理解的问法：<b>如果给你一个「99% 概率赚 100 倍、1% 概率归零」的机会，你玩多少次？</b>期望值极高，每次都该玩。但玩 100 次，至少归零一次的概率是 1 − 0.99¹⁰⁰ ≈ <b>63%</b>；玩 500 次，是 <b>99.3%</b>。<b>只要一直玩下去，归零就是必然的终点</b>，而路上赚的所有钱都会在那一刻清空。</p>
+        <p><b>正确的处理办法不是拒绝这类机会，而是控制单次投入的比例</b>——让「归零」在任何一次里都不可能发生。这就是为什么 <a href="5-2-kelly.html">5.2 章</a>的问题不是「赌不赌」而是「赌多大」。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>保险公司卖给你一份保险，期望值对你是负的（否则他们不赚钱）。为什么买保险仍然是理性的？又在什么情况下不该买？</summary>
+      <div class="answer">
+        <p><b>为什么理性：</b>因为对数效用下，<b>你和保险公司对同一份风险的估值不同</b>。一场大病可能吃掉你 80% 的财富——那是财富的<b>相对</b>剧变，对数效用下损失巨大。而对保险公司来说，同样的赔付只是它资产的极小一部分，且它同时承保了几十万人，<a href="1-1-what-is-probability.html">大数定律</a>让它的总赔付高度可预测。</p>
+        <p><b>所以保险是一笔双赢的交易</b>：你付出一点期望值，换掉一个你承受不起的尾部；保险公司收下这个尾部，因为在它的规模上那根本不是尾部。<b>双方的效用都提高了，尽管钱的总量没有增加。</b>（这正是 <a href="1-3-expected-value.html">1.3 章</a>「卖出方差」那句话的完整版。）</p>
+        <p><b>什么情况下不该买：</b></p>
+        <p>· <b>损失你完全承受得起时。</b>手机碎屏险、小额延保——最坏结果只是财富的零点几个百分点，对数效用几乎是线性的，此时你只是在白送期望值。<b>判据：如果最坏结果不会改变你的生活，就自保。</b></p>
+        <p>· <b>保费定价过高时。</b>期望值的损失有个合理范围；如果保费远超预期赔付，那就是在为方差付过高的溢价。</p>
+        <p>· <b>把保险当投资时。</b>保险的功能是削减方差，不是产生收益。用它来追求回报是用错了工具。</p>
+        <p><b>一句话规则：为「会让你破产的事」投保，为「只是让你肉疼的事」自保。</b>（本题只讨论概率结构，不构成保险或投资建议。）</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>对数效用是唯一正确的效用函数吗？如果不是，我们凭什么用它？</summary>
+      <div class="answer">
+        <p><b>不是，而且这一点值得讲清楚，免得把一个建模选择当成自然规律。</b></p>
+        <p>对数只是众多候选之一。经济学里常用的还有幂效用族（含风险厌恶系数）、指数效用等。不同的人在不同情境下，风险偏好差别很大——一个二十多岁、没有负债的人和一个背着房贷养着孩子的人，面对同一个赌局的合理选择本就不同。<b>不存在一个对所有人都正确的效用函数。</b></p>
+        <p><b>那为什么对数特别常用？三个理由：</b></p>
+        <p><b>① 它有一条独特的性质。</b>对数效用最大化恰好等价于<b>长期财富增长率最大化</b>——不是「平均财富最大」，而是「你实际经历的那条时间线上，增长最快」。这个性质是对数独有的，也正是 <a href="5-2-kelly.html">5.2 章</a>凯利公式的来源。</p>
+        <p><b>② 它自带破产保护。</b>ln(0) = −∞ 意味着任何导致归零的策略都会被自动排除，不需要额外加约束。</p>
+        <p><b>③ 它是尺度无关的。</b>损失 10% 就是损失 10%，不管你有一万还是一亿。这符合大多数人对「相对损失」的实际感受。</p>
+        <p><b>但也要知道它的局限：</b>对数效用对<b>小额</b>赌局的风险厌恶程度，往往低于人们的实际表现（这类偏离在行为经济学中有大量记录，前景理论正是针对这些现象提出的）；而且它假设你只关心财富一个维度，忽略了流动性、时间、心理承受力这些真实约束。</p>
+        <p><b>正确的态度：把对数效用当作一个比期望值好得多、但仍然是简化的模型。</b>它的最大价值不在于给出精确答案，而在于它<b>逼你把「破产」这件事写进算式里</b>——而期望值连这一格都没有。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="4-4-survivorship-bias.html">← 4.4 幸存者偏差：看不见的那一半数据</a></span>
+  <span><a href="4-4-survivorship-bias.html">← 4.4 幸存者偏差</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="5-2-kelly.html">5.2 凯利公式的直觉版：下注比例比方向更要命 →</a></span>
+  <span><a href="5-2-kelly.html">5.2 凯利公式的直觉版 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/5-1-utility.js"></script>
 </body>
 </html>
