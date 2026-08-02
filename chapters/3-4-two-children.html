@@ -17,23 +17,225 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i></i><i></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i></i><i></i><i></i><i class="s"></i><i></i>
   </div>
   <div class="kicker">Part 3 · Classic Paradoxes 经典悖论</div>
   <h1>3.4 The Two Children Problem
-    <span class="zh">两个孩子问题与语言的陷阱</span>
+    <span class="zh">两个孩子问题：答案取决于你是怎么知道的</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="3-1-monty-hall.html">3.1 蒙提霍尔</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>两个孩子，一个是女孩</h2>
+  <p>某个家庭有两个孩子。已知<b>其中至少有一个是女孩</b>。（假设男女各占一半，且两个孩子的性别独立。）</p>
+  <p class="big">那么两个孩子<b>都是女孩</b>的概率是多少？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="50">1/2</button>
+      <button data-g="33">1/3</button>
+      <button data-g="25">1/4</button>
+      <button data-g="dep">看情况</button>
+    </div>
+    <div class="after">押好了。真正的答案是最后那个选项——<b>「看情况」</b>。而这一章要讲清楚的，正是它到底看什么情况。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>四种问法，四个答案</h2>
+
+  <p>先做标准解法。两个孩子按出生顺序排，一共四种等可能的情况：</p>
+  <div class="formula"><b>男男</b>　<b>男女</b>　<b>女男</b>　<b>女女</b>　（各占 1/4）</div>
+
+  <p>「至少有一个女孩」排除掉「男男」，剩下三种，其中「女女」占一种 → <b>1/3</b>。</p>
+
+  <p>这个推理没有错。但它<b>只对某一种问法成立</b>，而日常语言几乎从不把那种问法说清楚。看下面四句话——它们听起来几乎一样：</p>
+
+  <table class="data">
+    <tr><th>你是怎么知道的</th><th>答案</th></tr>
+    <tr><td>统计局告诉你：这家「至少有一个女孩」</td><td class="k">1 / 3</td></tr>
+    <tr><td>这家的<b>老大</b>是女孩</td><td class="s">1 / 2</td></tr>
+    <tr><td>你在门口<b>碰到</b>这家一个孩子，是女孩</td><td class="s">1 / 2</td></tr>
+    <tr><td>这家至少有一个<b>周二出生的</b>女孩</td><td class="k">13 / 27</td></tr>
+  </table>
+
+  <p>同一个家庭，同一个问题，四个不同的答案。<b>差别不在这家有几个女儿，而在这条信息是通过什么机制到达你耳朵里的。</b></p>
+
+  <h3>为什么「碰到一个女孩」是 1/2</h3>
+  <p>这一条最值得琢磨。表面上你也只知道了「至少有一个女孩」，凭什么答案不同？</p>
+  <p>因为<b>「你能碰到女孩」这件事本身，在不同家庭里的概率不一样</b>：</p>
+  <div class="formula"><b>女女</b>家庭：你碰到的<b>必然</b>是女孩 → 概率 1<br>
+  <b>男女 / 女男</b>家庭：一半机会碰到女孩 → 概率 1/2<br>
+  <b>男男</b>家庭：不可能 → 0<br><br>
+  所以「碰到女孩」这条证据的似然比，把女女家庭的权重<b>抬高了一倍</b>：<br>
+  女女 1 份，男女 0.5 份，女男 0.5 份 → 1 ÷ 2 = <b>1/2</b></div>
+  <p>这正是 <a href="2-2-bayes-update.html">2.2 章</a>的似然比在起作用。「统计局说至少有一个女孩」对三种家庭一视同仁（似然比都是 1）；「我随机碰到一个，是女孩」则对女女家庭更友好。<b>同样的字面信息，不同的产生机制，携带的信息量完全不同。</b></p>
+
+  <h3>周二那一条，看着像废话，其实不是</h3>
+  <p>「至少有一个<b>周二出生的</b>女孩」→ 13/27 ≈ 48.1%。多给一条看似完全无关的信息，答案居然从 33.3% 挪到了 48.1%，逼近 1/2。</p>
+  <p>为什么？还是数格子。把每个孩子标成「性别 × 星期几」，一共 14 种可能，两个孩子就是 14 × 14 = <b>196 格</b>：</p>
+  <div class="formula">没有任何「周二女孩」的格子：13 × 13 = <b>169 格</b><br>
+  所以「至少有一个周二女孩」的格子 = 196 − 169 = <b>27 格</b><br><br>
+  其中两个都是女孩的：49（两个都是女孩）− 36（两个女孩但都不在周二）= <b>13 格</b><br><br>
+  → 13 / 27 ≈ <b>48.1%</b></div>
+
+  <p>直觉上的解释是这样的：<b>「周二」这个限定条件，把「两个都是女孩」的家庭救回来了一部分。</b>在原来的题目里，「女女」只算一种情况；可一旦引入星期，女女家庭有<b>两个</b>孩子都可能是那个「周二出生的女孩」，于是它在幸存格子里占的比例被抬高了。限定条件越细（周二上午、某个具体时辰……），这个效应越强，答案越逼近 1/2。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>这就是本章、也是整个 Part 3 的收束。</b><a href="3-1-monty-hall.html">3.1 章</a>里，主持人知不知情决定了换门有没有用；这里，你是被统计局告知还是在门口碰见，决定了答案是 1/3 还是 1/2。<b>概率不是事物的属性，它是「你的信息状态」的属性。</b>而信息状态包括一件几乎总被忽略的事：<b>这条信息是怎么来到你面前的。</b></p>
+  </div>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>196 个格子，四种筛法</h2>
+  <p>下面这张网格是完整的样本空间：<b>每一格是一种可能的家庭</b>（老大的性别与出生星期 × 老二的性别与出生星期），共 196 格。切换问法，看哪些格子活下来。</p>
+  <p><b>红格 = 两个都是女孩，琥珀格 = 活下来但不是两个女孩，暗格 = 被这条信息排除。</b>半透明的格子出现在「碰到一个女孩」模式下——那种家庭只算半个，因为你只有一半机会碰上女孩。</p>
+
+  <div class="lab" data-print-note="（在线版可切换四种问法。打印版展示默认场景「至少有一个女孩」：196 格中活下 147 格，其中两个都是女孩的 49 格 → 49/147 = 1/3 = 33.3%。另三种问法：「老大是女孩」49/98 = 1/2；「碰到一个女孩」按半格加权同样是 49/98 = 1/2；「至少一个周二出生的女孩」13/27 = 48.1%。同一个家庭、同一句字面信息，答案由信息的产生机制决定。）">
+    <div class="lab-head">
+      <span class="t">Sample Space Filter · 样本空间筛选器</span>
+      <span class="presets">
+        <button data-p="atleast">至少有一个女孩</button>
+        <button data-p="met">我碰到了一个女孩</button>
+        <button data-p="tuesday">周二出生的女孩</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="controls">
+        <span class="segmented">
+          <button type="button" data-m="atleast" class="on">统计告知</button>
+          <button type="button" data-m="elder">老大是女孩</button>
+          <button type="button" data-m="met">门口碰到</button>
+          <button type="button" data-m="tuesday">周二女孩</button>
+        </span>
+      </div>
+
+      <p style="font-size:15px;font-weight:500;margin-bottom:4px" id="qLabel"></p>
+      <p style="font-size:13.5px;color:var(--ink-soft)" id="qNote"></p>
+
+      <div class="sspace" id="spaceGrid" style="--cols:14" aria-label="196 格样本空间"></div>
+      <div class="legend" style="justify-content:center">
+        <span class="s"><i></i>两个都是女孩</span>
+        <span class="a"><i></i>活下来，但不是两个女孩</span>
+        <span><i></i>被这条信息排除</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n s" id="nAns">33.3%</div><div class="l">两个都是女孩的概率</div></div>
+        <div class="bignum"><div class="n" id="nFrac">1 / 3</div><div class="l">约分后的分数</div></div>
+        <div class="bignum"><div class="n a" id="nLive">49 / 147 格</div><div class="l">红格 / 活着的格子</div></div>
+      </div>
+
+      <div class="posbar-box" style="margin-top:14px">
+        <div class="l">在所有符合这条信息的家庭里：</div>
+        <div class="posbar"><span class="tp" id="bY"></span><span class="fp" id="bN"></span></div>
+        <div class="posbar-nums"><span>两个都是女孩</span><span>一儿一女</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p>按顺序点一遍四个模式，注意<b>格子的形状</b>怎么变：</p>
+  <p><b>「统计告知」</b>——排除的是右下角那整块 7×7 的「两个都是男孩」，剩下一个 L 形，147 格。<b>「老大是女孩」</b>——只留上半张图（98 格），左右对称，一眼就能看出是一半。<b>「门口碰到」</b>——格子和「统计告知」一样多，但右上和左下那两块变成了半透明，加权之后正好也是一半。</p>
+  <p><b>「周二女孩」</b>最有意思：活下来的格子塌缩成一个细细的十字架（27 格），其中红色的 13 格集中在交叉处。<b>那个十字的形状就是答案从 1/3 挪向 1/2 的全部原因</b>——横竖两条线在中间重叠了一次，而重叠的部分正是女女家庭。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>提出者本人后来改了口</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Martin Gardner · Scientific American 数学游戏专栏, 1959</div>
+    <div class="case-body">
+      <p>1959 年，Martin Gardner 在《Scientific American》的「Mathematical Games」专栏里出了一对题：</p>
+      <div class="formula">① 史密斯先生有两个孩子，<b>老大是男孩</b>。两个都是男孩的概率是多少？<br><br>
+      ② 琼斯先生有两个孩子，<b>其中至少有一个是男孩</b>。两个都是男孩的概率是多少？</div>
+      <p>Gardner 给出的答案是 <b>1/2</b> 和 <b>1/3</b>。这组题立刻成了经典——它漂亮地展示了「指定一个孩子」和「只说存在一个」之间的差别。</p>
+      <p><b>但故事没有到此结束。</b>读者来信随即指出：第二题的表述是有歧义的。<b>「其中至少有一个是男孩」这个信息，是怎么产生的？</b></p>
+      <p>· 如果是从「所有至少有一个男孩的家庭」里随机抽出了琼斯家 → 答案是 <b>1/3</b>。</p>
+      <p>· 如果是随机抽了一个两孩家庭，然后随机挑了一个孩子报给你 → 答案是 <b>1/2</b>。</p>
+      <p>· 如果琼斯先生只是碰巧提到了他有个儿子，而他也可能提到女儿 → 答案取决于他<b>怎么决定说哪一个</b>。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">1959</div><div class="l">原题发表，答案 1/2 与 1/3</div></div>
+        <div class="stat"><div class="n good">后来</div><div class="l">Gardner 本人承认第二题表述含糊</div></div>
+        <div class="stat"><div class="n good">2010</div><div class="l">「周二」变体引发新一轮讨论</div></div>
+      </div>
+      <p><b>Gardner 后来公开承认这道题的表述确实不够严密</b>，并指出问题的答案依赖于获得信息的具体程序——而原题并没有把那个程序说清楚。这是一件相当漂亮的事：一个把毕生精力投入数学普及的人，用自己最著名的题目之一演示了「题干含糊比算错更危险」。</p>
+      <p>2010 年，Gary Foshee 在纪念 Gardner 的「Gathering 4 Gardner」大会上抛出了「周二」变体：「我有两个孩子，其中一个是<b>周二出生的</b>男孩，两个都是男孩的概率是多少？」他给出 13/27，随即在数学圈里引发了新一轮争论——争论的焦点又一次不是算术，而是<b>这句话到底该怎么建模</b>。（如果「周二」是他在两个孩子中挑了一个报出来的，答案会不同。）</p>
+      <div class="callout">
+        <p style="margin:0"><b>本章的实用价值就在这里。</b>你不会在生活里遇到「两个孩子」这道题，但你每天都在处理别人转述给你的信息。<b>「有个客户投诉了这个功能」——是所有客户里只有一个投诉，还是客服随机抽了一条给你看，还是他专门挑了最激烈的那条？</b>三种情况下，这条信息的含义完全不同，而说话的人通常不会告诉你是哪一种。<b>养成追问一句「这条信息是怎么到你手上的」的习惯，比记住 1/3 有用得多。</b></p>
+      </div>
+      <div class="src">来源：Martin Gardner, "Mathematical Games", Scientific American, 1959 年 10 月及后续；该题与 Gardner 本人对其歧义的说明收录于《The Second Scientific American Book of Mathematical Puzzles and Diversions》(1961) 及其后续文集。「周二男孩」变体由 Gary Foshee 在 2010 年 Gathering 4 Gardner 会议提出，相关讨论见 New Scientist 2010 年的报道及后续学术评论。本章统一改用「女孩」表述，数学结构与原题完全相同。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>把「周二」换成「在某个特定的一小时内出生」（一天 24 小时，共 168 个「星期×小时」格）。两个都是女孩的概率变成多少？趋势说明了什么？</summary>
+      <div class="answer">
+        <p>套用同一个数格子的办法。每个孩子有 2 × 168 = <b>336</b> 种可能，两个孩子共 336² 格。</p>
+        <p>没有任何「该时段出生的女孩」的格子：335² 。所以活下来的 = 336² − 335² = 336 + 335 = <b>671 格</b>。</p>
+        <p>其中两个都是女孩的 = 168² − 167² = 168 + 167 = <b>335 格</b>。</p>
+        <p>→ 335 / 671 ≈ <b>49.93%</b>，几乎正好是 1/2。</p>
+        <p><b>趋势很清楚：限定条件越具体，答案越逼近 1/2。</b>极限情况下，一个足够精确的描述（精确到出生的秒）实际上就<b>唯一指定了一个孩子</b>——而一旦指定了某个孩子，另一个孩子的性别就是独立的一半一半。</p>
+        <p>这也反过来解释了 1/3 是怎么来的：<b>「至少有一个女孩」之所以给出 1/3，恰恰因为它没有指定是哪一个。</b>「周二」是介于两者之间的半步——它部分地、但不完全地指定了一个孩子。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「概率是信息状态的属性，不是事物的属性」——这句话什么意思？那个家庭到底有几个女儿，明明是个客观事实。</summary>
+      <div class="answer">
+        <p>那个家庭有几个女儿，<b>确实是客观事实</b>，而且早就确定了，不会因为你怎么问而改变。这一点没有争议。</p>
+        <p>变的是<b>你的概率</b>。概率在这里衡量的不是「世界有多不确定」，而是「<b>你</b>有多不确定」——它描述的是你的信息状态和客观事实之间的距离。不同的信息渠道给了你不同的信息，所以你的概率不同。<b>两个人对同一个既成事实给出不同的概率，可以都是对的</b>，只要他们各自的信息不同。</p>
+        <p>这正是 <a href="1-1-what-is-probability.html">1.1 章</a>说的贝叶斯派立场。一个更极端的例子：一枚硬币已经抛下并盖住了。它是正面还是反面，早就是客观事实。但对没看的你来说是 50%，对偷看过的人来说是 0% 或 100%。<b>硬币没有变，变的是谁在说话。</b></p>
+        <p>实用推论：<b>当有人报给你一个概率时，那个数字里包含着「他知道什么」的信息。</b>「医生说手术成功率 90%」——这是所有病人的统计，还是像你这样条件的病人的统计，还是他看过你的片子之后的判断？三个 90% 的含义完全不同。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>同事说：「我们线上出了个 bug，有个用户报告了。」你想估计影响面。按本章的思路，你该追问什么？</summary>
+      <div class="answer">
+        <p>核心追问只有一句：<b>「这个报告是怎么到你这里的？」</b>它有几种截然不同的可能，对应截然不同的影响面估计：</p>
+        <p><b>（a）主动全量排查后发现只有一个用户受影响</b>——那是真的「只有一个」，影响面小。这对应「统计局告知」。</p>
+        <p><b>（b）客服收到一条工单，转给了你</b>——这是个<b>随机（甚至有偏）的样本</b>。经验上，愿意提交工单的用户只是受影响用户中很小的一部分（各家产品的比例差异很大，但通常是个位数百分比量级）。<b>看到 1 条，实际可能是几十上百人。</b></p>
+        <p><b>（c）某个大客户的对接人直接找到了你</b>——这条信息的产生机制带着强烈的选择性：它更多反映「谁有渠道找到你」，而不是「有多少人受影响」。影响面可能很大也可能很小，这条证据本身几乎不含信息量。</p>
+        <p><b>（d）你自己在日志里搜出来的</b>——那取决于你搜了什么。如果搜的是特定报错码，你只会找到会报这个错的那部分。</p>
+        <p>这就是本章在工程上的日常用法：<b>「有一个用户报告」这句话，在 (a) 和 (b) 之间，影响面估计能差两个数量级。</b>而这个差别完全不在句子本身里，只在信息的产生机制里。这也是 <a href="4-4-survivorship-bias.html">4.4 章</a>幸存者偏差要处理的问题。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>为什么这道题历史上引起了那么大的争议，而且争论至今没有完全平息？这对「出题」和「读题」各有什么启示？</summary>
+      <div class="answer">
+        <p><b>争议的根源：这道题在数学上没有争议，在语言上无法确定。</b>一旦你把信息的产生机制说清楚，答案是唯一的、无可辩驳的。问题在于自然语言<b>不携带这个机制</b>——「其中至少有一个是女孩」这句话，在中文和英文里都无法区分「统计筛选」和「随机报出」。</p>
+        <p>所以争论双方常常是在<b>回答两道不同的题</b>，还各自以为对方算错了。这也是为什么它平息不了：语言的歧义无法用更多的算术来消除。</p>
+        <p><b>对出题的启示：</b>凡是涉及条件概率的题，必须把「信息是如何获得的」写进题干，而不是只写「已知……」。<a href="3-1-monty-hall.html">3.1 章</a>的现代标准表述就是这么做的——它会明确写出「主持人知道门后是什么，且必定打开一扇有羊的门」。<b>题干里省掉的每一个程序细节，都会变成答案里的一个分歧。</b></p>
+        <p><b>对读题的启示，也是更重要的一条：</b>当你看到「已知 A」时，问一句<b>「已知是怎么已知的」</b>。现实世界里没有出题人，所有信息都带着它的来路——这条数据是全量统计还是抽样？这个案例是随机挑的还是特意选的？这个人告诉你这件事，是因为你问了，还是因为他想让你知道？</p>
+        <p><b>Part 3 的四章其实在讲同一件事：</b>3.1 是主持人的规则，3.2 是你数了多少次机会，3.3 是数据被怎样分了组，3.4 是信息被怎样报给了你。<b>四种「生成过程」，四种翻车方式。</b>接下来的 Part 4 会转向一个更根本的问题：当根本不存在生成过程、一切纯属随机时，人类会怎样凭空看出规律来。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="3-3-simpson.html">← 3.3 辛普森悖论：分组之后，结论翻了个面</a></span>
+  <span><a href="3-3-simpson.html">← 3.3 辛普森悖论</a></span>
   <span><a href="../index.html">目录</a></span>
   <span><a href="4-1-gamblers-fallacy.html">4.1 赌徒谬误与热手争议 →</a></span>
 </nav>
@@ -42,5 +244,6 @@
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/3-4-two-children.js"></script>
 </body>
 </html>
