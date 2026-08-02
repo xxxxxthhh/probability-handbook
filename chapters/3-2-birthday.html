@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3.2 生日悖论：23 个人的房间 · 概率直觉手册</title>
+<title>3.2 生日悖论 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,242 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i><i></i>
   </div>
   <div class="kicker">Part 3 · Classic Paradoxes 经典悖论</div>
   <h1>3.2 The Birthday Paradox
-    <span class="zh">生日悖论：23 个人的房间</span>
+    <span class="zh">生日悖论：23 个人的房间，以及巧合的真实价格</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="1-1-what-is-probability.html">1.1 概率是什么</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>要多少人才够</h2>
+  <p>一个房间里的人，生日（只算月和日）随机分布。</p>
+  <p class="big">要让「房间里存在两个人生日同一天」的概率超过一半，最少需要多少人？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="183">约 183 人</button>
+      <button data-g="120">约 120 人</button>
+      <button data-g="60">约 60 人</button>
+      <button data-g="23">约 23 人</button>
+    </div>
+    <div class="after">押好了。再押一个：要让「有人和<b>你</b>同一天生日」超过一半，又需要多少人？两个数字差得比你想的远。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>你算的是自己，题目问的是所有人</h2>
+
+  <p>答案是 <b>23 人</b>。大多数人的第一反应是一百多，因为脑子里默默算的是「365 天，得凑够一半才行」。这个直觉之所以差这么远，原因只有一个，而且极其简单：</p>
+
+  <p class="big">你在数「人」，而题目在数「配对」。</p>
+
+  <p>「两个人生日相同」是一件发生在<b>一对人</b>身上的事，不是发生在一个人身上的事。所以真正该数的是房间里有多少<b>对</b>：</p>
+
+  <div class="formula">n 个人的配对数 = n × (n − 1) ÷ 2<br><br>
+  10 个人 → <b>45 对</b><br>
+  <b>23 个人 → 253 对</b><br>
+  50 个人 → <b>1,225 对</b><br>
+  100 个人 → <b>4,950 对</b><br><br>
+  人数翻一倍，配对数大约翻<b>四</b>倍——它按平方长。</div>
+
+  <p>23 个人只是 23 个人，但他们之间藏着 <b>253</b> 次「撞上生日」的机会。而每一对撞上的概率是 1/365。粗略地看，253 ÷ 365 ≈ 0.69，已经和 1 是同一个量级了——出现至少一次碰撞一点也不奇怪。</p>
+
+  <h3>把它精确算出来</h3>
+  <p>直接算「至少有一对相同」很麻烦（要处理各种重复情况），但算它的反面很容易：<b>所有人生日都不同</b>。</p>
+  <div class="formula">第 1 个人：随便哪天都行 → 365/365<br>
+  第 2 个人：得避开 1 天 → 364/365<br>
+  第 3 个人：得避开 2 天 → 363/365<br>
+  …<br>
+  第 23 个人：得避开 22 天 → 343/365<br><br>
+  全都不同的概率 = 这 23 个分数连乘 ≈ <b>49.3%</b><br>
+  所以「至少有一对相同」≈ 100% − 49.3% = <b>50.7%</b></div>
+
+  <p>关键在于<b>每多一个人，要避开的日子就多一天</b>——连乘的每一项都在变小，而且越乘越快。这就是那个平方增长在算式里的样子。</p>
+
+  <h3>那个「一百多」的直觉，其实回答的是另一道题</h3>
+  <p>你的直觉不是无中生有，它只是算错了对象。「<b>有人和我同一天生日</b>」这道题，答案确实是一百多：</p>
+  <div class="formula">房间里有 <b>23 人</b>时：<br>
+  · 存在<b>任意</b>两人同生日 → <b>50.7%</b><br>
+  · 有人和<b>我</b>同生日 → 只有 <b>5.9%</b><br><br>
+  要让「有人和我同生日」超过一半，需要 <b>254 人</b>。</div>
+
+  <p>差了十倍。原因还是那个：以「我」为中心时，只有 22 条配对关系；不指定中心时，有 253 条。<b>直觉之所以出错，是因为它总是把自己放在中心——而巧合从来不在乎谁是中心。</b></p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>这就是本章真正的用处，而且它远远超出生日。</b>每当你惊叹「怎么这么巧」的时候，先问一句：<b>「一共有多少次机会撞上？」</b>你惊叹的通常是「这件事发生在我身上的概率」，而实际发生的是「这件事发生在任何人、任何时候、任何配对上的概率」。后者往往大得多，多到「巧合」根本不需要解释。<a href="4-3-clustering-illusion.html">4.3 章</a>会把这一招用在癌症村和轰炸落点上。</p>
+  </div>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>看着配对数糊成一团</h2>
+  <p>圆环上每个点是一个人，每条线是一对。<b>拖动人数滑块，注意线的数量增长得比点快得多。</b>右边同时给出两条曲线：青绿线是「任意两人同生日」，灰线是「有人和我同生日」——它们分道扬镳的样子，就是这道题全部的秘密。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动人数、重跑模拟。打印版展示默认场景：23 人 → 253 对配对，P(任意两人同生日) = 50.7%，P(有人和我同生日) = 5.9%；固定种子下模拟 1000 间 23 人的房间，491 间出现同生日，实测 49.1%。另两个预设：41 人 → 820 对、理论 90.3%、实测 89.1%；70 人 → 2415 对、理论 99.9%、实测 99.8%。要让「有人和我同生日」超过一半需要 254 人。）">
+    <div class="lab-head">
+      <span class="t">Birthday Collisions · 配对连线与碰撞概率</span>
+      <span class="presets">
+        <button data-p="23">23 人（临界点）</button>
+        <button data-p="41">41 人（九成）</button>
+        <button data-p="70">70 人（几乎必然）</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>房间里有多少人 <b id="vPeople">23 人</b></label>
+          <input type="range" id="sPeople" min="2" max="100" step="1" value="23">
+        </div>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n a" id="nPairs">253 对</div><div class="l">配对关系的总数</div></div>
+        <div class="bignum"><div class="n" id="nAny">50.7%</div><div class="l">任意两人同生日</div></div>
+        <div class="bignum"><div class="n" id="nMe">5.9%</div><div class="l">有人和「我」同生日</div></div>
+      </div>
+
+      <div class="chart" style="max-width:320px;margin:20px auto 8px">
+        <svg id="pairSvg" viewBox="0 0 300 300" role="img" aria-label="房间里所有人两两配对的连线图"></svg>
+      </div>
+      <p style="font-size:13.5px;color:var(--ink-soft);text-align:center" id="pairNote"></p>
+
+      <h3>概率曲线</h3>
+      <div class="chart">
+        <svg viewBox="0 0 600 170" role="img" aria-label="两种生日概率随人数变化的曲线">
+          <line x1="44" y1="12" x2="44" y2="140" class="axis"></line>
+          <line x1="44" y1="140" x2="588" y2="140" class="axis"></line>
+          <line x1="44" y1="76" x2="588" y2="76" class="gridline"></line>
+          <line id="curveMark" x1="170" y1="12" x2="170" y2="140" class="ref"></line>
+          <text x="38" y="16" text-anchor="end">100%</text>
+          <text x="38" y="80" text-anchor="end">50%</text>
+          <text x="38" y="144" text-anchor="end">0%</text>
+          <text x="44" y="160">0 人</text>
+          <text x="180" y="160" text-anchor="middle">23</text>
+          <text x="588" y="160" text-anchor="end">100 人</text>
+          <polyline id="curveAny" class="line k" points=""></polyline>
+          <polyline id="curveMe" class="line n" points=""></polyline>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="k"><i></i>任意两人同生日</span>
+        <span><i></i>有人和「我」同生日</span>
+      </div>
+
+      <h3>随机造一千个房间</h3>
+      <div class="readout">
+        <div class="bignum"><div class="n" id="nSim">49.1%</div><div class="l">1000 间房里实际出现同生日的比例</div></div>
+        <div class="bignum"><div class="n a" id="nAny2">50.7%</div><div class="l">理论值（对照）</div></div>
+      </div>
+      <p style="margin-top:14px;font-size:14px;color:var(--ink-soft)" id="simNote"></p>
+      <div class="controls" style="margin-top:8px">
+        <button class="btn ghost" type="button" id="resim">重跑一千间房（换随机种子）</button>
+      </div>
+    </div>
+  </div>
+
+  <p>把滑块从 2 慢慢拖到 60，盯着两条曲线。青绿线在 20 人上下猛地窜起，到 50 人时已经贴上天花板（97%）；灰线爬得像蜗牛，到 100 人才刚过 23%。<b>同一个房间，同一批人，两个问题的答案差着一个数量级——而它们在日常语言里听起来几乎是同一句话。</b></p>
+  <p>另外注意模拟值和理论值的关系：1000 间房的实测（49.1%）和理论（50.7%）差了 1.6 个百分点。这不是程序错了，是 <a href="1-1-what-is-probability.html">1.1 章</a>讲过的抽样波动——1000 次抽样的标准差约 1.6 个百分点，所以这个偏差正好在意料之中。点几次「重跑」就能看到它在理论值两侧跳。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>同一个数学，把 SHA-1 拉下了马</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>SHAttered · Google &amp; CWI Amsterdam, 2017</div>
+    <div class="case-body">
+      <p>生日悖论看起来像个派对小把戏，实际上它是密码学里一条硬约束的名字。</p>
+      <p><b>哈希函数</b>把任意长度的文件压成一个固定长度的指纹。它的安全性依赖一件事：<b>找不到两个不同的文件、指纹却相同</b>——这种情况叫<span class="term">collision</span>（碰撞）。如果能造出碰撞，攻击者就能拿一份被签名认可的合同，换成另一份内容完全不同、指纹却一模一样的合同。</p>
+      <p>那么找一个碰撞有多难？直觉会说：指纹有 n 位，就有 2ⁿ 种可能，得试 2ⁿ 次。<b>但这是「有人和我同生日」的算法。</b>攻击者不需要撞上某个指定的指纹，他只要<b>任意两份文件撞在一起</b>就行——那是「任意两人同生日」的算法：</p>
+      <div class="formula"><b>生日界（birthday bound）：</b>n 位的哈希，只需要约 <b>2^(n/2)</b> 次尝试就有相当概率撞出碰撞。<br><br>
+      SHA-1 有 160 位 → 强度不是 2¹⁶⁰，而是约 <b>2⁸⁰</b><br>
+      开平方，指数直接减半。</div>
+      <p>这就是为什么密码学界从 2005 年起就不断警告 SHA-1 已经不安全——王小云等人当年给出的分析把攻击代价压到了远低于 2⁸⁰ 的水平。但警告归警告，SHA-1 在实践中仍被广泛使用了十多年，理由通常是「理论攻击不等于现实攻击」。</p>
+      <p>2017 年 2 月，Google 研究院与荷兰 CWI 的研究者公布了 <b>SHAttered</b>：<b>两份内容不同、SHA-1 指纹完全相同的 PDF 文件</b>，可以下载、可以自己验证。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">2⁸⁰</div><div class="l">生日界给出的 SHA-1 碰撞强度（而非 2¹⁶⁰）</div></div>
+        <div class="stat"><div class="n bad">2 份 PDF</div><div class="l">内容不同、SHA-1 完全相同</div></div>
+        <div class="stat"><div class="n good">2017.2</div><div class="l">公布后各大系统加速淘汰 SHA-1</div></div>
+      </div>
+      <p>公布后，主流浏览器、证书颁发机构和版本控制系统迅速加快了淘汰 SHA-1 的进度。这也是为什么今天的标准是 SHA-256——<b>256 位的生日界是 2¹²⁸，这个数字大到目前没有任何可预见的技术能碰它。</b></p>
+      <p>这个案例最漂亮的地方在于：<b>让 SHA-1 倒下的不是什么高深的新数学，而是「你数错了配对数」这件事——和 23 个人的房间是同一个错误。</b>设计者以为自己有 2¹⁶⁰ 的安全余量，实际只有 2⁸⁰；差的那一半指数，就是生日悖论收走的。</p>
+      <div class="src">来源：Marc Stevens, Elie Bursztein, Pierre Karpman, Ange Albertini, Yarik Markov, "The first collision for full SHA-1"（CRYPTO 2017；项目页 shattered.io，2017 年 2 月公布）。SHA-1 的早期分析见 Wang, Yin &amp; Yu, "Finding Collisions in the Full SHA-1", CRYPTO 2005。生日界为标准密码学结论，见任意密码学教科书中关于生日攻击的章节。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>一个 30 人的班级。（a）有多少对同学？（b）「至少两人同生日」的概率约是多少？（c）如果老师问的是「有没有人和我（老师）同一天生日」，概率又是多少？</summary>
+      <div class="answer">
+        <p><b>(a)</b> 30 × 29 ÷ 2 = <b>435 对</b>。</p>
+        <p><b>(b)</b> 全都不同的概率 = (365/365)(364/365)…(336/365) ≈ 29.4% → 至少两人相同 ≈ <b>70.6%</b>。可以在实验里把滑块拖到 30 验证。</p>
+        <p><b>(c)</b> 每个学生和老师不同天的概率是 364/365，30 个学生全都不同 = (364/365)³⁰ ≈ 92.1% → 至少一人相同 ≈ <b>7.9%</b>。</p>
+        <p>把 (b) 和 (c) 摆在一起：<b>70.6% 对 7.9%，差了将近九倍。</b>一个 30 人的班里几乎肯定有同生日的两个人，但老师撞上其中一个的机会不到一成。这就是「有没有」和「是不是我」的区别。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么配对数按 n² 增长，会让「巧合」变得如此廉价？请用一个生日之外的例子说明。</summary>
+      <div class="answer">
+        <p>因为<b>我们习惯用「样本量」来估计惊讶程度，而巧合的机会数由「组合数」决定</b>，后者涨得快得多。n 个东西两两配对是 n²/2 量级；如果巧合需要三个东西同时对上，那是 n³/6 量级，涨得更疯。</p>
+        <p><b>例子一：股票预测。</b>一个基金经理连续五年跑赢大盘，听起来很神。但如果市场上有 10000 个基金经理，纯靠运气连对五年的人数期望是 10000 × (1/2)⁵ ≈ <b>312 人</b>。你在新闻上看到的那位，多半就是从这 312 人里被挑出来的。这也是 <a href="4-4-survivorship-bias.html">4.4 章</a>的主题。</p>
+        <p><b>例子二：「我梦见的事第二天发生了」。</b>假设一个人每晚做的梦里，有百万分之一的概率碰巧对上第二天的某件事。听起来绝无可能——但全国有几亿人，每人每晚做好几个梦。<b>每天全国出现几百上千次「预知梦」是必然的</b>，而每一次都会被当事人当作奇迹讲述几十年。</p>
+        <p>共同的结构：<b>你惊讶的是「这件事发生在我身上的概率」，实际发生的是「这件事发生在任何人身上的概率」。</b>后者要乘上一个巨大的机会数。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某彩票开奖号码在两个月内重复出现了一次，媒体质疑「一定有内幕」。假设每期从 4000 万种组合中随机开出一注，每周开 3 期，已经开了 20 年。这个重复值得怀疑吗？</summary>
+      <div class="answer">
+        <p>先数机会数。20 年 × 52 周 × 3 期 ≈ <b>3120 期</b>。这些期数之间的配对数是 3120 × 3119 ÷ 2 ≈ <b>486 万对</b>。</p>
+        <p>每一对撞上的概率是 1/4000 万。所以期望的重复次数 ≈ 486 万 ÷ 4000 万 ≈ <b>0.12 次</b>。至少出现一次重复的概率约 <b>11%</b>。</p>
+        <p><b>结论：一次重复不算特别可疑，大约十分之一的机会。</b>它不是「必然会发生」的那种廉价巧合，但也远没到需要用内幕来解释的地步。如果重复了三四次，那才值得查。</p>
+        <p>注意这道题的做法：<b>不去问「这一期和那一期撞上的概率」（那确实是四千万分之一），而去问「所有期数之间，一共有多少次撞上的机会」。</b>媒体报道里那个「四千万分之一」不是编的，它只是回答了一道没人在问的题——和 <a href="2-3-prosecutor.html">2.3 章</a>检察官谬误的结构一模一样。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>如果一年有 1000 天（而不是 365 天），要多少人才能让「至少两人同生日」超过一半？能不能找出一个不用连乘的估算公式？</summary>
+      <div class="answer">
+        <p><b>估算思路：</b>n 个人有约 n²/2 对，每对撞上的概率是 1/d（d 为一年的天数）。期望的碰撞次数 ≈ n²/(2d)。当这个期望约等于 0.7 时，「至少一次」的概率大致过半（因为 1 − e^(−0.7) ≈ 0.50）。</p>
+        <div class="formula">n²/(2d) ≈ 0.7 → <b>n ≈ 1.18 × √d</b></div>
+        <p><b>验证 d = 365：</b>n ≈ 1.18 × 19.1 ≈ <b>22.5</b>，实际答案 23。相当准。</p>
+        <p><b>所以 d = 1000：</b>n ≈ 1.18 × 31.6 ≈ <b>37 人</b>。（精确计算给出 38 人，估算已经够用。）</p>
+        <p>这个 <b>√d</b> 才是本章最该带走的东西。<b>一年的天数翻四倍，需要的人数只翻一倍。</b>它同时也是上面 SHA-1 案例的核心：2¹⁶⁰ 种指纹开平方就是 2⁸⁰ 次尝试。<b>无论对象是生日、哈希值还是彩票号码，撞车所需的次数永远是可能性总数的平方根量级</b>——这条规律的名字就叫生日界。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="3-1-monty-hall.html">← 3.1 蒙提霍尔问题：换门为什么赢面翻倍</a></span>
+  <span><a href="3-1-monty-hall.html">← 3.1 蒙提霍尔问题</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="3-3-simpson.html">3.3 辛普森悖论：分组之后，结论翻了个面 →</a></span>
+  <span><a href="3-3-simpson.html">3.3 辛普森悖论 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/3-2-birthday.js"></script>
 </body>
 </html>
