@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>概率直觉手册 · Probability Intuition Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/handbook.css">
+</head>
+<body>
+<button class="theme-toggle" type="button" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+  <span class="moon" aria-hidden="true">🌙</span><span class="sun" aria-hidden="true">☀️</span>
+</button>
+
+<div class="wrap">
+
+<header class="book">
+  <div class="dotrow" aria-hidden="true">
+    <i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i class="a"></i><i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i>
+  </div>
+  <div class="kicker">Handbook Series · 通识线 No.1</div>
+  <h1>Probability Intuition Handbook
+    <span class="zh">概率直觉手册</span>
+  </h1>
+  <p style="margin-top:22px;font-size:17px">人类的概率直觉是一套在没有统计学的世界里进化出来的启发式：它擅长「这片草丛动了，跑」，不擅长「阳性报告意味着什么」。这本手册不打算把你训练成统计学家，它只做一件事——<b>把直觉最常翻车的十几个路口，一个个带你亲手走一遍</b>。</p>
+  <p>每章的规矩一样：<b>先猜一次</b>（不判对错，只是让你把直觉押在桌上），再用<b>自然频率</b>把答案推出来，然后给你一个<b>可以拖的实验</b>——参数一动，结论自己浮现。最后是一个真实案例：这些谬误不是智力游戏，它们送过人进监狱，也让筛查政策走过弯路。</p>
+  <div class="meta">
+    <span>共 <b>17 章</b> + 2 附录</span>
+    <span>交互实验 <b>17 个</b></span>
+    <span>公式 <b>能少则少</b></span>
+    <span>阅读 <b>~5 小时</b></span>
+  </div>
+</header>
+
+<section style="margin-top:44px">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">How to read 怎么读</span></div>
+  <h2>三条使用说明</h2>
+  <p><b>一、别跳过「先猜一次」。</b>直接看答案，你会觉得「这不显然吗」；先押一次再看答案，你才会记住自己错在哪。全书的设计就是让你在安全的地方翻车。</p>
+  <p><b>二、滑块比正文重要。</b>每章的交互实验都配了 2–3 个预设按钮——不想拖滑块，点预设也能看到关键对比。实验的默认结论也写在正文里，所以关掉 JavaScript 这本书照样能读完。</p>
+  <p><b>三、卡住了就翻附录 B。</b><a href="firstaid.html">直觉急救卡</a>把全书的谬误压缩成「症状 → 一句话解药 → 章节链接」，可以单独打印成一页。术语忘了查<a href="glossary.html">附录 A 术语表</a>。</p>
+</section>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 0</span><h2>导读</h2></div>
+  <p class="tagline">为什么人类的概率直觉天生是坏的</p>
+  <ul class="toc-list">
+    <li><a href="chapters/0-1-intro.html"><span class="no">0</span><span class="tt"><b>你的大脑不是为概率设计的</b><span>三道快测 · 这本书怎么读 · 急救卡预告</span></span><span class="ix">★☆☆</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 1</span><h2>概率的语言</h2></div>
+  <p class="tagline">The Language of Chance — 建立最小词汇表</p>
+  <ul class="toc-list">
+    <li><a href="chapters/1-1-what-is-probability.html"><span class="no">1.1</span><span class="tt"><b>概率是什么</b><span>频率派 vs 信念派 · 抛硬币收敛模拟器</span></span><span class="ix">★☆☆</span></a></li>
+    <li><a href="chapters/1-2-conditional.html"><span class="no">1.2</span><span class="tt"><b>条件概率与独立性</b><span>P(A|B) ≠ P(B|A) · 条件概率翻转器</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/1-3-expected-value.html"><span class="no">1.3</span><span class="tt"><b>期望值</b><span>彩票是智商税，保险不是 · 万次钱包曲线</span></span><span class="ix">★★☆</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 2</span><h2>贝叶斯思维</h2></div>
+  <p class="tagline">Bayesian Thinking — 全书的心脏：如何正确地更新信念</p>
+  <ul class="toc-list">
+    <li><a href="chapters/2-1-medical-test.html"><span class="no">2.1</span><span class="tt"><b>医疗检测悖论与基础率</b><span>99% 准确的检测，阳性后可能不到 10% · 千人图</span></span><span class="ix">★☆☆</span></a></li>
+    <li><a href="chapters/2-2-bayes-update.html"><span class="no">2.2</span><span class="tt"><b>贝叶斯更新的日常化</b><span>先验 · 证据强度 · 逐条加证据看信念移动</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/2-3-prosecutor.html"><span class="no">2.3</span><span class="tt"><b>检察官谬误与法庭上的概率</b><span>Sally Clark 案 · DNA 匹配概率</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/2-4-conspiracy.html"><span class="no">2.4</span><span class="tt"><b>为什么阴谋论者也自认是贝叶斯主义者</b><span>先验封闭 · 证据选择性接收</span></span><span class="ix">★★★</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 3</span><h2>经典悖论</h2></div>
+  <p class="tagline">Classic Paradoxes — 直觉翻车事故现场合集</p>
+  <ul class="toc-list">
+    <li><a href="chapters/3-1-monty-hall.html"><span class="no">3.1</span><span class="tt"><b>蒙提霍尔问题</b><span>换门为什么赢面翻倍 · 可玩三门 + 千局模拟</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/3-2-birthday.html"><span class="no">3.2</span><span class="tt"><b>生日悖论</b><span>23 人的 50% · 碰撞思维与密码学</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/3-3-simpson.html"><span class="no">3.3</span><span class="tt"><b>辛普森悖论</b><span>分组反转结论 · 伯克利录取数据复盘</span></span><span class="ix">★★★</span></a></li>
+    <li><a href="chapters/3-4-two-children.html"><span class="no">3.4</span><span class="tt"><b>两个孩子问题与语言的陷阱</b><span>答案取决于信息是怎么来的</span></span><span class="ix">★★★</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 4</span><h2>随机性的陷阱</h2></div>
+  <p class="tagline">Fooled by Randomness — 人类如何在噪声里看出不存在的规律</p>
+  <ul class="toc-list">
+    <li><a href="chapters/4-1-gamblers-fallacy.html"><span class="no">4.1</span><span class="tt"><b>赌徒谬误与热手争议</b><span>独立事件没有记忆 · 你来当随机性鉴别器</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/4-2-regression-to-mean.html"><span class="no">4.2</span><span class="tt"><b>回归均值</b><span>骂完下属表现变好不是骂的功劳</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/4-3-clustering-illusion.html"><span class="no">4.3</span><span class="tt"><b>聚类错觉与小数定律</b><span>癌症村 · 二战伦敦轰炸落点 · 撒点生成器</span></span><span class="ix">★★☆</span></a></li>
+    <li><a href="chapters/4-4-survivorship-bias.html"><span class="no">4.4</span><span class="tt"><b>幸存者偏差</b><span>中弹的轰炸机 · Abraham Wald</span></span><span class="ix">★★☆</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">Part 5</span><h2>风险与决策</h2></div>
+  <p class="tagline">Risk &amp; Decisions — 从「算对概率」到「做对决定」</p>
+  <ul class="toc-list">
+    <li><a href="chapters/5-1-utility.html"><span class="no">5.1</span><span class="tt"><b>期望值 ≠ 好决策</b><span>圣彼得堡悖论 · 期望效用 · 破产是吸收态</span></span><span class="ix">★★★</span></a></li>
+    <li><a href="chapters/5-2-kelly.html"><span class="no">5.2</span><span class="tt"><b>凯利公式的直觉版</b><span>下注比例为什么重要过方向（不构成交易建议）</span></span><span class="ix">★★★</span></a></li>
+    <li><a href="chapters/5-3-fat-tails.html"><span class="no">5.3</span><span class="tt"><b>肥尾与黑天鹅</b><span>正态分布什么时候骗人</span></span><span class="ix">★★★</span></a></li>
+    <li><a href="chapters/5-4-when-to-ignore.html"><span class="no">5.4</span><span class="tt"><b>概率素养的最后一课</b><span>遍历性 · 不可逆事件 · 预防原则</span></span><span class="ix">★★★</span></a></li>
+  </ul>
+</div>
+
+<div class="toc-part">
+  <div class="ph"><span class="no">附录</span><h2>速查</h2></div>
+  <p class="tagline">Appendices</p>
+  <ul class="toc-list">
+    <li><a href="glossary.html"><span class="no">A</span><span class="tt"><b>术语表 Glossary</b><span>英文术语 + 中文解释 + 首次出现章节锚点</span></span><span class="ix">速查</span></a></li>
+    <li><a href="firstaid.html"><span class="no">B</span><span class="tt"><b>直觉急救卡</b><span>谬误 → 一句话解药 → 对应章节（可打印）</span></span><span class="ix">可打印</span></a></li>
+  </ul>
+</div>
+
+<section>
+  <div class="sec-tag"><span class="cell" style="background:var(--fp)"></span><span class="lab">Disclaimer 声明</span></div>
+  <div class="callout">
+    <p style="margin:0"><b>本书不提供医疗建议，也不提供投资建议。</b>书中的医学案例只用来讨论概率结构，不涉及任何诊断或治疗判断；凯利公式一章只讲下注比例的直觉，不构成交易建议。涉及自身健康与财务的决定，请咨询有资质的专业人士。</p>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-soft)">案例数字均标注来源；无法精确到具体数值的一律写作「量级概括」。存在学术争议的结论（如热手效应）呈现争议双方。图表与交互实验为本书原创。</p>
+</section>
+
+</div>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>
