@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1.2 条件概率与独立性：方向反了，答案就反了 · 概率直觉手册</title>
+<title>1.2 条件概率与独立性 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,201 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i></i><i class="s"></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i>
   </div>
   <div class="kicker">Part 1 · The Language of Chance 概率的语言</div>
-  <h1>1.2 Conditional Probability & Independence
+  <h1>1.2 Conditional Probability &amp; Independence
     <span class="zh">条件概率与独立性：方向反了，答案就反了</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="1-1-what-is-probability.html">1.1 概率是什么</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>发烧了，是流感吗？</h2>
+  <p>已知：人群中有 <b>5%</b> 的人正得着流感。得流感的人里，<b>80%</b> 会发烧。没得流感的人里，也有 <b>8%</b> 因为别的原因在发烧（普通感冒、扁桃体炎、随便什么）。</p>
+  <p class="big">你现在发烧了。你得流感的概率大约是——</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="80">约 80%</button>
+      <button data-g="60">约 60%</button>
+      <button data-g="35">约 35%</button>
+      <button data-g="15">约 15%</button>
+    </div>
+    <div class="after">押好了。注意题干里明明白白给了「80%」这个数——它是个陷阱，因为它回答的是另一个方向的问题。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>条件概率就是「换一群人来数」</h2>
+
+  <p>条件概率 <span class="term">P(A|B)</span> 读作「在 B 已经发生的前提下，A 的概率」。定义写成公式有点吓人，但它的实际操作简单到近乎无聊：</p>
+  <div class="formula"><b>第一步：</b>把不满足 B 的人全部划掉。<br><b>第二步：</b>在剩下的人里，数有多少满足 A。<br><b>第三步：</b>除一下。<br><br>就这样。条件概率不是什么新东西，它只是<b>换了个分母</b>。</div>
+
+  <p>一旦你把它理解成「换分母」，那个最要命的错误就变得显然了：<b>P(A|B) 和 P(B|A) 用的是两个完全不同的分母，所以它们本来就没有理由相等。</b></p>
+
+  <p>拿开头那道题走一遍，用 1000 个人：</p>
+  <div class="formula">① 得流感的：1000 × 5% = <b>50 人</b> → 其中发烧的 50 × 80% = <b>40 人</b><br>② 没得流感的：<b>950 人</b> → 其中发烧的 950 × 8% = <b>76 人</b><br><br>「发烧的人」这一群一共 40 + 76 = <b>116 人</b><br>其中真得流感的 = 40 人 → 40 ÷ 116 ≈ <b>34.5%</b></div>
+
+  <p>P(发烧 | 流感) = 80%，P(流感 | 发烧) ≈ 34.5%。<b>同样两个事件，方向一反，数字差了两倍多。</b>原因一眼可见：没得流感的人有 950 个之多，就算只有 8% 发烧，绝对人数（76）也接近流感发烧者（40）的两倍。</p>
+
+  <p>这个混淆有个正式名字：<span class="term">confusion of the inverse</span>（逆条件混淆）。它在医学里叫基础率忽视（<a href="2-1-medical-test.html">2.1 章</a>），在法庭上叫<span class="term">prosecutor's fallacy</span>（检察官谬误，<a href="2-3-prosecutor.html">2.3 章</a>）。它是本书出场次数最多的一个错误。</p>
+
+  <h3>独立性：一个比听起来严格得多的词</h3>
+  <p>两个事件<span class="term">independent</span>（独立）的意思是：<b>知道其中一个发生了，对另一个的概率毫无影响</b>——P(A|B) = P(A)。只有在这个前提成立时，你才可以把概率<b>相乘</b>：</p>
+  <div class="formula">P(A 和 B 都发生) = P(A) × P(B) &nbsp;&nbsp;<b>← 仅当 A 与 B 独立</b><br><br>否则必须写成：P(A 和 B) = P(A) × P(B|A)</div>
+
+  <p>「相乘」是概率里最好用也最容易被滥用的操作。抛两次硬币两次都正面：0.5 × 0.5 = 0.25，没问题，硬币确实没记性。但下面这些就不行了：</p>
+  <p>· <b>同一个家庭的两个孩子先后猝死</b>——如果存在某种未知的遗传或环境因素，第二次的概率会远高于第一次。不能相乘。</p>
+  <p>· <b>同一栋楼里两套房子同时贬值</b>——它们共享地段、学区、政策。不能相乘。</p>
+  <p>· <b>同一个人做两次同款检测</b>——如果误报源于他自身的某种体质，第二次仍会误报。不能相乘（这一条 <a href="2-1-medical-test.html">2.1 章</a>末尾提过）。</p>
+
+  <p>识别独立性的关键问题只有一个：<b>「这两件事有没有可能被同一个原因同时推动？」</b>只要答案不是斩钉截铁的「没有」，相乘就是危险的。下面的案例里，一次错误的相乘把一位母亲送进了监狱。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>条件概率翻转器</h2>
+  <p>三个滑块锁定一个完整的世界：某类事 B 有多常见、B 发生时症状 A 出现的比例、以及 B <b>没</b>发生时 A 也出现的比例。拖到哪儿都是一个合法的世界（这三个数彼此不会打架）。然后看下面两个大数字——<b>它们是同两个事件的两个方向</b>。</p>
+
+  <div class="lab" data-print-note="（在线版可切换场景、拖动三个滑块。打印版展示默认场景「流感与发烧」：1000 人里 50 人得流感、其中 40 人发烧；950 人没流感、其中 76 人也发烧。发烧的共 116 人 → P(发烧|流感) = 80%，而 P(流感|发烧) = 34.5%，前者是后者的 2.3 倍。另两个场景：「警报与入侵」P(警报|入侵) 95% vs P(入侵|警报) 9.1%；「下雨与地湿」100% vs 81.1%——同样是翻转，落差可以极大也可以很小。图上的人数取整到整数，故读数与连续公式的结果有零点几个百分点的出入。）">
+    <div class="lab-head">
+      <span class="t">Conditional Flipper · 条件概率翻转器</span>
+      <span class="presets">
+        <button data-p="flu">流感与发烧</button>
+        <button data-p="alarm">警报与入侵</button>
+        <button data-p="rain">下雨与地湿</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label><span id="lB">人群中得流感的比例</span> <b id="vB">5.0%</b></label>
+          <input type="range" id="sB" min="0.1" max="60" step="0.1" value="5">
+        </div>
+        <div class="sl">
+          <label><span id="l1">流感患者里发烧的比例</span> <b id="vAB">80%</b></label>
+          <input type="range" id="sAB" min="1" max="100" step="1" value="80">
+        </div>
+        <div class="sl">
+          <label><span id="l2">没得流感的人里发烧的比例</span> <b id="vAnB">8.0%</b></label>
+          <input type="range" id="sAnB" min="0" max="50" step="0.5" value="8">
+        </div>
+      </div>
+
+      <div class="iconarray" id="cGrid" style="--cols:40" aria-label="一千人图标阵列"></div>
+      <div class="legend">
+        <span class="s"><i></i><span id="legS">得流感，且发烧</span></span>
+        <span class="dim"><i></i><span id="legD">得流感，但没发烧</span></span>
+        <span class="a"><i></i><span id="legA">没得流感，却发烧</span></span>
+        <span><i></i>两样都没有</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nFwd">80%</div><div class="l" id="lFwd">P(发烧 | 流感)</div></div>
+        <div class="bignum"><div class="n s" id="nBwd">34.5%</div><div class="l" id="lBwd">P(流感 | 发烧)</div></div>
+        <div class="bignum"><div class="n a" id="nRatio">2.3×</div><div class="l">两个方向差多少倍</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+    </div>
+  </div>
+
+  <p>三个预设想让你注意的是<b>落差的大小由什么决定</b>。「警报与入侵」里翻转极其惨烈（95% → 9.1%），因为「没入侵」的时段实在太多，5% 的误报率乘上一个巨大的分母，压倒了真警报。「下雨与地湿」里翻转很温和（100% → 81.1%），因为「地面湿」几乎只有下雨一个来源。</p>
+  <p>规律是：<b>当「另一条路径」的绝对数量能与「这条路径」相提并论时，翻转就会剧烈。</b>而「另一条路径」的数量 = 那件事没发生的频率 × 它的误报率——两个都要看，只看误报率会骗你。</p>
+  <p>把第三个滑块（误报率）拖到 <b>0</b> 试试，会看到一个干净的极端：P(B|A) 直接跳到 <b>100%</b>，无论 P(A|B) 是多少。因为此时通往 A 的路只剩一条——只要症状出现，就必定来自 B。<b>反方向的概率由「有几条别的路能到达 A」决定，和「这条路有多宽」几乎无关。</b>这也解释了为什么此时两个方向反而是 80% 对 100%：它们本来就在回答不同的问题，没有理由靠拢。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>被相乘出来的「七千三百万分之一」</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Sally Clark 案 · 英国，1999 年定罪</div>
+    <div class="case-body">
+      <p>1996 年与 1998 年，英国律师 Sally Clark 的两个幼子先后猝死。1999 年，她被控谋杀并被定罪。</p>
+      <p>庭审中，儿科教授 Roy Meadow 作为专家证人给出了一个后来极其著名的数字：在 Clark 这样的家庭（较富裕、不吸烟、母亲年龄较大）中，一名婴儿死于婴儿猝死综合征（SIDS）的概率约为 <b>1/8543</b>；那么两名婴儿都死于 SIDS 的概率就是</p>
+      <div class="formula">1/8543 × 1/8543 ≈ <b>1/73,000,000</b><br><br>——「七千三百万分之一」，据称相当于英国每一百年才会出现一次。</div>
+      <p>这个计算有<b>两处独立的严重错误</b>，本章只讲第一处（第二处留给 <a href="2-3-prosecutor.html">2.3 章</a>）：</p>
+      <p><b>错误一：不该相乘。</b>相乘的前提是两个事件相互独立，而同一个家庭的两次婴儿猝死<b>显然不独立</b>——它们共享基因、共享居住环境、共享育儿方式。如果存在某种尚未查明的家族易感因素，第一次猝死的发生本身就意味着第二次的风险显著升高。事实上，后续研究提示家庭内的复发风险远高于把两次概率简单相乘所得的结果。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">1/73,000,000</div><div class="l">庭上给出的数字（错误相乘所得）</div></div>
+        <div class="stat"><div class="n good">高得多</div><div class="l">考虑家庭内相关性后的真实量级</div></div>
+        <div class="stat"><div class="n good">2003 年</div><div class="l">定罪被撤销，Clark 获释</div></div>
+      </div>
+      <p>2001 年 10 月，英国皇家统计学会（Royal Statistical Society）罕见地就一起具体刑案发表公开声明，指出该证词中的统计推理存在严重缺陷，「没有统计依据」支持那样的相乘。2003 年 1 月，上诉法院撤销了对 Sally Clark 的定罪——撤销的直接理由是控方未披露的病理学证据，但统计证词的问题在此案的公共讨论中占了极大分量。Clark 于 2007 年去世。</p>
+      <p>这个案子留下的教训极其具体：<b>「相乘」这个动作，在你按下计算器之前，必须先回答「这两件事有没有可能被同一个原因同时推动」。</b>在婴儿猝死这件事上，答案是响亮的「有可能」——而这个问题在庭上没有被认真问过。</p>
+      <div class="src">来源：Royal Statistical Society, "Royal Statistical Society concerned by issues raised in Sally Clark case"（新闻公报，2001 年 10 月 23 日）；R v Clark 上诉判决（EWCA Crim 1020, 2003）。1/8543 与 1/73,000,000 为庭审记录中出现的数字。判决撤销的法律理由与统计争议的关系，以上诉判决原文为准；本节只讨论其中的概率结构。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>某公司 30% 的员工是工程师。工程师里 60% 会写 Python；非工程师里只有 10% 会写。随机抓一个会写 Python 的人，他是工程师的概率是多少？</summary>
+      <div class="answer">
+        <p>用 1000 人：工程师 300 人，其中会 Python 的 180 人；非工程师 700 人，其中会 Python 的 70 人。</p>
+        <p>会 Python 的一共 180 + 70 = <b>250 人</b>，其中工程师 180 人 → 180 ÷ 250 = <b>72%</b>。</p>
+        <p>注意这次翻转很温和（60% → 72%，甚至反而升高了）。原因是非工程师虽然人多，但会 Python 的比例够低（10%），贡献的绝对人数（70）压不过工程师那边（180）。<b>翻转会不会剧烈，取决于「另一条路径」的绝对人数，不取决于哪个百分比看起来更大。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「连续两次抛硬币都是正面的概率是 25%」——这个相乘合法。「连续两年夏天都出现极端高温的概率 = 单年概率的平方」——这个相乘为什么不合法？</summary>
+      <div class="answer">
+        <p>因为两次抛硬币之间<b>没有共同原因</b>：第一次的结果不改变硬币、不改变抛的人、不改变物理定律。而连续两年的极端高温共享着一大堆东西——同一个气候系统的长期趋势、同一片海温异常、同一个城市热岛。<b>只要存在一个能同时推动两者的因素，它们就不独立，相乘就会系统性地低估「两次都发生」的概率。</b></p>
+        <p>方向值得记住：<b>当两件事正相关时，把它们相乘会低估联合概率</b>——你会觉得「这么巧的事不可能是偶然」，然后去找一个并不存在的凶手。Sally Clark 案就是这个错误的极端后果。反过来，当两件事负相关时，相乘会高估。</p>
+        <p>实操上的检查清单：这两件事是不是同一个人/同一个家庭/同一个地点/同一段时间/同一套设备的产物？只要中了一条，就别相乘，去查一下条件概率。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某城市安装了人脸识别系统抓逃犯。系统对逃犯的识别率是 99%，对普通人的误报率是 0.1%。城市有 100 万人，其中有 10 名逃犯。系统报警了一次——这个人是逃犯的概率是多少？该不该据此抓人？</summary>
+      <div class="answer">
+        <p>用自然频率：10 名逃犯里约 <b>9.9 人</b>被识别出来（99%）；999,990 名普通人里约 <b>1000 人</b>被误报（0.1%）。</p>
+        <p>报警总数 ≈ 9.9 + 1000 = 约 <b>1010 次</b>，其中真逃犯不到 10 个 → <b>约 1%</b>。也就是说，<b>每 100 次报警里有 99 次抓错人</b>。</p>
+        <p>「该不该据此抓人」——从概率结构上说，这个报警<b>远不足以构成抓捕的依据</b>，它顶多是「值得再看一眼」的线索。误报率 0.1% 听起来微不足道，但它乘上一百万的分母就是 1000 个无辜者。<b>只要目标足够罕见，再准的系统也会被分母淹没。</b></p>
+        <p>（现实中的系统部署还涉及人工复核、多重比对、法律授权等环节，本题只讨论单次报警本身携带多少信息量这一维。这也正是 <a href="2-1-medical-test.html">2.1 章</a>「不要普筛罕见病」的同一个道理。）</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>Meadow 的计算里，如果两次婴儿猝死真的完全独立，「1/7300 万」这个数字就没问题了吗？换句话说，把独立性修好，这个论证就成立了吗？</summary>
+      <div class="answer">
+        <p><b>不成立。</b>修好独立性只解决了本章讲的那一半问题，还剩下更致命的一半：<b>这个数字回答的根本是另一个问题。</b></p>
+        <p>「两个孩子都死于 SIDS 的概率是 1/7300 万」说的是 P(两次猝死 | 她无罪)。但法庭真正要判断的是 P(她有罪 | 两次猝死)——方向是反的，正是本章开头那个陷阱。</p>
+        <p>要回答后者，你必须问一个庭上从没问过的问题：<b>「一位母亲连杀两名亲生婴儿」这件事本身有多罕见？</b>它同样是极其罕见的。当你把两个都极罕见的解释放在一起比较时，1/7300 万这个数字本身根本无法告诉你哪个更可能——你需要的是两者的<b>比值</b>。有分析指出，把双重谋杀的基础率也纳入比较后，「双重 SIDS」反而是更可能的解释。</p>
+        <p>这就是<b>检察官谬误</b>，<a href="2-3-prosecutor.html">2.3 章</a>会把它完整拆开。记住此刻的感觉：一个数字可以在算术上完全正确，同时在推理上完全无关。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="1-1-what-is-probability.html">← 1.1 概率是什么：频率派与信念派</a></span>
+  <span><a href="1-1-what-is-probability.html">← 1.1 概率是什么</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="1-3-expected-value.html">1.3 期望值：彩票是智商税，保险为什么不是 →</a></span>
+  <span><a href="1-3-expected-value.html">1.3 期望值 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/1-2-conditional.js"></script>
 </body>
 </html>
