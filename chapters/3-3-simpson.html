@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3.3 辛普森悖论：分组之后，结论翻了个面 · 概率直觉手册</title>
+<title>3.3 辛普森悖论 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,239 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i class="s"></i><i></i><i></i><i class="a"></i><i class="a"></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i>
   </div>
   <div class="kicker">Part 3 · Classic Paradoxes 经典悖论</div>
   <h1>3.3 Simpson's Paradox
     <span class="zh">辛普森悖论：分组之后，结论翻了个面</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~22 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="1-2-conditional.html">1.2 条件概率</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>两种疗法，哪个更好？</h2>
+  <p>一项对肾结石两种疗法的比较研究，真实数据：</p>
+  <div class="formula"><b>小结石：</b>疗法甲成功率 <b>93%</b>，疗法乙 <b>87%</b><br>
+  <b>大结石：</b>疗法甲成功率 <b>73%</b>，疗法乙 <b>69%</b></div>
+  <p>疗法甲在<b>小结石</b>上更好，在<b>大结石</b>上也更好。</p>
+  <p class="big">那么把所有病人合起来看，哪种疗法的总成功率更高？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="a">当然是甲</button>
+      <button data-g="tie">大概打平</button>
+      <button data-g="b">可能是乙</button>
+      <button data-g="no">不可能是乙吧</button>
+    </div>
+    <div class="after">押好了。答案是：<b>乙，82.6% 对 78.0%</b>。在每一个分组里都输的疗法，合起来赢了——而且这两组数字都是真的，一个也没编。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>不是数字骗人，是平均数在偷偷加权</h2>
+
+  <p><span class="term">Simpson's paradox</span>（辛普森悖论）说的就是这件事：<b>在每一个分组里都成立的关系，合并之后可以完全反过来。</b>它不是统计错误，也不是数据造假——上面两组数字全都算得没错。</p>
+
+  <p>秘密在被隐藏的第三列：<b>每组有多少人</b>。</p>
+
+  <div class="formula"><b>小结石</b>（好治，成功率高）：甲 81/87，乙 <b>234/270</b><br>
+  <b>大结石</b>（难治，成功率低）：甲 <b>192/263</b>，乙 55/80<br><br>
+  甲的病人：<b>75% 是难治的大结石</b><br>
+  乙的病人：<b>77% 是好治的小结石</b><br><br>
+  甲 273/350 = <b>78.0%</b>　　乙 289/350 = <b>82.6%</b></div>
+
+  <p>看出来了：<b>甲主要在处理难case，乙主要在处理易case。</b>合并的总成功率里，「病人有多难治」这个因素的影响，压过了「疗法本身好多少」。甲每一场硬仗都打得比乙好，但它打的硬仗多太多了。</p>
+
+  <p>用一句话概括这个机制：<b>合并平均值不是各组平均值的平均，而是按各组人数加权的平均。</b>当两组的人数分布严重不均衡时，加权可以把任何关系翻过来。</p>
+
+  <h3>那到底该信哪个？</h3>
+  <p>这才是本章真正难的地方。很多人以为答案是「永远看分组」，但这不对——<b>正确答案取决于你在问什么问题</b>，而这是一个因果问题，不是统计问题。</p>
+
+  <p><b>肾结石这个例子里，该看分组。</b>因为医生是<b>根据结石大小来选择疗法</b>的——大结石更倾向于开放手术。也就是说，「结石大小」既影响了你接受哪种疗法，也影响了成功率，它是一个典型的<span class="term">confounder</span>（混杂因素）。你要问的是「<b>对我这个病人</b>，哪种疗法更好」，那就必须在同等病情下比较——看分组。</p>
+
+  <p><b>但换一个情境，答案就反过来了。</b>假设某药物有两种剂型，医生完全随机分配，而分组的依据是<b>服药之后</b>产生的某个指标（比如「用药后血压是否下降」）。此时按那个指标分组，等于把药物起效的路径本身切断了——<b>这时候该看合并数据</b>。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>判据不在数据里，在因果结构里。</b>问一句：<b>这个分组变量，是在「原因」之前还是之后？</b>如果它在前（结石大小先于疗法选择），它是混杂因素，必须分组控制；如果它在后（是治疗造成的结果），分组反而会制造假象。<b>同一张表，同样的数字，因为背后的故事不同，正确读法完全相反。</b>这也是为什么统计学永远无法脱离领域知识独立工作。</p>
+  </div>
+
+  <h3>随机对照试验为什么这么值钱</h3>
+  <p>顺便解释一件事：为什么医学界如此看重随机分组的试验（RCT）。<b>因为随机分配能一次性把所有混杂因素——包括你根本没想到的那些——在两组之间摊平。</b>肾结石那份数据是观察性研究，医生按病情挑疗法，于是结石大小成了混杂因素。如果当初是随机分配的，两组的结石大小分布会大致相同，合并数据也就不会骗人了。</p>
+  <p>下面这个案例里，被「混杂」的不是结石大小，而是一整所大学的申请策略。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>把两个视角切来切去</h2>
+  <p>气泡图的读法：<b>横轴是这个格子整体有多好过</b>（越靠右越容易成功），<b>纵轴是该组在这个格子里的成功率</b>，<b>气泡大小 = 人数</b>。斜线是「与该格子平均水平持平」——气泡在线上方，说明这一组比该格子的平均更好。</p>
+  <p>切到<b>聚合视角</b>，12 个气泡塌缩成 2 个。<b>请注意：那 12 个气泡一个都没有移动，只是被重新加权了一次——而两个大气泡的上下关系翻了过来。</b></p>
+
+  <div class="lab" data-print-note="（在线版可切换数据集与聚合/分组视角。打印版展示默认场景：伯克利 1973 年六个最大院系。分组看，女性录取率在 A、B、D、F 四个系高于男性（82.4% vs 62.1%、68.0% vs 63.0%、34.9% vs 33.1%、7.0% vs 5.9%），仅 C、E 两系低于男性；合并看却是男性 44.5%（1198/2691）对女性 30.4%（557/1835）——结论翻转。第三个预设「反事实」保持各系女性录取率不变、只把女性申请分布换成与男性相同，合计变为女性 51.7% 高于男性 44.5%，翻转消失，证明翻转来自申请分布而非录取率。完整数据见下方表格。）">
+    <div class="lab-head">
+      <span class="t">Simpson Bubbles · 聚合 / 分组双视角</span>
+      <span class="presets">
+        <button data-p="berkeley">伯克利录取</button>
+        <button data-p="stone">肾结石疗法</button>
+        <button data-p="counter">反事实对照</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <p style="font-size:14.5px;font-weight:500;margin-bottom:12px" id="caseTitle"></p>
+      <div class="controls">
+        <span class="segmented">
+          <button type="button" data-m="grouped" class="on">分组视角</button>
+          <button type="button" data-m="agg">聚合视角</button>
+        </span>
+      </div>
+
+      <div class="chart">
+        <svg id="bubbleSvg" viewBox="0 0 600 330" role="img" aria-label="按组别与格子的成功率气泡图">
+          <line x1="52" y1="16" x2="52" y2="284" class="axis"></line>
+          <line x1="52" y1="284" x2="584" y2="284" class="axis"></line>
+          <text x="46" y="20" text-anchor="end">100%</text>
+          <text x="46" y="154" text-anchor="end">50%</text>
+          <text x="46" y="288" text-anchor="end">0%</text>
+          <g id="bubbleLayer"></g>
+          <text x="318" y="322" text-anchor="middle" id="xlab"></text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="k"><i></i><span id="labUnitA">男性申请者</span></span>
+        <span class="s"><i></i><span id="labUnitB">女性申请者</span></span>
+        <span>斜线 = 与该格子平均水平持平</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nA">44.5%</div><div class="l" id="lA">男性申请者（合计）</div></div>
+        <div class="bignum"><div class="n s" id="nB">30.4%</div><div class="l" id="lB">女性申请者（合计）</div></div>
+        <div class="bignum"><div class="n a" id="nSplit">2 : 4</div><div class="l">分组里各自占优的格子数<br>（男 : 女）</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="verdict"></p>
+
+      <table class="data" id="dataTable"></table>
+    </div>
+  </div>
+
+  <p>三个预设合起来是一条完整的论证链。</p>
+  <p><b>「伯克利录取」</b>给出经典现象：女性录取率在 6 个系里有 4 个高于男性，合并却低了 14 个百分点。<b>「肾结石疗法」</b>说明这不是教育领域的特殊现象——同一个数学结构出现在医学数据里，而且那里的正确读法是看分组。</p>
+  <p><b>最关键的是「反事实对照」。</b>它做了一件事：<b>保持每个系的女性录取率一个都不改</b>，只把女性的申请分布换成和男性一样。结果合计录取率从 30.4% 跳到 <b>51.7%</b>，反过来超过了男性的 44.5%。</p>
+  <p>这个对照把因果关系钉死了：<b>那 14 个百分点的差距，不是由「每个系怎么对待女性」造成的，而是由「女性投了哪些系」造成的。</b>——而后者需要一个完全不同的解释，也指向一个完全不同的问题。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>伯克利差点被自己的汇总表告上法庭</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>UC Berkeley 研究生录取 · 1973 年秋季</div>
+    <div class="case-body">
+      <p>1973 年秋季，加州大学伯克利分校的研究生院汇总录取数据时发现了一个刺眼的差距：全校范围内，男性申请者约 <b>8,442</b> 人、录取率约 <b>44%</b>；女性申请者约 <b>4,321</b> 人、录取率约 <b>35%</b>。</p>
+      <p>差了九个百分点，样本上万，统计显著性毫无疑问。校方一度担心面临性别歧视诉讼。</p>
+      <p>于是他们请统计学家去查：<b>到底是哪些系在歧视女性？</b>——这个问法本身假定了答案存在，只是不知道在哪。</p>
+      <p>Bickel、Hammel 与 O'Connell 把数据拆到系一级，结果发表在 1975 年的《Science》上。以六个最大的院系为例：</p>
+      <table class="data">
+        <tr><th>院系</th><th>男性录取/申请</th><th>男性录取率</th><th>女性录取/申请</th><th>女性录取率</th></tr>
+        <tr><td>A</td><td>512 / 825</td><td>62.1%</td><td>89 / 108</td><td class="s">82.4%</td></tr>
+        <tr><td>B</td><td>353 / 560</td><td>63.0%</td><td>17 / 25</td><td class="s">68.0%</td></tr>
+        <tr><td>C</td><td>120 / 325</td><td class="k">36.9%</td><td>202 / 593</td><td>34.1%</td></tr>
+        <tr><td>D</td><td>138 / 417</td><td>33.1%</td><td>131 / 375</td><td class="s">34.9%</td></tr>
+        <tr><td>E</td><td>53 / 191</td><td class="k">27.7%</td><td>94 / 393</td><td>23.9%</td></tr>
+        <tr><td>F</td><td>22 / 373</td><td>5.9%</td><td>24 / 341</td><td class="s">7.0%</td></tr>
+        <tr class="total"><td>六系合计</td><td>1198 / 2691</td><td class="k">44.5%</td><td>557 / 1835</td><td>30.4%</td></tr>
+      </table>
+      <p><b>六个系里，女性录取率有四个高于男性</b>（A、B、D、F），只有 C、E 两系略低。可是合起来，男性 44.5%、女性 30.4%。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">4 / 6</div><div class="l">女性录取率更高的院系数</div></div>
+        <div class="stat"><div class="n bad">−14 个百分点</div><div class="l">合计之后女性反而更低</div></div>
+        <div class="stat"><div class="n good">申请分布</div><div class="l">差距的实际来源</div></div>
+      </div>
+      <p><b>原因在申请分布上。</b>看 A、B 两系：录取率高达六成以上，是最好进的，而申请者中男性有 825 + 560 = 1385 人，女性只有 108 + 25 = 133 人。再看 C、E、F 三系：录取率只有 6% 到 37%，竞争惨烈，女性申请者却有 593 + 393 + 341 = 1327 人。</p>
+      <p><b>女性大量申请了录取率本来就低的院系，男性大量申请了录取率高的院系。</b>合并的录取率被这个分布差异主导了，它压过了各系内部的实际情况。</p>
+      <p>原文作者据此指出，数据并不支持「各系在录取环节系统性歧视女性」这一结论。但他们同时明确表示：<b>这不等于「不存在任何问题」。</b>如果女性系统性地被引导或劝阻着避开某些学科，那问题就出在更早、更弥散的地方——出在中学的课程选择、职业期待、导师的建议里，而不在录取委员会的会议室里。</p>
+      <div class="callout">
+        <p style="margin:0"><b>这个案例最容易被两个方向同时误用，值得一次说清。</b>一种误用是拿它宣称「所以歧视是不存在的，都是统计错觉」——原文没这么说，拆解只是把问题从「录取环节」挪到了「专业选择的形成过程」，挪走不等于消失。另一种误用是拿汇总数字直接断言「录取环节存在歧视」——这同样超出了数据能支持的范围。<b>辛普森悖论真正的教训是：汇总数字既不能证明歧视，也不能证明清白，它只能告诉你「该往哪一层去看」。</b></p>
+      </div>
+      <div class="src">来源：P. J. Bickel, E. A. Hammel, J. W. O'Connell, "Sex Bias in Graduate Admissions: Data from Berkeley", Science, Vol. 187, 1975, pp. 398–404。六系数据即广泛使用的 UCBAdmissions 数据集（R 语言内置）。全校 8,442 / 4,321 与约 44% / 35% 为该文所述的全校量级数字。悖论的一般形式见 E. H. Simpson, Journal of the Royal Statistical Society B, 1951；更早的讨论见 G. U. Yule, 1903。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>自己造一个辛普森悖论：两位棒球手，A 在 2023 和 2024 两年的打击率都高于 B，但两年合计 B 更高。给出一组具体数字。</summary>
+      <div class="answer">
+        <p>一个可行的构造：</p>
+        <table class="data">
+          <tr><th>年份</th><th>A</th><th>打击率</th><th>B</th><th>打击率</th></tr>
+          <tr><td>2023</td><td>9 / 30</td><td class="k">.300</td><td>50 / 200</td><td>.250</td></tr>
+          <tr><td>2024</td><td>80 / 400</td><td class="k">.200</td><td>3 / 20</td><td>.150</td></tr>
+          <tr class="total"><td>合计</td><td>89 / 430</td><td>.207</td><td>53 / 220</td><td class="s">.241</td></tr>
+        </table>
+        <p>A 两年都赢，合计输。<b>构造的诀窍：让 A 的打数集中在自己表现差的那一年（2024，400 打数），让 B 的打数集中在自己表现好的那一年（2023，200 打数）。</b></p>
+        <p>这里的混杂因素是「年份」——它同时影响了打数多少（可能因为伤病或上场时间）和打击率高低（可能因为那年投手整体更强）。<b>注意构造它需要的不平衡有多极端：A 的打数在两年间差了十几倍。这也是为什么现实中的辛普森悖论虽然确实存在，但需要分组人数严重失衡才会出现。</b>顺带一提，这不是纯虚构——Derek Jeter 与 David Justice 在 1995、1996 两年就出现过这个模式。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「碰到辛普森悖论，永远应该看分组数据」——这条经验法则对吗？</summary>
+      <div class="answer">
+        <p><b>不对，而且这是本章最容易记错的一点。</b>该看哪一层，取决于分组变量在因果链上的位置。</p>
+        <p><b>该看分组的情形（分组变量是混杂因素，发生在原因之前）：</b>肾结石大小先于疗法选择，且同时影响疗法选择与成功率。你想知道「对同样病情的人，哪种疗法更好」，就必须固定病情来比较。</p>
+        <p><b>该看合并的情形（分组变量是中介，发生在原因之后）：</b>假设某药通过降低胆固醇来减少心梗，你却按「用药后胆固醇是否下降」分组比较心梗率。<b>这等于把药起效的那条路本身给切断了</b>，分组之后药看起来毫无效果。这时该看合并数据。</p>
+        <p><b>还有第三种情形：分组变量是对撞因子（collider），控制它会凭空制造出相关性。</b>比如只在住院病人中研究两种疾病的关系——「住院」是两种病共同导致的结果，按它筛选会让两种本来无关的病显得负相关。</p>
+        <p>结论：<b>数据本身永远无法告诉你该看哪一层。</b>你必须先画出因果图（谁影响谁），再决定控制什么。这正是 Judea Pearl 那套因果推断框架要解决的问题，也是「相关不等于因果」这句老话真正的技术含义。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某公司宣称：「我们的新版 App 让用户平均停留时长从 8 分钟提升到 10 分钟。」后来发现，新老两个版本的用户中，新手和老手的比例差别很大。你会怎么追问？</summary>
+      <div class="answer">
+        <p><b>第一问：这两组用户是随机分配的吗？</b>如果新版是灰度推送给某一批人（比如先给活跃用户），那么「谁用了新版」就不是随机的，用户构成本身就不同。这时的对比等于伯克利那张汇总表——你不知道自己在比什么。</p>
+        <p><b>第二问：分组之后各是多少？</b>要求看新手组的对比和老手组的对比。完全可能出现：新手组 5 → 4.5 分钟（降了），老手组 15 → 14 分钟（也降了），但因为新版用户里老手占比高得多，合计反而从 8 涨到 10。<b>每一组都变差，总数却变好。</b></p>
+        <p><b>第三问：这个分组变量是在改版之前还是之后确定的？</b>「新手/老手」是用户在实验开始前就具备的属性，属于前置变量，按它分组是正当的。但如果他们按的是「使用新版后是否打开了新功能」来分组，那就是中介变量，分组会制造假象。</p>
+        <p>标准解法：<b>做随机分流的 A/B 测试</b>，让两组的用户构成天然一致。这就是 A/B 测试之所以是行业基础设施的原因——它和医学里的 RCT 解决的是同一个问题：<b>用随机分配把所有你想到的和没想到的混杂因素一次性摊平。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>伯克利的结论是「录取环节没有系统性歧视，差距来自申请分布」。有人说这只是把问题往前挪了一步。你怎么看这个批评？辛普森悖论的分析在这里到底解决了什么、没解决什么？</summary>
+      <div class="answer">
+        <p><b>这个批评基本成立，而且原作者自己就是这么说的。</b>值得把「解决了什么」和「没解决什么」分开摆。</p>
+        <p><b>解决了的：一个具体的、可证伪的指控。</b>「录取委员会在评审时以性别为由压低女性」——这个指控被数据驳回了，而且驳得相当干净：如果它成立，女性录取率应该在各系普遍偏低，而实际上四个系反而更高。<b>这不是小事：它把调查资源从错误的方向上撤了回来。</b>如果当年没做这个拆解，可能会有一场针对录取委员会的诉讼，而那里恰恰没有问题。</p>
+        <p><b>没解决的：为什么申请分布是这样。</b>女性大量集中在录取率低的院系，这个事实本身需要解释，而且候选解释的道德含义天差地别——是自由的兴趣选择？是中学阶段的课程分流？是「女生不适合学这个」的长期暗示？是某些学科缺乏女性榜样？<b>统计拆解在这里帮不上忙，它只能指出「问题在这一层」，不能告诉你这一层里发生了什么。</b></p>
+        <p><b>更值得注意的是：拆解本身还引出了一个新问题。</b>那些录取率低的院系（C、E、F 只有 6%–37%）通常也是经费更紧张、招生名额更少的学科。<b>「为什么某些学科的资源如此稀缺，而它们恰好是女性大量申请的方向」——这是原始汇总表根本提不出来的问题，是拆解之后才浮现的。</b></p>
+        <p>所以对这类分析最恰当的期待是：<b>它是一台把问题定位得更准的仪器，不是一台给出结论的机器。</b>用它来宣布「没有问题」是误用，用它来精确指出「问题不在这儿，在那儿」才是它的本职。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="3-2-birthday.html">← 3.2 生日悖论：23 个人的房间</a></span>
+  <span><a href="3-2-birthday.html">← 3.2 生日悖论</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="3-4-two-children.html">3.4 两个孩子问题与语言的陷阱 →</a></span>
+  <span><a href="3-4-two-children.html">3.4 两个孩子问题 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/3-3-simpson.js"></script>
 </body>
 </html>
