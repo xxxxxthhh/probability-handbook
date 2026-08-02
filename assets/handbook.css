@@ -175,7 +175,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .next{margin-top:72px;padding-top:24px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--disp);font-weight:600;font-size:14px}
 
 @media print{
-  html, html[data-theme="dark"]{
+  /* 打印强制浅色。三个选择器缺一不可：
+     跟随系统深色的 html:not([data-theme="light"]) 特异度是 (0,1,1)——:not() 继承参数
+     的特异度——会压过裸 html 的 (0,0,1)。不把它列进来，系统深色的机器打印出来是深色。 */
+  html, html[data-theme="dark"], html:not([data-theme="light"]){
     --paper:#fff;--ink:#2B2530;--ink-soft:#6B6472;--accent:#0F8B8D;--accent-soft:#DDEEEE;
     --sick:#D64550;--sick-soft:#F6DCDE;--fp:#DE9B2D;--fp-soft:#F6EAD2;--neutral:#CFC9C0;
     --line:#E2DCD2;--card:#fff;--code-bg:#F0EBE2;--answer-bg:#FCFAF6;--head-bg:#2B2530;--head-fg:#fff;
