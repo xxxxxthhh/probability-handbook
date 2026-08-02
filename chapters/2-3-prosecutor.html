@@ -17,30 +17,227 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="s"></i><i class="a"></i><i class="a"></i><i class="a"></i><i></i><i></i><i></i><i></i>
   </div>
   <div class="kicker">Part 2 · Bayesian Thinking 贝叶斯思维</div>
   <h1>2.3 The Prosecutor's Fallacy
-    <span class="zh">检察官谬误与法庭上的概率</span>
+    <span class="zh">检察官谬误：一个算对了的数字，如何把无辜者送进监狱</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="1-2-conditional.html">1.2</a> · <a href="2-1-medical-test.html">2.1</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>DNA 匹配上了</h2>
+  <p>一起案件，现场留下了 DNA。警方拿它在一个 <b>500 万人</b>的数据库里搜索，命中了一个人。专家出庭作证：这种 DNA 图谱在无关人群中的<b>随机匹配概率是百万分之一</b>。</p>
+  <p>除了这次命中，没有任何其他证据把这个人和案件联系起来——他不认识被害人，没有作案动机的线索，也不在现场附近被目击。</p>
+  <p class="big">他是真凶的概率大约是——</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="9999">99.9999%</button>
+      <button data-g="99">约 99%</button>
+      <button data-g="50">大概一半</button>
+      <button data-g="17">不到两成</button>
+    </div>
+    <div class="after">押好了。这道题的正确答案曾经在真实法庭上被系统性地答错，而代价是有人坐了牢。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>同一个数字，两句话，天壤之别</h2>
+
+  <p>请把下面这两句话读三遍，直到你确信它们说的不是一回事：</p>
+  <div class="formula">① <b>如果他是无辜的</b>，DNA 匹配上的概率是百万分之一。<br>② DNA 匹配上了，<b>所以他无辜的概率</b>是百万分之一。</div>
+
+  <p>句①是专家证词，通常是对的。句②是把句①<b>掉了个方向</b>——而这一掉，就是<span class="term">prosecutor's fallacy</span>（检察官谬误）。它是 <a href="1-2-conditional.html">1.2 章</a>那个「P(A|B) 不等于 P(B|A)」在法庭上的化身，也是 <a href="2-1-medical-test.html">2.1 章</a>那个「阳性不等于患病」换了身衣服。</p>
+
+  <p>为什么错得这么离谱？还是那个老办法——数人头：</p>
+
+  <div class="formula">数据库里 <b>500 万人</b>。假设真凶就在其中，那么：<br>· 真凶 <b>1 人</b> → 必然匹配<br>· 无辜者 <b>4,999,999 人</b> → 每人有百万分之一的概率碰巧匹配<br>&nbsp;&nbsp;→ 预计有 <b>约 5 人</b>碰巧匹配上<br><br>所以匹配上的一共约 <b>6 人</b>，其中真凶只有 1 个<br>→ 这个被命中的人是真凶的概率 ≈ 1 ÷ 6 ≈ <b>16.7%</b></div>
+
+  <p><b>不是 99.9999%，是不到 17%。</b>差了将近六个数量级。而那个「百万分之一」从头到尾都没算错——它只是<b>在回答另一个问题</b>。</p>
+
+  <h3>要命的分母：你是从多大的池子里捞出他的</h3>
+  <p>上面那个计算里，起决定作用的不是 DNA 有多准，而是<b>你搜了多少人</b>。这一点极其重要，因为它意味着<b>同一份 DNA 证据，证明力可以差出几千倍</b>：</p>
+  <p>· <b>先有嫌疑人，再验 DNA。</b>警方因为别的理由（目击、动机、监控）锁定了一个人，然后 DNA 匹配上了。此时「池子」只有一两个人，随机匹配几乎不可能发生——DNA 的证明力接近它的表面数值。</p>
+  <p>· <b>先搜库，再找嫌疑人。</b>拿现场 DNA 去几百万人的库里捞，捞出一个人。此时「池子」是整个数据库，随机匹配几乎必然会发生若干次——<b>命中本身几乎没有告诉你什么</b>。</p>
+
+  <div class="callout">
+    <p style="margin:0"><b>这个区别有个名字：<span class="term">database search effect</span>（数据库搜索效应）。</b>它说的是：搜索的范围越大，一次「命中」所携带的信息量就越小。这不是 DNA 技术的缺陷——任何证据都遵守这条规律。<b>「我在一百万人里找到了一个符合特征的人」和「这个我早就怀疑的人符合特征」，是两个完全不同的事实。</b></p>
+  </div>
+
+  <h3>正确的打开方式：似然比，而不是「无罪概率」</h3>
+  <p>那专家该怎么说？现代法庭科学的标准做法是只给<b>似然比</b>（<a href="2-2-bayes-update.html">2.2 章</a>那个工具），并且明确它的边界：</p>
+  <div class="formula">「这份 DNA 证据的似然比约为 <b>100 万</b>。<br>意思是：如果被告是留下这份样本的人，我们看到这个匹配结果的可能性，<br>是他不是留下样本的人的情况下的 100 万倍。<br><br>至于被告有罪的概率是多少——<b>这取决于本案的其他证据，不在我的证词范围内。</b>」</div>
+  <p>这句话把责任划分得干干净净：<b>专家提供似然比（证据该让信念移动多少倍），法庭提供先验（在其他证据下，起点在哪儿）。</b>专家一旦说出「被告无罪的概率是百万分之一」，他就越权替法庭设定了先验——而且设成了一个荒谬的值。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>同一份 DNA，三个池子</h2>
+  <p>下面的实验让你亲手改变「捞人的池子」有多大。<b>注意左右两个大数字：左边是检方爱说的那个数，右边是法庭真正该问的那个数。</b>默认场景（500 万人搜库、百万分之一、无其他证据）下，两者是「百万分之一」对 <b>16.7%</b>。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动三个滑块。打印版展示默认场景：嫌疑人池 500 万人、随机匹配概率 1/100 万、无其他证据 → 无辜者中预计约 5 人也匹配，匹配者共约 6 人，被告有罪概率约 16.7%，而检方说法给出的是「百万分之一」。另两个预设：「先有嫌疑人（100 人池）」→ 有罪概率 99.99%；「全国搜库（1000 万人）」→ 仅 9.1%。同一份 DNA 证据，池子不同，证明力差出几千倍。）">
+    <div class="lab-head">
+      <span class="t">Prosecutor's Fallacy Calculator · 检察官谬误计算器</span>
+      <span class="presets">
+        <button data-p="2,6,1">先有嫌疑人</button>
+        <button data-p="6.7,6,1">全市搜库</button>
+        <button data-p="7,6,1">全国搜库</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>嫌疑人池有多大（你是从多少人里捞出他的）<b id="vPool">500 万 人</b></label>
+          <input type="range" id="sPool" min="1" max="8" step="0.1" value="6.7">
+        </div>
+        <div class="sl">
+          <label>随机匹配概率 <b id="vRand">1 / 100 万</b></label>
+          <input type="range" id="sRand" min="3" max="9" step="0.1" value="6">
+        </div>
+        <div class="sl">
+          <label>除 DNA 外其他证据的似然比 <b id="vOther">1×（没有其他证据）</b></label>
+          <input type="range" id="sOther" min="1" max="1000" step="1" value="1">
+        </div>
+      </div>
+
+      <div class="iconarray" id="mGrid" style="--cols:20" aria-label="匹配上的人：真凶与随机匹配者"></div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:16px" id="dotNote"></p>
+
+      <div class="readout">
+        <div class="bignum"><div class="n a" id="nPros">1 / 100 万</div><div class="l">检方爱说的数字<br>P(匹配 | 无辜)</div></div>
+        <div class="bignum"><div class="n s" id="nReal">16.7%</div><div class="l">法庭真正要问的数字<br>P(有罪 | 匹配)</div></div>
+      </div>
+
+      <div class="posbar-box" style="margin-top:14px">
+        <div class="l">在所有 DNA 匹配上的人里：</div>
+        <div class="posbar"><span class="tp" id="bG"></span><span class="fp" id="bI"></span></div>
+        <div class="posbar-nums"><span>真凶</span><span>碰巧匹配的无辜者</span></div>
+      </div>
+
+      <div class="readout" style="margin-top:14px">
+        <div class="bignum"><div class="n" id="nExp">5 人</div><div class="l">池中预计有几个无辜者也会匹配</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+    </div>
+  </div>
+
+  <p>三个预设是同一份 DNA 证据、同一个「百万分之一」，唯一的区别是<b>你从多大的池子里捞人</b>：</p>
+  <table class="data">
+    <tr><th>场景</th><th>池子大小</th><th>预计随机匹配</th><th>P(有罪 | 匹配)</th></tr>
+    <tr><td>先有嫌疑人再验 DNA</td><td>100 人</td><td>0.00 人</td><td class="k">99.99%</td></tr>
+    <tr><td>全市数据库搜索</td><td>500 万人</td><td>5 人</td><td class="s">16.7%</td></tr>
+    <tr><td>全国数据库搜索</td><td>1000 万人</td><td>10 人</td><td class="s">9.1%</td></tr>
+  </table>
+  <p>最后请务必玩一下第三个滑块。保持「全市搜库」不变，把<b>其他证据的似然比</b>从 1 拖到 100——有罪概率立刻从 16.7% 升到约 95%。这就是本章想留下的正面结论：<b>DNA 搜库命中不是定罪的理由，它是「值得去调查这个人」的理由。</b>真正定罪的，是命中之后独立找到的那些证据。把顺序搞反了，就是把一个无辜者变成嫌疑人，再从他身上找证据——那是一条极其危险的路。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>Sally Clark 案完整复盘</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>R v Clark · 英国，1999 年定罪，2003 年撤销</div>
+    <div class="case-body">
+      <p><a href="1-2-conditional.html">1.2 章</a>里我们看了这个案子的<b>第一处</b>错误：把同一家庭两次婴儿猝死当作独立事件相乘，得出「1/7300 万」。现在看第二处，它更致命。</p>
+
+      <h3>第二处错误：方向反了</h3>
+      <p>假设那个数字完全正确。它说的仍然只是：</p>
+      <div class="formula">P（两个孩子都死于 SIDS ｜ <b>她是无辜的</b>）= 1/7300 万</div>
+      <p>而法庭要判断的是：</p>
+      <div class="formula">P（<b>她有罪</b> ｜ 两个孩子都死了）= ？</div>
+      <p>要从前者走到后者，你必须问一个庭上从未被认真问过的问题：<b>「一位母亲连续谋杀两名亲生婴儿」这件事，本身有多罕见？</b></p>
+      <p>答案是：<b>也极其罕见。</b>而当你比较的是两个都极罕见的解释时，「1/7300 万」这个数字本身完全无法告诉你哪个更可能——你需要的是<b>两者的比值</b>。</p>
+
+      <h3>把比值算出来</h3>
+      <p>数学家 Ray Hill 在 2004 年做了这件事。他用英格兰与威尔士的实际数据估算了两个基础率：同一家庭发生双重婴儿猝死的频率，以及同一家庭发生双重婴儿谋杀的频率。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">1/73,000,000</div><div class="l">庭上给出的数字（两处错误叠加）</div></div>
+        <div class="stat"><div class="n good">约 4.5 : 1 至 9 : 1</div><div class="l">Hill 估算的「双重 SIDS ： 双重谋杀」赔率</div></div>
+        <div class="stat"><div class="n good">2003.1</div><div class="l">上诉法院撤销定罪</div></div>
+      </div>
+      <p>Hill 的结论是：在只知道「一个家庭有两名婴儿猝死」这一件事时，<b>自然死亡的解释比谋杀的解释更可能，量级上大约是数倍</b>。也就是说，那个被用来定罪的数字，一旦被正确使用，指向的是<b>相反</b>的结论。</p>
+
+      <h3>后来发生了什么</h3>
+      <p>2001 年 10 月，英国皇家统计学会发表公开声明，指出该案证词中的统计推理没有依据，并特别点名了这种「把 P(证据|无辜) 当成 P(无辜|证据)」的错误。2003 年 1 月，上诉法院撤销了定罪——<b>直接的法律理由是控方病理学家未披露的微生物学检验结果</b>（该结果提示其中一名婴儿可能死于细菌感染），但判决书同时对统计证词的使用提出了严厉批评。</p>
+      <p>Sally Clark 在狱中度过了三年多。获释后她始终未能从这段经历中恢复，于 2007 年去世。此后，英国检察机关复查了数十起依赖类似证词的类似案件，另有数名被定罪的母亲的判决被撤销。</p>
+      <div class="callout">
+        <p style="margin:0"><b>这个案子最令人不安的地方不是有人算错了，而是：那个数字在算术上并非全无根据，它只是被用来回答了一个它无法回答的问题。</b>「1/7300 万」听起来是一个把一切疑虑碾碎的数字，而它实际上连「谋杀比自然死亡更可能」都证明不了。<b>一个数字的说服力，和它的相关性，是两回事。</b></p>
+      </div>
+      <div class="src">来源：Royal Statistical Society 新闻公报（2001 年 10 月 23 日）；R v Clark 上诉判决（[2003] EWCA Crim 1020）；Ray Hill, "Multiple sudden infant deaths — coincidence or beyond coincidence?", Paediatric and Perinatal Epidemiology, 2004。赔率区间为 Hill 在该文中给出的估算范围，依赖其对基础率的假设，属量级概括。撤销定罪的法律理由以判决原文为准。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>一座城市有 200 万成年人。现场证据的随机匹配概率是 1/50 万。警方搜遍全城找到一名匹配者，无其他证据。他有罪的概率是多少？如果随机匹配概率改善到 1/1 亿呢？</summary>
+      <div class="answer">
+        <p><b>第一问：</b>无辜者约 200 万人，每人 1/50 万的概率碰巧匹配 → 预计 <b>4 人</b>碰巧匹配。加上真凶，匹配者共约 5 人 → 有罪概率 ≈ 1 ÷ 5 = <b>20%</b>。</p>
+        <p><b>第二问：</b>200 万 ÷ 1 亿 = <b>0.02 人</b>碰巧匹配。匹配者共约 1.02 人 → 有罪概率 ≈ 1 ÷ 1.02 ≈ <b>98%</b>。</p>
+        <p>请注意这个对比说明了什么：<b>「够不够准」这个问题，只有相对于池子大小才有答案。</b>1/50 万在 200 万人的池子里几乎没有证明力，在 100 人的池子里则接近铁证。判断一份证据强不强，永远要先问「分母是多少」——这和 <a href="2-1-medical-test.html">2.1 章</a>「不要对罕见病做普筛」是同一条定律的两种应用。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>辩护律师说：「本市有 500 万人，按百万分之一算，能匹配上的有六个人，我的当事人只是其中之一，所以他有罪的概率只有六分之一。」这个论证有问题吗？</summary>
+      <div class="answer">
+        <p><b>它在特定条件下成立，但作为一般论证是有漏洞的</b>——这个反向的错误有个名字：<span class="term">defence attorney's fallacy</span>（辩护律师谬误）。</p>
+        <p>漏洞在于：它<b>假装 DNA 是本案唯一的证据</b>。如果被告同时还满足「案发时在现场附近」「认识被害人」「有作案时间」，那么另外那五名随机匹配者中的绝大多数会被这些条件直接排除——他们可能住在千里之外，或者当晚有牢固的不在场证明。</p>
+        <p>正确的做法回到 <a href="2-2-bayes-update.html">2.2 章</a>的乘法：<b>先用其他证据算出先验赔率，再乘以 DNA 的似然比。</b>如果其他证据把他从「500 万分之一」提升到「100 人中之一」，再乘以 100 万倍的 DNA 似然比，有罪概率就会非常高。</p>
+        <p>所以检察官谬误和辩护律师谬误是同一枚硬币的两面：<b>前者假装先验是「全世界只有他一个嫌疑人」，后者假装先验是「全城每个人嫌疑均等」。两者都在替法庭偷偷设定先验，而先验应该来自案件的全部证据。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某医院一段时间内有多名病人意外死亡，而某位护士恰好在这些死亡发生时都在班上。检方计算：「这种巧合发生的概率是三亿分之一。」你会追问哪三个问题？</summary>
+      <div class="answer">
+        <p><b>问题一：这个数字是 P(证据|无辜) 还是 P(无辜|证据)？</b>几乎必然是前者。要得到后者，必须先问「一名护士谋杀多名病人」本身有多罕见——它同样极其罕见。两个罕见事件相比，需要的是比值。</p>
+        <p><b>问题二：这个数字是怎么算出来的，独立性成立吗？</b>「她在班上」和「病人死亡」很可能有共同原因：她可能被排在重症班次、夜班或临终关怀病区，那里的死亡率本来就高得多。把这些班次的死亡当成随机事件相乘，会得出天文数字般的「巧合概率」。</p>
+        <p><b>问题三：数据是怎么挑出来的？</b>如果是先注意到「她在场时死了几个人」，再回头去统计，那就是在<b>用同一批数据既提出假设又检验假设</b>——这叫「德州神枪手谬误」（先开枪再画靶），<a href="4-3-clustering-illusion.html">4.3 章</a>会专门讲。正确做法是用<b>另一段独立时期</b>的数据来检验这个假设。</p>
+        <p>这不是假想题。荷兰护士 Lucia de Berk 于 2003 年因类似的统计论证被定罪，服刑六年多；此案的统计推理受到统计学家（尤其是 Richard Gill 等人）的持续批评，2010 年荷兰最高法院重审后她被彻底无罪释放。<b>这三个问题，每一个都能单独推翻当时的论证。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>如果你是立法者，为了防止检察官谬误再次把人送进监狱，你会提出哪些具体规则？</summary>
+      <div class="answer">
+        <p><b>一、限定专家证词的形式。</b>要求专家只陈述似然比，并明确声明「有罪概率不在本证词范围内」。这在英国等地已成为法庭科学的规范表述方式。同时禁止专家使用「他无罪的概率是……」这类句式。</p>
+        <p><b>二、强制披露搜索池的大小。</b>凡是通过数据库搜索得到的匹配，必须同时告知陪审团数据库规模以及预计的随机匹配人数。「我们在 500 万人里搜到了他」和「我们验证了这个既有嫌疑人」必须被明确区分。</p>
+        <p><b>三、要求独立的确证证据。</b>规定数据库搜索命中本身不能作为定罪的唯一依据——它只能作为启动调查的线索。这一条在多数司法体系的实践中已被普遍接受。</p>
+        <p><b>四、给陪审团提供自然频率格式的说明。</b>与其告诉陪审团「随机匹配概率是百万分之一」，不如告诉他们「在这个 500 万人的数据库里，预计会有大约 5 个无辜的人也匹配上」。<a href="0-1-intro.html">导读</a>里 Gigerenzer 的发现在这里直接适用：<b>同样的信息，换成频率格式，理解正确率显著上升。</b>这可能是四条里最容易落地、也最被低估的一条。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="2-2-bayes-update.html">← 2.2 贝叶斯更新的日常化：证据是怎么搬动信念的</a></span>
+  <span><a href="2-2-bayes-update.html">← 2.2 贝叶斯更新的日常化</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="2-4-conspiracy.html">2.4 为什么阴谋论者也自认是贝叶斯主义者 →</a></span>
+  <span><a href="2-4-conspiracy.html">2.4 阴谋论者的贝叶斯 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/2-3-prosecutor.js"></script>
 </body>
 </html>
