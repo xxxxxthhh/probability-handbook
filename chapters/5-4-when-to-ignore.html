@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5.4 概率素养的最后一课：什么时候该忽略概率 · 概率直觉手册</title>
+<title>5.4 概率素养的最后一课 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,23 +17,254 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i>
   </div>
-  <div class="kicker">Part 5 · Risk & Decisions 风险与决策</div>
+  <div class="kicker">Part 5 · Risk &amp; Decisions 风险与决策</div>
   <h1>5.4 The Last Lesson
     <span class="zh">概率素养的最后一课：什么时候该忽略概率</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="5-1-utility.html">5.1</a> · <a href="5-2-kelly.html">5.2</a> · <a href="5-3-fat-tails.html">5.3</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>一个平均值为正的赌局</h2>
+  <p>一个赌局，抛硬币决定：</p>
+  <div class="formula"><b>50%</b> 概率，你的财富<b>增加 50%</b><br>
+  <b>50%</b> 概率，你的财富<b>减少 40%</b><br><br>
+  期望值：0.5 × 1.5 + 0.5 × 0.6 = <b>1.05</b>，每轮平均涨 5%。</div>
+  <p>你可以选择反复玩很多轮。</p>
+  <p class="big">连玩 120 轮之后，一个典型的玩家会怎么样？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="rich">财富涨到几百倍</button>
+      <button data-g="up">小赚一点</button>
+      <button data-g="flat">大致持平</button>
+      <button data-g="broke">几乎输光</button>
+    </div>
+    <div class="after">押好了。答案是<b>几乎输光</b>——中位数玩家只剩下本金的千分之几。而全体的平均财富确实按每轮 5% 在涨。<b>两件事同时为真。</b></div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>期望值算的是平行宇宙，你活在一条时间线上</h2>
+
+  <p>这个矛盾的解法，是本书最后也最重要的一个概念：<span class="term">ergodicity</span>（遍历性）。它问的是一个看似绕口、实则朴素的问题：</p>
+
+  <p class="big">「很多人各做一次」的平均，等不等于「一个人做很多次」的结果？</p>
+
+  <div class="formula"><b>集合平均</b>（ensemble average）：1000 个人各赌一轮，把大家的钱加起来除以 1000。<br>
+  <b>时间平均</b>（time average）：一个人连着赌 1000 轮，看他最后剩多少。<br><br>
+  <b>如果两者相等，这个过程是「遍历的」。</b><br>
+  期望值这个工具，算的永远是<b>集合平均</b>。</div>
+
+  <p>抛硬币赌固定金额（赢了拿 1 元、输了赔 1 元）是遍历的：一千个人各赌一次的平均收益，和一个人赌一千次的平均收益一致。<b>但只要收益是「按比例」的——涨跌百分比、投资回报、复利——遍历性就破了。</b></p>
+
+  <h3>算一遍</h3>
+  <div class="formula"><b>集合平均</b>：0.5 × 1.5 + 0.5 × 0.6 = 1.05 → 每轮 <b>+5%</b><br><br>
+  <b>时间平均</b>：一个人玩很多轮，赢一半输一半，财富会经历<br>
+  &nbsp;&nbsp;× 1.5 × 0.6 × 1.5 × 0.6 …<br>
+  而 1.5 × 0.6 = <b>0.9</b>——每两轮亏 10%。<br>
+  每轮的几何平均 = √0.9 ≈ 0.9487 → 每轮 <b>−5.1%</b></div>
+
+  <p><b>集合平均每轮 +5%，时间平均每轮 −5.1%。一正一负。</b>两个数字都对，它们只是在回答不同的问题。</p>
+
+  <p>那个 +5% 的平均值去哪了？<b>它集中在极少数几乎一直赢的路径上。</b>就像 <a href="5-2-kelly.html">5.2 章</a>那张表：均值被少数暴富者扛着，而中位数在坠落。<b>如果你能同时活在一千个平行宇宙里、并且能把所有宇宙的钱汇总带走，那么 +5% 是你该看的数字。而你不能。</b></p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>这就是为什么「期望值为正就该做」在很多场合是错的——不是因为算错了，而是因为它算的那个平均，你领不到。</b>它是一群人的平均，而你只有一个人、一条时间线、一次人生。<b>你需要的是时间平均。</b>而最大化时间平均，恰恰等价于最大化对数效用（<a href="5-1-utility.html">5.1</a>）、等价于凯利公式（<a href="5-2-kelly.html">5.2</a>）。<b>Part 5 的三章，其实是同一件事的三种说法。</b></p>
+  </div>
+
+  <h3>三种「该忽略概率」的场合</h3>
+  <p>本书用了十七章讲怎么正确使用概率。最后这一节讲反面：<b>什么时候，概率计算本身就是错的工具。</b></p>
+
+  <p><b>① 不可逆的事情。</b>破产、死亡、物种灭绝、不可逆的环境损害——这些是 <a href="5-1-utility.html">5.1 章</a>的吸收态。<b>对这类事情做期望值计算，等于假设你可以重来，而这个假设正是它们所否定的。</b>正确的问法不是「概率多大」，而是「能不能保证它不发生」。</p>
+
+  <p><b>② 概率根本估不准的时候。</b><a href="5-3-fat-tails.html">5.3 章</a>说过，尾部风险的估计误差可以有好几个数量级。<b>当一个数字的误差比它本身还大时，围绕它做精确计算是一种自欺。</b>此时应该转向不依赖概率估计的策略：控制暴露、保留冗余、留出安全边际。</p>
+
+  <p><b>③ 后果的量级差太远的时候。</b>如果一个选项有 99% 的概率带来小小的好处、1% 的概率带来无法承受的灾难，那么<b>那个 1% 的具体数值是多少，几乎不重要</b>——是 1% 还是 0.1%，结论不会变。这时候纠结概率是在浪费时间，该做的是消除那条尾巴。这就是<span class="term">precautionary principle</span>（预防原则）的合理内核。</p>
+
+  <p>需要立刻补一句，否则这条原则会被滥用：<b>预防原则只适用于「可能不可逆且系统性」的风险，不适用于一切不确定的事。</b>如果把它用在所有事情上，结果是寸步难行——而且会付出巨大的机会成本。<b>判据是那三个词：不可逆、系统性、无法通过试错来学习。</b>三条都满足时，忽略概率、直接消除风险是理性的；只满足一条，那还是老老实实算概率。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>1000 个人，120 轮</h2>
+  <p>下面模拟 1000 个人同时玩这个赌局，每人玩 120 轮。<b>琥珀线是全体的平均财富（集合平均，也就是期望值算的东西），青绿线是中位数那个人的财富（时间视角，也就是你会经历的东西）。</b>纵轴是对数刻度。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动涨跌幅。打印版展示默认场景：赢 +50% / 输 −40%，各 50% 概率，1000 人 × 120 轮。集合平均每轮 +5.0%，而时间平均每轮 −5.1%——一正一负。120 轮后全体平均财富仍在上涨，中位数玩家却只剩本金的千分之几，绝大多数人比开始时更穷。切到「+50%/−33%」时时间平均约为 +0.2%，勉强打平；切到「+50%/−25%」时时间平均 +6.1%，两个视角方向才终于一致。）">
+    <div class="lab-head">
+      <span class="t">Ergodicity · 集合平均 vs 时间平均</span>
+      <span class="presets">
+        <button data-p="50,40">经典（+50/−40）</button>
+        <button data-p="50,33">勉强打平</button>
+        <button data-p="50,25">对个人也划算</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>赢了涨多少 <b id="vUp">+50%</b></label>
+          <input type="range" id="sUp" min="10" max="100" step="1" value="50">
+        </div>
+        <div class="sl">
+          <label>输了跌多少 <b id="vDn">−40%</b></label>
+          <input type="range" id="sDn" min="5" max="60" step="1" value="40">
+        </div>
+      </div>
+
+      <div class="chart">
+        <svg id="ergoLayer" viewBox="0 0 600 250" role="img" aria-label="集合平均财富与中位数财富随轮次变化（对数纵轴）">
+          <line x1="66" y1="14" x2="66" y2="214" class="axis"></line>
+          <line x1="66" y1="214" x2="586" y2="214" class="axis"></line>
+          <line id="oneRef" x1="66" y1="120" x2="586" y2="120" class="ref"></line>
+          <text id="yHi" x="60" y="18" text-anchor="end">—</text>
+          <text id="yOne" x="60" y="124" text-anchor="end">×1</text>
+          <text id="yLo" x="60" y="218" text-anchor="end">—</text>
+          <polyline id="meanLine" class="line a" points=""></polyline>
+          <polyline id="medLine" class="line k" points=""></polyline>
+          <text x="66" y="238">第 1 轮</text>
+          <text x="586" y="238" text-anchor="end">第 120 轮</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span class="a"><i></i>全体平均财富（集合平均 / 期望值）</span>
+        <span class="k"><i></i>中位数玩家的财富（你会经历的）</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nEns">+5.0%</div><div class="l">集合平均<br>每轮增长</div></div>
+        <div class="bignum"><div class="n s" id="nTime">−5.1%</div><div class="l">时间平均<br>每轮增长</div></div>
+        <div class="bignum"><div class="n s" id="nMed">—</div><div class="l">120 轮后<br>中位数玩家剩多少</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+    </div>
+  </div>
+
+  <p>看那两条线：<b>它们朝着相反的方向走。</b>琥珀线（平均值）一路向上，青绿线（中位数）一路向下。没有一条线在撒谎——它们描述的是同一个赌局的两个不同侧面。</p>
+  <p>现在把「输了跌多少」从 40% 慢慢拖到 25%。<b>青绿线会在某个点（约 33%）由降转升</b>——那正是时间平均从负转正的临界点。<b>而琥珀线从头到尾都是向上的，它对这个临界点毫无反应。</b></p>
+  <p><b>这就是本书最后一个、也是最重要的一个提醒：当有人拿「期望收益为正」来说服你时，先问一句——这个平均，是谁的平均？</b></p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>一个被经济学默认了三百年的假设</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Ole Peters · 遍历性经济学, 2019</div>
+    <div class="case-body">
+      <p>2019 年，物理学家 <b>Ole Peters</b> 在《Nature Physics》上发表了一篇题为《经济学中的遍历性问题》的评论文章。他的核心主张相当尖锐：</p>
+      <p><b>经济学在其奠基阶段，默认了一个从未被明确提出、也从未被检验的假设——待决策的随机过程是遍历的。</b>也就是说，当经济学家用「期望值」来定义理性选择时，他们隐含地假定了「很多人各做一次的平均」等于「一个人做很多次的结果」。</p>
+      <p>而对于财富这种<b>按比例增长</b>的量，这个假设根本不成立——就像上面的实验所展示的那样。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">+5%/轮</div><div class="l">集合平均（期望值看到的）</div></div>
+        <div class="stat"><div class="n bad">−5.1%/轮</div><div class="l">时间平均（个人经历的）</div></div>
+        <div class="stat"><div class="n good">2019</div><div class="l">Peters 在 Nature Physics 提出</div></div>
+      </div>
+      <p>Peters 指出，一旦改用时间平均来定义理性，许多长期被视为「非理性偏差」的行为立刻变得完全合理：</p>
+      <p>· <b>风险厌恶</b>不再需要用「心理偏好」来解释——它就是最大化时间平均增长率的直接结果。</p>
+      <p>· <b>买保险</b>不再是「牺牲期望值换心安」——在时间视角下，它可以真的提高你的长期增长率，即便它的期望值为负。</p>
+      <p>· <b>不把全部身家押在正期望值的机会上</b>，也不再是胆小，而是算术。</p>
+      <p><b>换句话说：三百年来被归为「人类不理性」的一大类现象，可能只是人类在解一道和教科书不同的题——而且解对了。</b></p>
+      <div class="callout">
+        <p style="margin:0"><b>需要如实说明：这个主张在经济学界并未被普遍接受，争论仍在进行。</b>批评者指出，期望效用理论（<a href="5-1-utility.html">5.1 章</a>）本来就能通过效用函数处理风险厌恶，遍历性视角在数学上未必提供了全新的内容——对数效用最大化与时间平均增长率最大化本就是等价的，这一点在凯利之后早有讨论。支持者则回应说，两者的<b>解释力</b>不同：效用函数把风险厌恶当作一个需要外部设定的偏好参数，而遍历性视角把它推导成了一个客观的数学结果，不需要假定任何心理特质。<b>本书采用后一种叙述，是因为它对普通读者更有解释力；但读者应当知道这是一个仍在争论中的立场，而非定论。</b></p>
+      </div>
+      <p>无论这场争论最终如何收场，有一件事是各方都同意的，也是本书希望你带走的最后一句话：<b>在做涉及自身的决策时，你要问的是「一个人重复做下去会怎样」，而不是「一千个人各做一次的平均是多少」。</b></p>
+      <div class="src">来源：Ole Peters, "The ergodicity problem in economics", Nature Physics, Vol. 15, 2019, pp. 1216–1221；相关早期工作见 Peters &amp; Gell-Mann, "Evaluating gambles using dynamics", Chaos, 2016。时间平均与对数效用/凯利准则的等价关系见 <a href="5-2-kelly.html">5.2 章</a>所引 Kelly (1956) 及后续文献。该主张在经济学界的接受程度存在争议，本节已如实标注双方立场。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 全书收束 ============ -->
+<section id="closing">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Closing 全书收束</span></div>
+  <h2>十七章，其实只讲了四件事</h2>
+  <p>读到这里，你已经走完了全书。回头看，那些看起来五花八门的谬误，其实都长在四条根上：</p>
+  <p><b>一、问对方向。</b>P(证据|假设) 不是 P(假设|证据)。<a href="2-1-medical-test.html">医疗检测</a>、<a href="2-3-prosecutor.html">检察官谬误</a>、<a href="1-2-conditional.html">条件概率</a>都是这一条。<b>解药：换分母，数人头。</b></p>
+  <p><b>二、问信息从哪来。</b>同样一句话，被统计筛出来的和随手报给你的，含义可以差几个数量级。<a href="3-1-monty-hall.html">蒙提霍尔</a>、<a href="3-4-two-children.html">两个孩子</a>、<a href="4-4-survivorship-bias.html">幸存者偏差</a>、<a href="3-3-simpson.html">辛普森悖论</a>都是这一条。<b>解药：问「它凭什么活到我面前」。</b></p>
+  <p><b>三、先数机会数，再惊讶。</b>随机本来就会扎堆、会连号、会撞车。<a href="3-2-birthday.html">生日悖论</a>、<a href="4-1-gamblers-fallacy.html">赌徒谬误</a>、<a href="4-3-clustering-illusion.html">聚类错觉</a>、<a href="4-2-regression-to-mean.html">回归均值</a>都是这一条。<b>解药：问「纯随机的话，这种事多久来一次」。</b></p>
+  <p><b>四、算完概率之后，还要算你自己。</b>期望值是集合的，而你只有一条命。<a href="1-3-expected-value.html">期望值</a>、<a href="5-1-utility.html">效用</a>、<a href="5-2-kelly.html">凯利</a>、<a href="5-3-fat-tails.html">肥尾</a>、以及本章都是这一条。<b>解药：问「最坏情况下我还在不在」。</b></p>
+  <div class="callout k">
+    <p style="margin:0"><b>如果这本书只能留下一样东西，那就是「先猜一次」这个动作本身。</b>不是因为猜得准，而是因为<b>把直觉押在桌上，你才会知道它错在哪</b>。这十七章里的每一个谬误，都是在你已经押过之后才显形的。<br><br>把 <a href="../firstaid.html">附录 B 直觉急救卡</a>打印出来，贴在你需要做判断的地方。术语忘了，查 <a href="../glossary.html">附录 A</a>。</p>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>赌局改成「赢了 +50%，输了 −30%」，各 50%。集合平均和时间平均分别是多少？这个赌局对个人划算吗？</summary>
+      <div class="answer">
+        <p><b>集合平均：</b>0.5 × 1.5 + 0.5 × 0.7 = 1.10 → 每轮 <b>+10%</b>。</p>
+        <p><b>时间平均：</b>几何平均 = √(1.5 × 0.7) = √1.05 ≈ 1.0247 → 每轮 <b>+2.5%</b>。</p>
+        <p><b>划算。</b>两个数都是正的，方向一致，长期玩下去财富确实会增长。</p>
+        <p>但请注意两者的差距：集合平均是时间平均的<b>四倍</b>。如果你按 +10% 去做规划（比如据此借钱加杠杆），你会系统性地高估自己的增长速度。<b>差额那 7.5 个百分点，是「波动税」——它不流向任何人，它只是在连乘中被损耗掉了。</b></p>
+        <p>顺带验证一个边界：让时间平均恰好为 0，需要 1.5 × (1−d) = 1，即 d = 1/3 ≈ <b>33.3%</b>。这正是实验里那个临界点。<b>赢 50% 的赌局，只要输的时候跌超过三分之一，长期玩下去就是亏的</b>——哪怕期望值一直是正的。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>什么样的决策是「遍历的」，可以放心用期望值？什么样的不是？</summary>
+      <div class="answer">
+        <p><b>大致遍历、可以用期望值的：</b></p>
+        <p>· <b>结果是可加的、且相对于你的总量很小。</b>买一杯咖啡、赌 10 块钱、日常的小额选择。财富的相对变化微不足道，连乘近似于连加，两个平均值几乎相同。</p>
+        <p>· <b>你真的能重复很多次，且每次的规模都可控。</b>保险公司承保、做市商报价、大规模 A/B 测试。<b>注意关键不在「重复」，而在「每次都不会让你出局」。</b></p>
+        <p>· <b>风险真的被分散了。</b>如果你能把资源摊到大量<b>互相独立</b>的赌局上，你就把「时间」换成了「集合」，两个平均会靠拢。这正是分散投资的数学理由——<b>但独立性是硬要求，相关的赌注数得再多也还是一注。</b></p>
+        <p><b>不遍历、不能只看期望值的：</b></p>
+        <p>· <b>按比例的、复利的过程。</b>财富增长、公司规模、任何「涨跌百分比」的东西。</p>
+        <p>· <b>存在吸收态。</b>只要有归零的可能，就不遍历。</p>
+        <p>· <b>一次性的重大决定。</b>没有「很多次」可言，集合平均对你毫无意义。</p>
+        <p><b>一个可以随身携带的检验：问自己「如果我把这件事重复做一百次，第一百次的我会是什么状态？」</b>如果答案里包含「已经出局了」，那这就不是一个能用期望值处理的决策。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某项新技术有 95% 的概率带来巨大收益，5% 的概率造成不可逆的系统性损害。按期望值算显然该做。你会怎么分析？</summary>
+      <div class="answer">
+        <p><b>先说清楚这道题不该给出的两种答案：</b>「期望值为正所以该做」是错的，「有风险所以别做」也是错的。前者忽略了不可逆性，后者会让所有事情都停摆。</p>
+        <p><b>第一步：确认这三个词是否都成立——不可逆、系统性、无法通过试错学习。</b></p>
+        <p>· <b>不可逆吗？</b>如果损害可以修复（哪怕代价高昂），那它就不是吸收态，期望值仍然适用，只是要把修复成本算进去。</p>
+        <p>· <b>系统性吗？</b>损害是局限在一个可隔离的范围内，还是会扩散到整个系统？前者可以承受，后者不能。</p>
+        <p>· <b>能不能小规模试错？</b>这是最关键的一条，也是最容易被忽略的一条。</p>
+        <p><b>第二步：如果三条都成立，把问题从「做不做」改成「怎么做才能把那 5% 变成可承受的」。</b></p>
+        <p>· <b>分阶段、可隔离地部署。</b>让每一次失败都局限在小范围内——这等价于 <a href="5-2-kelly.html">5.2 章</a>的仓位控制：把一次大赌拆成很多次小赌，从而把非遍历的过程变得接近遍历。</p>
+        <p>· <b>建立可逆性。</b>能不能设计一个「关掉它」的开关？<b>可逆性本身就是最有价值的风险控制，它把吸收态变回了普通状态。</b></p>
+        <p>· <b>那 5% 是怎么估出来的？</b>按 <a href="5-3-fat-tails.html">5.3 章</a>，全新技术的尾部风险几乎必然被低估——因为没有历史数据。所以真实数字可能更高，而这进一步支持了「先小规模试」的结论。</p>
+        <p><b>核心思路：不要在「做」和「不做」之间选，要在「怎样把不可逆变成可逆」上下功夫。</b>绝大多数看起来是「高风险高收益」的两难，都可以通过改变实施方式来解开。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>读完这本书，你在日常生活中最该改变的一个习惯是什么？</summary>
+      <div class="answer">
+        <p>这道题没有标准答案，但如果只能挑一个，本书的建议是：<b>养成「先说出数字，再听解释」的习惯。</b></p>
+        <p>它包含三个连贯的动作，正好覆盖全书的四条主线：</p>
+        <p><b>① 把话翻译成频率。</b>听到任何概率表述——「很有可能」「基本不会」「准确率 99%」——先翻译成「多少次里有几次」「1000 个人里有几个」。<a href="0-1-intro.html">导读</a>与 <a href="1-1-what-is-probability.html">1.1 章</a>反复演示的就是这一步，而它几乎能一个人解决全书一半的谬误。</p>
+        <p><b>② 先押一个数，再看答案。</b>这就是每章的「先猜一次」。养成这个习惯，你会开始察觉自己在哪些方向上系统性地偏。<b>而且这一步是免费的——它不需要任何数学。</b></p>
+        <p><b>③ 问两个来源问题。</b>「这个信息是怎么到我面前的？」（<a href="3-4-two-children.html">3.4</a>、<a href="4-4-survivorship-bias.html">4.4</a>）和「一共有多少次机会撞上？」（<a href="3-2-birthday.html">3.2</a>、<a href="4-3-clustering-illusion.html">4.3</a>）。这两个问题不需要计算，却能挡住大部分假信号。</p>
+        <p>最后，关于「什么时候该忽略概率」，留一句话：<b>概率是用来在可以重复的事情上做长期最优的工具。而人生里最重要的那些决定，往往恰恰不可重复。</b>对那些事情，把精力从「算准概率」转向「无论结果如何我都还站得住」，可能是这本书能给出的最实用的一条建议。</p>
+        <p style="margin-top:18px"><b>——全书完。</b>记得带走那张<a href="../firstaid.html">急救卡</a>。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="5-3-fat-tails.html">← 5.3 肥尾与黑天鹅：正态分布什么时候骗人</a></span>
+  <span><a href="5-3-fat-tails.html">← 5.3 肥尾与黑天鹅</a></span>
   <span><a href="../index.html">目录</a></span>
   <span><a href="../glossary.html">附录 A 术语表 →</a></span>
 </nav>
@@ -42,5 +273,6 @@
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/5-4-when-to-ignore.js"></script>
 </body>
 </html>
