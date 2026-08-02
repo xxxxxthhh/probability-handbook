@@ -17,30 +17,231 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i class="s"></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i></i>
   </div>
   <div class="kicker">Part 4 · Fooled by Randomness 随机性的陷阱</div>
-  <h1>4.1 Gambler's Fallacy & the Hot Hand
-    <span class="zh">赌徒谬误与热手争议</span>
+  <h1>4.1 Gambler's Fallacy &amp; the Hot Hand
+    <span class="zh">赌徒谬误与热手争议：随机看起来一点都不随机</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="1-1-what-is-probability.html">1.1 概率是什么</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>抛 100 次，最长的连号有多长</h2>
+  <p>一枚公平硬币，抛 <b>100</b> 次。中间必然会出现「连着好几次同一面」的片段。</p>
+  <p class="big">凭直觉：最长的那一段连号，通常有多长？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="3">3 个左右</button>
+      <button data-g="4">4 个左右</button>
+      <button data-g="7">6–7 个</button>
+      <button data-g="12">12 个以上</button>
+    </div>
+    <div class="after">押好了。多数人猜 3–4，正确答案是 <b>6–7 个</b>（均值约 7，最常见是 6），而且出现 8 个的场次有三成、9 个也不稀奇。这个低估，就是本章所有麻烦的根源。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>两个方向相反的错误，同一个病根</h2>
+
+  <p>人在面对随机序列时会犯两个<b>方向完全相反</b>的错误，而且经常是同一个人在同一天犯：</p>
+
+  <table class="data">
+    <tr><th>谬误</th><th>看到连续 5 次红，于是认为</th></tr>
+    <tr><td><b>赌徒谬误</b> gambler's fallacy</td><td class="k">该轮到黑了（会反转）</td></tr>
+    <tr><td><b>热手谬误</b> hot-hand fallacy</td><td class="s">红正在走运（会延续）</td></tr>
+  </table>
+
+  <p>两个结论截然相反，却出自同一个错误的前提：<b>「这段连号不正常，需要一个解释。」</b>赌徒谬误用「平衡机制」解释它，热手谬误用「势头」解释它。而正确答案往往是第三个：<b>它根本不需要解释——连号是随机的正常产物。</b></p>
+
+  <h3>大数定律靠稀释，不靠补偿</h3>
+  <p>赌徒谬误的核心误解，<a href="1-1-what-is-probability.html">1.1 章</a>已经埋下伏笔，这里说透：</p>
+  <div class="formula">你已经连开 5 次红。假设接下来再抛 1000 次。<br><br>
+  <b>错误的想象：</b>黑会「多出来」5 次，把账补平。<br>
+  <b>实际发生的：</b>后面 1000 次里黑红各约 500 次，那 5 次红<b>原封不动地留在那里</b>。<br><br>
+  总计：红 505，黑 500 → 比例 50.2% 对 49.8%，几乎看不出来了。</div>
+  <p><b>那笔「亏空」从来没有被补上，它只是被越来越大的分母冲淡了。</b>轮盘、硬币、骰子都没有记忆，也没有任何机制去记录「欠了多少」。你脑子里那个记账员是不存在的。</p>
+
+  <h3>而人造的随机，长得一点都不随机</h3>
+  <p>另一边，热手谬误的根源在于：<b>人对「随机应该长什么样」有一个错误的模板。</b>让人凭空写一串「随机」的正反面，几乎所有人都会写出交替率过高、连号过短的序列——因为连着五个正面「看起来不随机」。</p>
+  <p>真随机序列里，连号多得超乎想象：</p>
+  <div class="formula">抛 100 次公平硬币：<br>
+  · 出现<b>至少 5 连</b>的概率 ≈ <b>97%</b><br>
+  · 出现<b>至少 6 连</b>的概率 ≈ <b>81%</b><br>
+  · 出现<b>至少 7 连</b>的概率 ≈ <b>54%</b>——一半以上的场次<br>
+  · 最长连号的均值 ≈ <b>7</b>，最常见的取值是 <b>6</b>（约 log₂ n 的量级）<br><br>
+  而人手写的「随机」序列，最长连号通常只有 <b>3–4 个</b>。</div>
+
+  <p>所以在篮球场上看到一个球员连中 5 球，你面对的是一个真正的难题：<b>这是「手感来了」，还是「随机序列本来就该有这么长的连号」？</b>——这个问题在学术界吵了三十多年，而且中途翻过一次车。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>本章的一句话解药：</b>看到连号时，先别问「为什么会连」，先问 <b>「纯随机的话，这种连号多久出现一次？」</b>如果答案是「挺常见的」，那就不需要故事。<b>赌徒谬误和热手谬误都是在给不需要解释的东西编解释</b>——一个编了平衡机制，一个编了神秘状态。</p>
+  </div>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>你来当随机性鉴别器</h2>
+  <p>下面两条序列各 100 次抛掷。<b>一条是真随机，另一条是「人造」的</b>——按人编随机数的方式生成：以一定概率强制和上一个不同，从而压掉连号。</p>
+  <p><b>先别看统计量，用眼睛判断哪条是真随机的，再点按钮揭晓。</b></p>
+
+  <div class="lab" data-print-note="（在线版可反复重新生成、调节人造序列的交替倾向。打印版展示默认场景：交替倾向 70%（新手伪造），序列甲为真随机、序列乙为人造。序列甲：交替率 48%、最长连号 9、长度≥4 的连号 8 段；序列乙：交替率 66%、最长连号 5、长度≥4 的连号 2 段。人眼通常觉得序列乙「更随机」，而它恰恰是编的——真随机的那条连号长得多。把交替倾向调到 50% 时两条统计上无从分辨。）">
+    <div class="lab-head">
+      <span class="t">Randomness Detector · 随机性鉴别器</span>
+      <span class="presets">
+        <button data-p="70">新手伪造</button>
+        <button data-p="58">老手伪造</button>
+        <button data-p="50">其实是真随机</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>人造序列有多怕连号（强制交替的概率）<b id="vAlt">70%</b></label>
+          <input type="range" id="sAlt" min="50" max="85" step="1" value="70">
+        </div>
+      </div>
+
+      <h3 style="margin-top:6px">序列甲</h3>
+      <div class="seq" id="seqA" aria-label="序列甲的一百次抛掷"></div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:18px" id="statA"></p>
+
+      <h3>序列乙</h3>
+      <div class="seq" id="seqB" aria-label="序列乙的一百次抛掷"></div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:18px" id="statB"></p>
+
+      <div class="controls">
+        <button class="btn" type="button" id="guessA">我猜「甲」是真随机</button>
+        <button class="btn" type="button" id="guessB">我猜「乙」是真随机</button>
+        <button class="btn ghost" type="button" id="regen">换一组</button>
+      </div>
+      <p style="font-size:14.5px" id="verdict"></p>
+    </div>
+  </div>
+
+  <p>把交替倾向拖到 <b>50%</b>（第三个预设）：此时「人造」序列的生成规则退化成了真随机，两条序列在统计上无从分辨。<b>这个对照说明「交替率」正是那个唯一的破绽</b>——人编随机时唯一系统性做错的事，就是切换得太勤。</p>
+  <p>反复点几次「换一组」，你会积累起一个新的直觉：<b>真随机序列里那些「看起来有规律」的片段——连着七个正面、正反正反交替十次——不是异常，是必然。</b>100 次抛掷里连一段 5 连都没有的概率不到 <b>3%</b>。你如果拿到一条完全没有长连号的序列，反而该怀疑它是编的。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>热手效应：一个被推翻、又被推翻回来的结论</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Gilovich–Vallone–Tversky 1985 vs Miller–Sanjurjo 2018</div>
+    <div class="case-body">
+
+      <h3>第一幕：1985 年，热手被宣告为幻觉</h3>
+      <p>球员、教练和球迷几乎一致相信「手感」的存在：一个球员连续命中后，下一球更可能进。1985 年，Thomas Gilovich、Robert Vallone 和 Amos Tversky（就是 <a href="0-1-intro.html">导读</a>里 Linda 问题的那位）决定去查数据。</p>
+      <p>他们分析了费城 76 人队的投篮记录、波士顿凯尔特人的罚球记录，还在康奈尔大学做了受控投篮实验。核心方法是：<b>比较「命中之后的命中率」与「不中之后的命中率」。</b></p>
+      <p>结论是：<b>两者没有显著差别，甚至前者还略低。</b>他们据此提出，「热手」是人类在随机序列中看出规律的又一个例子——正是本章那个错误模板。这项研究极具影响力，「热手谬误」（hot-hand fallacy）从此进入教科书，成了认知偏差的标准案例之一。</p>
+
+      <h3>第二幕：2015 年前后，方法本身出了问题</h3>
+      <p>三十年后，经济学家 Joshua Miller 与 Adam Sanjurjo 发现了一件让人措手不及的事：<b>GVT 使用的那个估计量，本身带有系统性的向下偏差。</b></p>
+      <p>这个偏差极其反直觉，值得亲手算一遍。抛一枚公平硬币 <b>3 次</b>，列出所有可能，计算每条序列里「正面之后紧接着又是正面」的比例，再把这些比例平均：</p>
+      <table class="data">
+        <tr><th>序列</th><th>正面后面跟着的</th><th>比例</th></tr>
+        <tr><td>正正正</td><td>正、正</td><td>1</td></tr>
+        <tr><td>正正反</td><td>正、反</td><td>0.5</td></tr>
+        <tr><td>正反正</td><td>反</td><td>0</td></tr>
+        <tr><td>正反反</td><td>反</td><td>0</td></tr>
+        <tr><td>反正正</td><td>正</td><td>1</td></tr>
+        <tr><td>反正反</td><td>反</td><td>0</td></tr>
+        <tr class="total"><td>平均</td><td>（反反正、反反反无法计算，排除）</td><td class="s">5/12 ≈ 0.417</td></tr>
+      </table>
+      <p><b>公平硬币的正面概率是 0.5，可这个估计量给出的期望值是 0.417。</b>凭空少了 8 个百分点。原因是一种微妙的选择效应：当你挑出「正面之后」的那些位置来考察时，挑选行为本身就让剩下的样本偏向反面。序列越短，偏差越大（4 次抛掷时约为 0.4）。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">−8 个百分点</div><div class="l">3 次抛掷时该估计量的偏差</div></div>
+        <div class="stat"><div class="n good">修正后</div><div class="l">GVT 原始数据反而支持热手存在</div></div>
+        <div class="stat"><div class="n good">Econometrica</div><div class="l">修正结论发表于 2018 年</div></div>
+      </div>
+      <p>Miller 与 Sanjurjo 指出：由于每位球员的投篮序列都是有限长的，<b>GVT 的「没有差别」实际上已经意味着存在正向效应</b>——因为在真的没有热手时，那个估计量本应给出一个明显为负的结果。他们重新分析 GVT 的原始数据后报告，修正偏差之后可以看到相当可观的热手效应。该论文发表于 2018 年的《Econometrica》。</p>
+
+      <h3>第三幕：现在到底该信什么</h3>
+      <p><b>本书必须如实呈现争议双方，所以这一节不给一个干净的结论。</b></p>
+      <p><b>支持「热手真实存在」的一方：</b>统计偏差是确凿的、可以在纸上验算的（就是上面那张表）。多项重新分析和新数据的研究报告了正向的、统计显著的连续性效应。</p>
+      <p><b>坚持谨慎的一方：</b>修正之后的效应量<b>仍然远小于球迷和球员的主观感受</b>。有研究者认为，即便存在真实的热手，它的幅度也不足以支持「把球一直交给手热的人」这类实战决策；也有人指出效应在不同数据集之间不够稳定，还可能与防守强度调整、出手选择变化等混杂因素纠缠在一起。</p>
+      <div class="callout">
+        <p style="margin:0"><b>比「热手到底存不存在」更重要的，是这场翻车本身的教训。</b>GVT 的研究不是粗制滥造——它出自顶尖学者，方法在当时看来天经地义，结论被引用了三十年。<b>击倒它的不是新数据，而是一个谁都没想到要检查的地方：估计量本身。</b>这提醒我们，<b>「没有发现效应」永远不等于「效应不存在」</b>——你还得问一句，你用的尺子准不准。</p>
+      </div>
+      <div class="src">来源：Thomas Gilovich, Robert Vallone, Amos Tversky, "The Hot Hand in Basketball: On the Misperception of Random Sequences", Cognitive Psychology, 1985；Joshua B. Miller &amp; Adam Sanjurjo, "Surprised by the Hot Hand Fallacy? A Truth in the Law of Small Numbers", Econometrica, Vol. 86, 2018（工作论文自 2015 年起流传）。上表的 5/12 与 4 次抛掷时的 0.4 可由穷举验算。效应量与实战意义仍存学术分歧，本节据此不给出单一结论。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>轮盘已经连开 5 次红（欧式轮盘：18 红、18 黑、1 个绿色 0）。（a）下一把开黑的概率？（b）「连开 6 次红」的概率？这两个数为什么不矛盾？</summary>
+      <div class="answer">
+        <p><b>(a)</b> 18 / 37 ≈ <b>48.6%</b>。和第一把、第一百把完全一样。轮盘不记得前五把。</p>
+        <p><b>(b)</b> (18/37)⁶ ≈ <b>1.3%</b>。确实很小。</p>
+        <p><b>为什么不矛盾：</b>因为这两个数回答的是<b>不同时刻</b>提出的问题。</p>
+        <p>1.3% 是<b>在第一把开出之前</b>问「接下来六把会不会全红」。那时有 64 种可能的红黑组合摆在面前，全红只是其中之一。</p>
+        <p>48.6% 是<b>在五把已经开完之后</b>问「第六把是什么」。此时前五把已经是既成事实，概率为 1，不再是变量。<b>你不是在赌「六连红」，你是在赌「已经五连红的情况下，第六把是红」——而那就是普通的一把。</b></p>
+        <p>赌徒谬误的算术形态就藏在这里：<b>它把「事前」的小概率，误当成了「事中」的约束力。</b>类似地，「连开 5 次红之后再来 5 次红」的概率是 1.3%，但「连开 5 次黑」的概率同样是 1.3%——已经发生的事不给未来任何折扣。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>赌徒谬误和热手谬误的结论完全相反，为什么说它们是同一个错误？在什么情况下「相信连续性」其实是对的？</summary>
+      <div class="answer">
+        <p><b>同一个错误在于：两者都认定连号需要解释。</b>它们共享一个隐含前提——「随机的东西应该看起来杂乱均匀」。一旦接受这个错误模板，看到连号就必须编个故事，而编哪个故事（会反转 / 会延续）取决于场景和心情，不取决于数据。</p>
+        <p><b>那什么时候相信连续性是对的？</b>关键在于系统里<b>有没有真实的记忆或反馈机制</b>：</p>
+        <p>· <b>轮盘、彩票、骰子：没有。</b>物理上不存在传递状态的通道，连号纯属随机。相信任何延续或反转都是谬误。</p>
+        <p>· <b>运动员的表现：有可能有。</b>人不是硬币——疲劳、信心、对手的防守调整、当天的身体状态，都是真实存在的、可以跨投篮传递的状态。<b>所以「热手」在物理上并非不可能，这正是它值得认真做实证的原因。</b></p>
+        <p>· <b>疾病传播、股价波动、机器故障：往往真的有。</b>这些系统里存在明确的传导机制（传染、情绪、磨损），连续性不仅存在，还常常是主要现象。</p>
+        <p><b>所以正确的问法不是「相信连续性对不对」，而是「这个系统里存在传递状态的通道吗」。</b>硬币没有，球员可能有，传染病一定有。<b>把三者用同一套直觉去处理，才是真正的错误。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某基金经理连续 5 年跑赢大盘，被媒体称为「股神」。用本章的工具评估这个称号。</summary>
+      <div class="answer">
+        <p><b>第一步：算纯随机下的期望人数。</b>假设每年跑赢大盘的概率是 1/2（实际扣费后通常低于此），连对 5 年的概率是 (1/2)⁵ = 1/32。如果市场上有 <b>5000</b> 位基金经理，纯靠运气就该出现约 <b>156 人</b>连对五年。</p>
+        <p><b>第二步：问信息是怎么到你面前的。</b>媒体不会报道那 4844 位没连对的人。你看到的是从一个巨大池子里被筛选出来的幸存者——这正是 <a href="3-1-monty-hall.html">3.1 章</a>「这扇门凭什么活到我面前」的同一个问题，也是 <a href="4-4-survivorship-bias.html">4.4 章</a>的主题。</p>
+        <p><b>第三步：找真正有信息量的证据。</b>「连赢 5 年」这条证据的似然比接近 1——有技巧的人会连赢，运气好的人也会连赢，而运气好的人多得多。要区分，得看<b>别的东西</b>：他的策略是否事先可复述？超额收益能否被已知的风险因子解释掉？在完全不同的市场环境（牛市/熊市/加息周期）下是否也成立？管理规模扩大后是否还能维持？</p>
+        <p><b>结论：</b>「连赢 5 年」既不能证明他有本事，也不能证明他没有——它的证据力度远低于直觉感受。<b>不过要注意与上一题的区别：投资和轮盘不同，它是一个「可能有真实技巧」的领域（像球员而不像硬币）。所以正确的态度不是断言「都是运气」，而是承认这条证据不足以分辨，然后去找能分辨的证据。</b>（本题只讨论证据强度，不构成任何投资建议。）</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>Miller–Sanjurjo 的偏差为什么那么难被发现？三十年里无数人读过 GVT 的论文，为什么没人注意到？</summary>
+      <div class="answer">
+        <p><b>第一，它违反了一个几乎不会被质疑的直觉。</b>「从公平硬币序列里挑出正面之后的那些位置，正面的比例应该还是 50%」——这听起来像是定义。<b>它错在一个极其隐蔽的地方：你是先看到整条序列、再决定挑哪些位置的。这个「先看后挑」引入了选择效应。</b>如果换成「先指定位置再抛」，偏差就消失了。</p>
+        <p><b>第二，偏差在长序列里会衰减。</b>3 次抛掷偏差 8 个百分点，10 次约 5 个，几百次就只剩零点几个。人们容易觉得「样本量够大就没事」——但 GVT 分析的是<b>单个球员的单场或有限场次序列</b>，每条序列都不长，而偏差是按<b>每条序列</b>产生、再被平均起来的。<b>关键不是总样本量，是每条序列的长度。</b></p>
+        <p><b>第三，也是最值得警惕的：结论太合心意了。</b>1985 年正是认知偏差研究的黄金期，「人类会在随机中看出规律」是当时最有解释力的框架之一，而热手是它一个漂亮得不能再漂亮的例证。<b>一个符合主流范式、又极具反直觉魅力的结论，被检验的动力天然就低。</b></p>
+        <p>这三条合起来是一条通用的警告：<b>最不容易被发现的错误，是那些「大家都觉得显然」的步骤里的错误。</b>论文的结论会被反复审视，方法会被同行评议，但「从序列里挑出满足条件的位置」这种动作太基础了，基础到没人会停下来验算——而它恰好就是错的。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="3-4-two-children.html">← 3.4 两个孩子问题与语言的陷阱</a></span>
+  <span><a href="3-4-two-children.html">← 3.4 两个孩子问题</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="4-2-regression-to-mean.html">4.2 回归均值：骂完之后变好，不是骂的功劳 →</a></span>
+  <span><a href="4-2-regression-to-mean.html">4.2 回归均值 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/4-1-gamblers-fallacy.js"></script>
 </body>
 </html>
