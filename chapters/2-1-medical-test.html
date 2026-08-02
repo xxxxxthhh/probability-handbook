@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1 医疗检测悖论与基础率 · 概率直觉手册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/handbook.css">
+</head>
+<body>
+<button class="theme-toggle" type="button" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
+  <span class="moon" aria-hidden="true">🌙</span><span class="sun" aria-hidden="true">☀️</span>
+</button>
+
+<div class="wrap">
+
+<header class="ch">
+  <div class="dotrow" aria-hidden="true">
+    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+  </div>
+  <div class="kicker">Part 2 · Bayesian Thinking 贝叶斯思维</div>
+  <h1>2.1 The Medical Test Paradox
+    <span class="zh">医疗检测悖论：99% 准确的检测，为什么阳性了也先别慌</span>
+  </h1>
+  <div class="meta">
+    <span>难度 <b>★☆☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="1-2-conditional.html">1.2 条件概率</a></b></span>
+  </div>
+</header>
+
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>凭直觉，别算</h2>
+  <p>某种疾病在人群中的患病率是 <b>1%</b>。有一种检测：真正患病的人，90% 会被测出阳性（<span class="term">sensitivity</span>，灵敏度）；健康的人，有 9% 会被<b>误</b>测为阳性（<span class="term">false positive rate</span>，假阳性率）。</p>
+  <p class="big">你被随机筛查，结果是阳性。你真的患病的概率大约是——</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="90">约 90%</button>
+      <button data-g="80">约 80%</button>
+      <button data-g="50">约 50%</button>
+      <button data-g="10">约 10%</button>
+    </div>
+    <div class="after">已记住你的选择。往下走——答案会在实验里自己浮现。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>别用百分比想，用「人数」想</h2>
+  <p>这道题的标准工具是贝叶斯定理，但公式是这类问题直觉崩坏的原因，不是解药。真正的解药是<span class="term">natural frequencies</span>（自然频率）：把所有百分比翻译成「1000 个人里有几个」，答案会自己走出来。</p>
+  <div class="formula">想象 1000 个被筛查的人：<br>① 患病的：1000 × 1% = <b>10 人</b> → 其中测出阳性的约 <b>9 人</b>（90% 灵敏度）<br>② 健康的：990 人 → 其中被误报阳性的约 <b>89 人</b>（9% 假阳性率）<br><br>所有拿到阳性报告的人 = 9 + 89 = <b>98 人</b><br>其中真正患病的 = 9 人 → 9 ÷ 98 ≈ <b>9.2%</b></div>
+  <p>阳性之后的真实患病概率不到 10%。直觉错在哪？<b>它忘了问「阳性的人都是从哪来的」</b>。因为健康人群的基数（990 人）远大于患病人群（10 人），即便误报率只有 9%，误报的<b>绝对人数</b>（89 人）也轻松碾压真阳性（9 人）。这就是<span class="term">base rate neglect</span>（基础率忽视）：我们盯着检测的准确率，却忽略了疾病本身有多罕见。</p>
+  <p>一句话版本：<b>检测的准确率描述的是「患病的人会怎样」，而你想知道的是「阳性的我怎样」——这是两个方向相反的条件概率。</b></p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>亲手拧一拧这三个旋钮</h2>
+  <p>下面是 1000 个被筛查的人。拖动滑块，观察一件事：<b>决定「阳性到底可不可怕」的，往往不是检测多准，而是病有多罕见。</b></p>
+
+  <div class="lab" data-print-note="（交互实验的在线版本可拖动参数；打印版展示默认场景：患病率 1%、灵敏度 90%、假阳性率 9% → 真阳性 9 人、假阳性 89 人、PPV ≈ 9.2%）">
+    <div class="lab-head">
+      <span class="t">Population of 1000 · 千人图</span>
+      <span class="presets">
+        <button data-p="1,90,9">乳腺癌筛查</button>
+        <button data-p="0.1,99,1">罕见病</button>
+        <button data-p="10,95,5">高危人群</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>患病率 prevalence <b id="vPrev">1.0%</b></label>
+          <input type="range" id="prev" min="0.1" max="20" step="0.1" value="1">
+        </div>
+        <div class="sl">
+          <label>灵敏度 sensitivity（患病者被测出的比例）<b id="vSens">90%</b></label>
+          <input type="range" id="sens" min="50" max="100" step="1" value="90">
+        </div>
+        <div class="sl">
+          <label>假阳性率 false positive rate（健康者被误报的比例）<b id="vFpr">9.0%</b></label>
+          <input type="range" id="fpr" min="0.5" max="30" step="0.5" value="9">
+        </div>
+      </div>
+
+      <div class="grid1000" id="grid" aria-label="一千人图标阵列"></div>
+      <div class="legend">
+        <span class="tp"><i></i>患病且阳性（真阳性）</span>
+        <span class="fn"><i></i>患病但漏检</span>
+        <span class="fp"><i></i>健康却误报（假阳性）</span>
+        <span><i></i>健康且阴性</span>
+      </div>
+
+      <div class="readout">
+        <div class="ppv">
+          <div class="n" id="ppv">9.2%</div>
+          <div class="l">阳性报告持有者中<br>真正患病的比例（PPV）</div>
+        </div>
+        <div class="posbar-box">
+          <div class="l">只看拿到阳性报告的人：</div>
+          <div class="posbar"><span class="tp" id="barTp"></span><span class="fp" id="barFp"></span></div>
+          <div class="posbar-nums"><span id="nTp">真阳性 9 人</span><span id="nFp">假阳性 89 人</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>三个预设各讲一件事：<b>「罕见病」</b>预设里检测已经准到 99%/1%，阳性后的患病概率依然只有一成左右——罕见程度碾压了准确率；切到<b>「高危人群」</b>，同样的检测，PPV 立刻跳到七成——这就是为什么医生会先问家族史和症状再开检查：<b>先验概率不同，同一份阳性报告的含义完全不同</b>。这也是「第二次独立复检为什么有效」的原理：第一次阳性把你从 1% 的人群挪进了 9% 的人群，第二次检测是在新的基础率上做的。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>连医生自己也答错</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Gigerenzer 团队 · 医生概率素养调查</div>
+    <div class="case-body">
+      <p>心理学家 Gerd Gigerenzer 团队多年间向欧美的执业医生提出与本章开头几乎相同的乳腺癌筛查问题（以百分比形式表述）。结果反复稳定地出现：</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">~90%</div><div class="l">相当一部分医生给出的答案</div></div>
+        <div class="stat"><div class="n good">~10%</div><div class="l">正确答案的量级</div></div>
+        <div class="stat"><div class="n good">大幅改善</div><div class="l">把题目改写成自然频率后的答对率</div></div>
+      </div>
+      <p>这个案例的两层教训：第一，<b>概率直觉的失灵与专业训练无关</b>——医生每天和检测打交道，依然系统性地混淆两个方向的条件概率。第二，也是更有希望的一层：错误主要出在<b>表述格式</b>上。同一道题，从百分比改写成「1000 人中有几人」，答对率显著上升。这正是本书通篇采用自然频率的原因——它不是简化，它是把问题翻译回大脑能处理的格式。</p>
+      <div class="src">来源：Gigerenzer et al., "Helping Doctors and Patients Make Sense of Health Statistics", Psychological Science in the Public Interest, 2007；及 Gigerenzer《Calculated Risks》。数字为量级概括，实验细节见原文；图与交互为本书原创。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>把实验里的「罕见病」预设手算一遍：患病率 0.1%、灵敏度 99%、假阳性率 1%。阳性后真正患病的概率是多少？</summary>
+      <div class="answer">
+        <p>用 10 万人算更顺：患病 100 人，其中 99 人测出阳性；健康 99,900 人，其中约 999 人被误报。阳性总数 ≈ 99 + 999 = 1098 人，真患病的 99 人 → 99 ÷ 1098 ≈ <b>9%</b>。</p>
+        <p>注意这个反直觉的对称：检测已经好到 99%/1%，但病也罕见到了 0.1%——两边同时变好一个量级，PPV 几乎不动。<b>罕见度和准确率是在打对台的</b>。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「这个检测 90% 准确，所以我阳性了就有 90% 概率患病」——这句话到底把哪两个概率搞混了？</summary>
+      <div class="answer">
+        <p>它把 P(阳性 | 患病)（灵敏度：患病的人测出阳性的概率）当成了 P(患病 | 阳性)（PPV：阳性的人真患病的概率）。两者方向相反，数值可以天差地别——正如「会中文的人大多是中国人」不等于「中国人大多会中文」在逻辑上是两回事（虽然这个例子里恰好都成立，患病检测里就不成立了）。</p>
+        <p>这个混淆有个专名：<span class="term">confusion of the inverse</span>（逆条件混淆）。它在法庭上的版本叫检察官谬误——<a href="2-3-prosecutor.html">2.3 章</a>我们会看到它如何真的把无辜者送进监狱。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某罕见病（患病率 0.05%）有了一种不错的检测。A 方案：全民普筛；B 方案：只对有症状或家族史的人群（该人群中患病率约 5%）检测。从「一份阳性报告的信息价值」角度，哪个方案更合理？为什么？</summary>
+      <div class="answer">
+        <p><b>B 更合理。</b>全民普筛时基础率极低，阳性报告里绝大多数是假阳性——每一份阳性都会触发焦虑、复检甚至有创检查，而其中真正患病的可能不足百分之几。先用症状和家族史把人群筛到 5% 患病率，同一个检测的 PPV 会高出一个量级。</p>
+        <p>这就是「检测前概率」（pre-test probability）在临床决策里的地位：<b>检查的价值不取决于检查本身，取决于你把它用在谁身上。</b>（现实的筛查政策还要权衡漏检代价、疾病可干预性等因素，本题只讨论信息价值这一维。）</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>第一次阳性后，你做了第二次独立检测，又是阳性。此时该怎么更新？用自然频率走一遍（沿用 1% / 90% / 9% 的设定）。</summary>
+      <div class="answer">
+        <p>第一次阳性后，你所在的「新人群」是那 98 个阳性者，其中 9 人患病——患病率从 1% 更新到约 9.2%。第二次检测在这 98 人上重演：9 名患者中约 8 人再次阳性；89 名健康者中约 8 人再次误报。两次都阳性的约 16 人中，患者约 8 人 → 概率更新到约 <b>50%</b>。</p>
+        <p>这就是贝叶斯更新的链式结构：<b>上一轮的后验，就是下一轮的先验。</b>每一份独立证据都把你在人群里「搬家」一次。也请注意前提是「独立」——如果第二次检测和第一次错在同一个原因上（比如同一种体质引发的误报），第二次阳性的信息量会大打折扣。<a href="2-2-bayes-update.html">2.2 章</a>展开。</p>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<nav class="next">
+  <span><a href="1-3-expected-value.html">← 1.3 期望值</a></span>
+  <span><a href="../index.html">目录</a></span>
+  <span><a href="2-2-bayes-update.html">2.2 贝叶斯更新的日常化 →</a></span>
+</nav>
+
+</div>
+
+<script src="../assets/theme.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/labs/2-1-medical-test.js"></script>
+</body>
+</html>
