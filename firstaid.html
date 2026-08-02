@@ -12,18 +12,330 @@
 <button class="theme-toggle" type="button" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
   <span class="moon" aria-hidden="true">🌙</span><span class="sun" aria-hidden="true">☀️</span>
 </button>
+
 <div class="wrap">
+
 <header class="ch">
-  <div class="kicker">Appendix 附录</div>
-  <h1>附录 B 直觉急救卡</h1>
-  <div class="meta"><span>本页<b>建设中</b></span></div>
+  <div class="dotrow" aria-hidden="true">
+    <i class="s"></i><i></i><i class="a"></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i class="s"></i><i></i><i></i><i class="a"></i>
+  </div>
+  <div class="kicker">Appendix B · 附录 B</div>
+  <h1>Intuition First-Aid Cards
+    <span class="zh">直觉急救卡</span>
+  </h1>
+  <div class="meta"><span>共 <b>37 张</b></span><span><b>可打印</b></span><span>覆盖 <b>全部 17 章</b></span></div>
 </header>
+
 <section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <p>骨架阶段占位页，将在全部章节完成后从各章抽取生成。</p>
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Appendix B · First-Aid Cards</span></div>
+  <h2>37 张卡片，一页纸带走</h2>
+  <p>全书每一个谬误压缩成三行：<b>它叫什么 → 症状长什么样 → 一句话解药</b>。右下角的链接回到讲透它的那一章。</p>
+  <div class="callout k">
+    <p style="margin:0"><b>打印说明：</b>这一页是按打印优化的——直接用浏览器打印（Ctrl/Cmd + P）即可得到一份强制浅色、卡片不跨页断开的速查表。建议贴在你需要做判断的地方：会议室、交易屏旁边、或者写周报的桌角。</p>
+  </div>
+  <div class="cards">
+  <div class="fcard">
+    <div class="nm">基础率忽视</div>
+    <div class="en">base rate neglect</div>
+    <div class="sym"><b>症状：</b>听到「这个检测 99% 准确」，就觉得阳性等于确诊。</div>
+    <div class="fix"><b>解药：</b>先问「1000 个人里，本来有几个？」——罕见的东西，误报的绝对人数能轻松压过真阳性。</div>
+    <a class="ref" href="chapters/2-1-medical-test.html">→ 2.1 医疗检测悖论</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">合取谬误</div>
+    <div class="en">conjunction fallacy</div>
+    <div class="sym"><b>症状：</b>细节越多的故事听起来越可信：「他是程序员，而且爱爬山」比「他是程序员」更像真的。</div>
+    <div class="fix"><b>解药：</b>每加一个「而且」，概率只会变小，不会变大。子集装不下母集。</div>
+    <a class="ref" href="chapters/0-1-intro.html#case">→ 0 导读</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">估测语言歧义</div>
+    <div class="en">words of estimative probability</div>
+    <div class="sym"><b>症状：</b>「应该没问题」「很有可能」——说的人和听的人心里的数字差着两三倍。</div>
+    <div class="fix"><b>解药：</b>把词翻译成数字：「十次里有几次？」或者「赔率多少你才觉得公平？」</div>
+    <a class="ref" href="chapters/1-1-what-is-probability.html#case">→ 1.1 概率是什么</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把收敛当成纠偏</div>
+    <div class="en">law-of-large-numbers misread</div>
+    <div class="sym"><b>症状：</b>以为「抛得越多越平均」意味着偏差会被补回来。</div>
+    <div class="fix"><b>解药：</b>比例收敛靠分母稀释，不靠补偿——次数差其实还会越拉越大（约按 √n 增长）。</div>
+    <a class="ref" href="chapters/1-1-what-is-probability.html#concept">→ 1.1 概率是什么</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">逆条件混淆</div>
+    <div class="en">confusion of the inverse</div>
+    <div class="sym"><b>症状：</b>听到「得流感的人 80% 会发烧」，就以为「我发烧了有 80% 是流感」。</div>
+    <div class="fix"><b>解药：</b>问自己：分母换了没有？「发烧的人」和「流感的人」是两群人，两个方向没有理由相等。</div>
+    <a class="ref" href="chapters/1-2-conditional.html#concept">→ 1.2 条件概率与独立性</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">乱相乘</div>
+    <div class="en">false independence</div>
+    <div class="sym"><b>症状：</b>把两个概率相乘算「都发生」的概率，却没检查它们独立不独立。</div>
+    <div class="fix"><b>解药：</b>按下计算器前先问：这两件事有没有可能被同一个原因同时推动？同一家庭/地点/设备中一条就别乘。</div>
+    <a class="ref" href="chapters/1-2-conditional.html#case">→ 1.2 条件概率与独立性</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">只看期望值</div>
+    <div class="en">expected-value tunnel vision</div>
+    <div class="sym"><b>症状：</b>算出期望值为正就下重注，不问最坏结果扛不扛得住。</div>
+    <div class="fix"><b>解药：</b>三连问：期望值多少？方差多大？最坏结果我扛不扛得住？第三问往往是决定性的。</div>
+    <a class="ref" href="chapters/1-3-expected-value.html#concept">→ 1.3 期望值</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">返奖率当中奖率</div>
+    <div class="en">payback vs hit rate</div>
+    <div class="sym"><b>症状：</b>「返奖率 50%，买两注该中一注」——把总额比例当成了中奖频率。</div>
+    <div class="fix"><b>解药：</b>返奖率决定发回多少钱，奖级结构决定发给谁。两者毫不相干。</div>
+    <a class="ref" href="chapters/1-3-expected-value.html#quiz">→ 1.3 期望值</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">同源证据重复计数</div>
+    <div class="en">double-counting evidence</div>
+    <div class="sym"><b>症状：</b>好几条线索都指向同一个结论，于是信心爆棚——却没发现它们来自同一个源头。</div>
+    <div class="fix"><b>解药：</b>问：如果第一条已经知道了，第二条还能新增多少信息？一屋子人同意，可能只因为都读了同一篇报道。</div>
+    <a class="ref" href="chapters/2-2-bayes-update.html#quiz">→ 2.2 贝叶斯更新</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把「没找到」当「不存在」</div>
+    <div class="en">absence-of-evidence overreach</div>
+    <div class="sym"><b>症状：</b>搜过了没发现，就当作已经排除。</div>
+    <div class="fix"><b>解药：</b>按你找得有多认真打个折：漏检率 50% 的搜索只把概率砍一半，永远不该归零。</div>
+    <a class="ref" href="chapters/2-2-bayes-update.html#case">→ 2.2 贝叶斯更新</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">无信息量的「证据」</div>
+    <div class="en">likelihood ratio ≈ 1</div>
+    <div class="sym"><b>症状：</b>一句听起来很准的话让你改变了判断，可它对谁都成立。</div>
+    <div class="fix"><b>解药：</b>问：如果结论是反的，我还会看到这条吗？答「大概也会」就扔掉。</div>
+    <a class="ref" href="chapters/2-2-bayes-update.html#quiz">→ 2.2 贝叶斯更新</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">检察官谬误</div>
+    <div class="en">prosecutor's fallacy</div>
+    <div class="sym"><b>症状：</b>「这么巧的事，随机发生的概率只有百万分之一，所以他一定有罪。」</div>
+    <div class="fix"><b>解药：</b>那个数字回答的是「无辜的话会不会这么巧」。要定罪得问反方向，而这需要另一个基础率。</div>
+    <a class="ref" href="chapters/2-3-prosecutor.html#concept">→ 2.3 检察官谬误</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">忘了问池子多大</div>
+    <div class="en">database search effect</div>
+    <div class="sym"><b>症状：</b>在庞大数据库里搜出一个匹配者，就当成铁证。</div>
+    <div class="fix"><b>解药：</b>先算：池子里预计有几个无辜者也会匹配？500 万人 × 百万分之一 = 5 个。命中只是线索，不是结论。</div>
+    <a class="ref" href="chapters/2-3-prosecutor.html#lab">→ 2.3 检察官谬误</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">先验封闭</div>
+    <div class="en">prior closure</div>
+    <div class="sym"><b>症状：</b>「这事绝无可能」「我绝对不会错」——于是再多证据也推不动分毫。</div>
+    <div class="fix"><b>解药：</b>0 乘一百万还是 0。给自己留条缝：问「什么证据会让我改变想法？」答不上来就是先验已经钉死了。</div>
+    <a class="ref" href="chapters/2-4-conspiracy.html#concept">→ 2.4 阴谋论者的贝叶斯</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把反证解释掉</div>
+    <div class="en">explaining away</div>
+    <div class="sym"><b>症状：</b>每条反驳都能想出说法，于是每次都觉得自己又「破解」了一层。</div>
+    <div class="fix"><b>解药：</b>能解释一切的理论什么也没预测。补丁要收费：它有没有带来新的可检验预测？</div>
+    <a class="ref" href="chapters/2-4-conspiracy.html#lab">→ 2.4 阴谋论者的贝叶斯</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">「他们否认正说明是真的」</div>
+    <div class="en">denial-as-evidence</div>
+    <div class="sym"><b>症状：</b>把对方的否认当成己方论点的证据。</div>
+    <div class="fix"><b>解药：</b>没做过的人也会否认。泛泛的否认似然比≈1，毫无信息量。</div>
+    <a class="ref" href="chapters/2-4-conspiracy.html#quiz">→ 2.4 阴谋论者的贝叶斯</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">只看眼前状态，不问来历</div>
+    <div class="en">ignoring the generating process</div>
+    <div class="sym"><b>症状：</b>两个选项看上去对称，就当成等概率——不问它们各自是怎么变成现在这样的。</div>
+    <div class="fix"><b>解药：</b>概率不写在门上，写在门变成现在这样的历史里。问：这个筛选是按什么规则做的？</div>
+    <a class="ref" href="chapters/3-1-monty-hall.html#concept">→ 3.1 蒙提霍尔问题</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把自己放在中心</div>
+    <div class="en">self-centred coincidence</div>
+    <div class="sym"><b>症状：</b>「怎么这么巧」——你算的是「发生在我身上」的概率，实际发生的是「发生在任何人身上」。</div>
+    <div class="fix"><b>解药：</b>先数机会数：一共有多少对、多少次、多少人？23 人有 253 对，不是 22 对。</div>
+    <a class="ref" href="chapters/3-2-birthday.html#concept">→ 3.2 生日悖论</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">只看汇总数字</div>
+    <div class="en">Simpson's paradox</div>
+    <div class="sym"><b>症状：</b>一个汇总比例显示出巨大差距，于是直接下结论。</div>
+    <div class="fix"><b>解药：</b>问：分组之后还成立吗？合并均值是按人数加权的，分布不均就能把结论翻过来。</div>
+    <a class="ref" href="chapters/3-3-simpson.html#concept">→ 3.3 辛普森悖论</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">盲目「控制变量」</div>
+    <div class="en">bad conditioning</div>
+    <div class="sym"><b>症状：</b>听说要控制混杂因素，于是见变量就分组。</div>
+    <div class="fix"><b>解药：</b>先问这个变量在因果链的哪一段：在原因之前（混杂）要控制，在原因之后（中介/对撞）控制反而制造假象。</div>
+    <a class="ref" href="chapters/3-3-simpson.html#quiz">→ 3.3 辛普森悖论</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">不问信息的来路</div>
+    <div class="en">ignoring the information channel</div>
+    <div class="sym"><b>症状：</b>听到「已知 A」就直接算，不问「已知是怎么已知的」。</div>
+    <div class="fix"><b>解药：</b>同一句话，统计筛选出来的和随手报给你的，含义能差两个数量级。追问：这条信息是怎么到我手上的？</div>
+    <a class="ref" href="chapters/3-4-two-children.html#concept">→ 3.4 两个孩子问题</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">赌徒谬误</div>
+    <div class="en">gambler's fallacy</div>
+    <div class="sym"><b>症状：</b>连开 5 次红，觉得「该轮到黑了」。</div>
+    <div class="fix"><b>解药：</b>问一句「它凭什么记得？」——独立事件没有记忆，也没有补偿的义务。</div>
+    <a class="ref" href="chapters/4-1-gamblers-fallacy.html#concept">→ 4.1 赌徒谬误与热手</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">连号一定有原因</div>
+    <div class="en">streak overreading</div>
+    <div class="sym"><b>症状：</b>看到连中 5 球就断定「手感来了」，看到连亏 3 个月就断定「策略失效」。</div>
+    <div class="fix"><b>解药：</b>先问：纯随机的话这种连号多久出现一次？100 次抛掷里出现 7 连的概率过半。</div>
+    <a class="ref" href="chapters/4-1-gamblers-fallacy.html#lab">→ 4.1 赌徒谬误与热手</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">「没发现效应」当「没有效应」</div>
+    <div class="en">null result misread</div>
+    <div class="sym"><b>症状：</b>研究说没找到，就当作不存在。</div>
+    <div class="fix"><b>解药：</b>再问一句：尺子准吗？热手研究三十年的翻车，错的不是数据是估计量。</div>
+    <a class="ref" href="chapters/4-1-gamblers-fallacy.html#case">→ 4.1 赌徒谬误与热手</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把回归均值当成疗效</div>
+    <div class="en">regression to the mean</div>
+    <div class="sym"><b>症状：</b>「整治之后指标改善了」「骂完他就进步了」——挑的正是最差的那批。</div>
+    <div class="fix"><b>解药：</b>极端之后必然回落/回升。问：有没有同样极端、但没被干预的对照组？</div>
+    <a class="ref" href="chapters/4-2-regression-to-mean.html#concept">→ 4.2 回归均值</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">把随机的扎堆当成信号</div>
+    <div class="en">clustering illusion</div>
+    <div class="sym"><b>症状：</b>「这几例明显扎堆，肯定有原因」——心里的对照组是想象中的均匀分布。</div>
+    <div class="fix"><b>解药：</b>随机撒 537 点到 576 格，本来就有 227 格是空的、有格子挤 5 个。先算泊松基线再说。</div>
+    <a class="ref" href="chapters/4-3-clustering-illusion.html#concept">→ 4.3 聚类错觉</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">先开枪再画靶</div>
+    <div class="en">Texas sharpshooter</div>
+    <div class="sym"><b>症状：</b>发现异常之后才划定范围、提出假设，再用同一批数据证实它。</div>
+    <div class="fix"><b>解药：</b>提出假设的数据不能用来检验假设。事先划边界，用新数据验。</div>
+    <a class="ref" href="chapters/4-3-clustering-illusion.html#concept">→ 4.3 聚类错觉</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">小分母的极端值</div>
+    <div class="en">small-numbers volatility</div>
+    <div class="sym"><b>症状：</b>排行榜两端都是小单位，却被当成「最好」和「最差」的真实差异。</div>
+    <div class="fix"><b>解药：</b>分母小则波动大（约按 1/√n）。榜单两端同时看，方差就现形了。</div>
+    <a class="ref" href="chapters/4-3-clustering-illusion.html#quiz">→ 4.3 聚类错觉</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">幸存者偏差</div>
+    <div class="en">survivorship bias</div>
+    <div class="sym"><b>症状：</b>「成功的人都早起」「这批老家具真结实」——你只看到了活下来的那些。</div>
+    <div class="fix"><b>解药：</b>问三句：什么样的样本会消失？消失机制和我的问题相关吗？我能找到失败样本吗？</div>
+    <a class="ref" href="chapters/4-4-survivorship-bias.html#concept">→ 4.4 幸存者偏差</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">分子没有分母</div>
+    <div class="en">numerator without denominator</div>
+    <div class="sym"><b>症状：</b>「我们孵化出 30 家独角兽」——听起来很厉害，可一共孵化了多少家？</div>
+    <div class="fix"><b>解药：</b>任何「成功案例数」都是分子。拿不到分母和筛选规则，分子不含任何信息。</div>
+    <a class="ref" href="chapters/4-4-survivorship-bias.html#quiz">→ 4.4 幸存者偏差</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">期望值为正就下重注</div>
+    <div class="en">ignoring ruin</div>
+    <div class="sym"><b>症状：</b>「算过了，期望值是正的」——却没算下注比例会不会让你出局。</div>
+    <div class="fix"><b>解药：</b>期望值默认你能一直玩下去。破产删掉了这个前提。先问：这一注会不会让我出局？</div>
+    <a class="ref" href="chapters/5-1-utility.html#concept">→ 5.1 期望值 ≠ 好决策</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">只问方向不问仓位</div>
+    <div class="en">position sizing blindness</div>
+    <div class="sym"><b>症状：</b>确认了「这事有利」就重仓压上，从不单独考虑该押多大。</div>
+    <div class="fix"><b>解药：</b>方向错了慢慢亏，规模错了迅速归零。先问：这占我总资源的百分之几？最坏会不会出局？</div>
+    <a class="ref" href="chapters/5-2-kelly.html#concept">→ 5.2 凯利公式</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">用平均回报判断</div>
+    <div class="en">mean vs median</div>
+    <div class="sym"><b>症状：</b>宣传里的「平均收益」很漂亮，可绝大多数人拿不到。</div>
+    <div class="fix"><b>解药：</b>问中位数是多少。两者差得越远，说明结果越依赖极少数幸运儿。</div>
+    <a class="ref" href="chapters/5-2-kelly.html#quiz">→ 5.2 凯利公式</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">拿正态分布量尾部</div>
+    <div class="en">fat-tail blindness</div>
+    <div class="sym"><b>症状：</b>模型说「五个标准差、几千年一遇」，可它每隔几年就来一次。</div>
+    <div class="fix"><b>解药：</b>肥尾和正态在日常里无从分辨，差别全在尾巴。改问：如果它发生了，我还在不在？</div>
+    <a class="ref" href="chapters/5-3-fat-tails.html#concept">→ 5.3 肥尾与黑天鹅</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">用历史数据估尾部风险</div>
+    <div class="en">tail estimation from history</div>
+    <div class="sym"><b>症状：</b>十年数据里没出过事，于是认为不会出事。</div>
+    <div class="fix"><b>解药：</b>尾部的定义就是很少出现，你的样本里几乎必然缺它。而这个偏差只会让你低估，从不高估。</div>
+    <a class="ref" href="chapters/5-3-fat-tails.html#quiz">→ 5.3 肥尾与黑天鹅</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">拿集合平均当自己的账</div>
+    <div class="en">non-ergodicity</div>
+    <div class="sym"><b>症状：</b>「这个机会期望收益为正」——可那是一千个人各做一次的平均，不是你重复做的结果。</div>
+    <div class="fix"><b>解药：</b>问：这个平均是谁的平均？如果我把它重复一百次，第一百次的我还在不在？</div>
+    <a class="ref" href="chapters/5-4-when-to-ignore.html#concept">→ 5.4 最后一课</a>
+  </div>
+  <div class="fcard">
+    <div class="nm">对不可逆的事算概率</div>
+    <div class="en">irreversibility</div>
+    <div class="sym"><b>症状：</b>把「可能彻底完蛋」的选项和普通选项放在同一张期望值表里比较。</div>
+    <div class="fix"><b>解药：</b>不可逆 + 系统性 + 无法试错，三条都中就别算概率了，直接想办法把它变可逆。</div>
+    <a class="ref" href="chapters/5-4-when-to-ignore.html#concept">→ 5.4 最后一课</a>
+  </div>
+  </div>
 </section>
-<nav class="next"><span><a href="index.html">← 目录</a></span></nav>
+
+<section>
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Four Roots 四条根</span></div>
+  <h2>如果连这 37 张都嫌多</h2>
+  <p>全书的谬误都长在四条根上，每条配一个问题。<b>这四个问题不需要任何计算。</b></p>
+  <div class="cards">
+    <div class="fcard">
+      <div class="nm">① 方向对不对</div>
+      <div class="en">P(证据|假设) ≠ P(假设|证据)</div>
+      <div class="fix"><b>问：</b>分母换了没有？「阳性的人」和「患病的人」是两群人。</div>
+      <a class="ref" href="chapters/2-1-medical-test.html">→ 2.1 · 1.2 · 2.3</a>
+    </div>
+    <div class="fcard">
+      <div class="nm">② 信息哪来的</div>
+      <div class="en">the generating process</div>
+      <div class="fix"><b>问：</b>它凭什么活到我面前？谁筛的，按什么规则筛的？</div>
+      <a class="ref" href="chapters/4-4-survivorship-bias.html">→ 3.1 · 3.4 · 4.4 · 3.3</a>
+    </div>
+    <div class="fcard">
+      <div class="nm">③ 一共多少次机会</div>
+      <div class="en">count the chances first</div>
+      <div class="fix"><b>问：</b>纯随机的话，这种事多久来一次？扎堆和连号本来就是随机的常态。</div>
+      <a class="ref" href="chapters/3-2-birthday.html">→ 3.2 · 4.1 · 4.3 · 4.2</a>
+    </div>
+    <div class="fcard">
+      <div class="nm">④ 我扛不扛得住</div>
+      <div class="en">expected value is not enough</div>
+      <div class="fix"><b>问：</b>最坏情况下我还在不在？这个平均，是谁的平均？</div>
+      <a class="ref" href="chapters/5-4-when-to-ignore.html">→ 1.3 · 5.1 · 5.2 · 5.3 · 5.4</a>
+    </div>
+  </div>
+</section>
+
+<nav class="next">
+  <span><a href="glossary.html">← 附录 A 术语表</a></span>
+  <span><a href="index.html">目录</a></span>
+  <span><a href="index.html">回到目录 →</a></span>
+</nav>
+
 </div>
+
 <script src="assets/theme.js"></script>
 </body>
 </html>

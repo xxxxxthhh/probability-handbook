@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>附录 A 术语表 Glossary · 概率直觉手册</title>
+<title>附录 A 术语表 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/handbook.css">
@@ -12,18 +12,253 @@
 <button class="theme-toggle" type="button" aria-label="切换深色/浅色模式" title="切换深色/浅色模式">
   <span class="moon" aria-hidden="true">🌙</span><span class="sun" aria-hidden="true">☀️</span>
 </button>
+
 <div class="wrap">
+
 <header class="ch">
-  <div class="kicker">Appendix 附录</div>
-  <h1>附录 A 术语表 Glossary</h1>
-  <div class="meta"><span>本页<b>建设中</b></span></div>
+  <div class="dotrow" aria-hidden="true">
+    <i></i><i class="s"></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+  </div>
+  <div class="kicker">Appendix A · 附录 A</div>
+  <h1>Glossary
+    <span class="zh">术语表</span>
+  </h1>
+  <div class="meta"><span>共 <b>54 条</b></span><span>按<b>首次出现</b>排序</span><span>点链接<b>直达原文</b></span></div>
 </header>
+
 <section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <p>骨架阶段占位页，将在全部章节完成后从各章抽取生成。</p>
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Appendix A · Glossary</span></div>
+  <h2>按首次出现顺序排列</h2>
+  <p>每个词条给出英文术语、中文解释，以及它<b>首次出现的章节锚点</b>——点右侧链接可以直接跳到该概念被讲清楚的地方。全书共 54 条。</p>
+  <p style="font-size:14px;color:var(--ink-soft)">本表按术语在书中出现的先后排列，而不是按字母顺序——因为这些概念是层层搭建起来的，顺着读一遍，本身就是一次全书复习。</p>
+  <ul class="gloss">
+  <li>
+    <div class="t">natural frequencies<span>自然频率</span></div>
+    <div class="d">用「1000 人里有几人」而非百分比来表述概率的格式。分母不再隐形，贝叶斯推断被消化进叙述结构。全书方法论支柱。　<a href="chapters/0-1-intro.html#concept">→ 0.1</a></div>
+  </li>
+  <li>
+    <div class="t">base rate neglect<span>基础率忽视</span></div>
+    <div class="d">只盯着证据的强度（检测多准），忽略了事件本身的稀有程度（病多罕见）。　<a href="chapters/0-1-intro.html#concept">→ 0.1</a></div>
+  </li>
+  <li>
+    <div class="t">conjunction fallacy<span>合取谬误</span></div>
+    <div class="d">认为「A 且 B」比「A」更可能。子集不可能大于母集，错误来自用「像不像」代替「有多可能」。　<a href="chapters/0-1-intro.html#case">→ 0.1</a></div>
+  </li>
+  <li>
+    <div class="t">representativeness heuristic<span>代表性启发式</span></div>
+    <div class="d">被问概率时，大脑悄悄换成「相似度」来回答。合取谬误与随机性错觉的共同源头。　<a href="chapters/0-1-intro.html#case">→ 0.1</a></div>
+  </li>
+  <li>
+    <div class="t">frequentist<span>频率派</span></div>
+    <div class="d">把概率理解为「长期重复中出现的比例」。要求事件可重复，靠数据检验。　<a href="chapters/1-1-what-is-probability.html#concept">→ 1.1</a></div>
+  </li>
+  <li>
+    <div class="t">Bayesian<span>贝叶斯派 / 信念派</span></div>
+    <div class="d">把概率理解为「对某命题的相信程度」，可随证据更新。适用于一次性、不可重复的事件。　<a href="chapters/1-1-what-is-probability.html#concept">→ 1.1</a></div>
+  </li>
+  <li>
+    <div class="t">law of large numbers<span>大数定律</span></div>
+    <div class="d">重复次数越多，比例越接近真实概率。注意它保证的是比例收敛，不保证次数差缩小。　<a href="chapters/1-1-what-is-probability.html#concept">→ 1.1</a></div>
+  </li>
+  <li>
+    <div class="t">calibration<span>校准</span></div>
+    <div class="d">检验概率预报的方法：把所有说过「70%」的场合攒成一类，看其中真正发生的是否约七成。　<a href="chapters/1-1-what-is-probability.html#quiz">→ 1.1</a></div>
+  </li>
+  <li>
+    <div class="t">conditional probability<span>条件概率</span></div>
+    <div class="d">P(A|B)：把不满足 B 的样本划掉之后，A 所占的比例。本质是「换了个分母」。　<a href="chapters/1-2-conditional.html#concept">→ 1.2</a></div>
+  </li>
+  <li>
+    <div class="t">independence<span>独立性</span></div>
+    <div class="d">知道一个事件发生了，对另一个的概率毫无影响。只有独立时才可以把概率相乘。　<a href="chapters/1-2-conditional.html#concept">→ 1.2</a></div>
+  </li>
+  <li>
+    <div class="t">confusion of the inverse<span>逆条件混淆</span></div>
+    <div class="d">把 P(A|B) 当成 P(B|A)。医学里表现为基础率忽视，法庭上表现为检察官谬误。　<a href="chapters/1-2-conditional.html#concept">→ 1.2</a></div>
+  </li>
+  <li>
+    <div class="t">expected value<span>期望值</span></div>
+    <div class="d">把每种结果乘以出现频率再相加；等价于「玩很多次，平均每次的收支」。　<a href="chapters/1-3-expected-value.html#concept">→ 1.3</a></div>
+  </li>
+  <li>
+    <div class="t">variance<span>方差</span></div>
+    <div class="d">结果围绕平均值散开的程度。期望值相同的两个赌局，方差可以天差地别。　<a href="chapters/1-3-expected-value.html#concept">→ 1.3</a></div>
+  </li>
+  <li>
+    <div class="t">absorbing state<span>吸收态</span></div>
+    <div class="d">一旦进入就再也出不来的状态（破产）。它让「重复很多次」的前提失效，期望值随之失去意义。　<a href="chapters/1-3-expected-value.html#quiz">→ 1.3</a></div>
+  </li>
+  <li>
+    <div class="t">likelihood ratio<span>似然比</span></div>
+    <div class="d">LR = P(证据|假设真) ÷ P(证据|假设假)。一条证据的力度表；LR=1 表示毫无信息量。　<a href="chapters/2-2-bayes-update.html#concept">→ 2.2</a></div>
+  </li>
+  <li>
+    <div class="t">odds<span>赔率</span></div>
+    <div class="d">把「20% 概率」说成「1 比 4」。赔率形式下贝叶斯更新退化为乘法。　<a href="chapters/2-2-bayes-update.html#concept">→ 2.2</a></div>
+  </li>
+  <li>
+    <div class="t">prior / posterior<span>先验 / 后验</span></div>
+    <div class="d">看证据之前 / 之后的信念。上一轮的后验就是下一轮的先验。　<a href="chapters/2-2-bayes-update.html#concept">→ 2.2</a></div>
+  </li>
+  <li>
+    <div class="t">prosecutor's fallacy<span>检察官谬误</span></div>
+    <div class="d">把 P(证据|无辜) 当成 P(无辜|证据)。法庭版的逆条件混淆。　<a href="chapters/2-3-prosecutor.html#concept">→ 2.3</a></div>
+  </li>
+  <li>
+    <div class="t">defence attorney's fallacy<span>辩护律师谬误</span></div>
+    <div class="d">反向的错误：假装本案只有这一份证据，因此每个随机匹配者嫌疑均等。　<a href="chapters/2-3-prosecutor.html#quiz">→ 2.3</a></div>
+  </li>
+  <li>
+    <div class="t">database search effect<span>数据库搜索效应</span></div>
+    <div class="d">搜索的池子越大，一次「命中」携带的信息量越小。同一份证据证明力可差几千倍。　<a href="chapters/2-3-prosecutor.html#concept">→ 2.3</a></div>
+  </li>
+  <li>
+    <div class="t">Cromwell's rule<span>克伦威尔规则</span></div>
+    <div class="d">除非逻辑上不可能，否则永不给某命题 0 或 1 的概率——否则任何证据都再也推不动它。　<a href="chapters/2-4-conspiracy.html#concept">→ 2.4</a></div>
+  </li>
+  <li>
+    <div class="t">unfalsifiability<span>不可证伪性</span></div>
+    <div class="d">一个能预测任何观测结果的理论，对任何证据的似然比都是 1，因此永远学不到东西。　<a href="chapters/2-4-conspiracy.html#concept">→ 2.4</a></div>
+  </li>
+  <li>
+    <div class="t">cognitive dissonance<span>认知失调</span></div>
+    <div class="d">信念与证据冲突时的心理张力。有时不靠修改信念化解，而靠修改对证据的解释。　<a href="chapters/2-4-conspiracy.html#case">→ 2.4</a></div>
+  </li>
+  <li>
+    <div class="t">Monty Hall problem<span>蒙提霍尔问题</span></div>
+    <div class="d">三门游戏。主持人知情时换门胜率 2/3；主持人随机开门时两者各 50%。　<a href="chapters/3-1-monty-hall.html#concept">→ 3.1</a></div>
+  </li>
+  <li>
+    <div class="t">birthday problem<span>生日悖论</span></div>
+    <div class="d">23 人房间里存在同生日的概率过半。因为该数的是配对数 n(n−1)/2，不是人数。　<a href="chapters/3-2-birthday.html#concept">→ 3.2</a></div>
+  </li>
+  <li>
+    <div class="t">birthday bound<span>生日界</span></div>
+    <div class="d">撞车所需次数约为可能性总数的平方根。160 位哈希的碰撞强度只有 2^80。　<a href="chapters/3-2-birthday.html#case">→ 3.2</a></div>
+  </li>
+  <li>
+    <div class="t">collision<span>碰撞</span></div>
+    <div class="d">两个不同输入产生相同哈希值。密码学中生日界直接决定其难度。　<a href="chapters/3-2-birthday.html#case">→ 3.2</a></div>
+  </li>
+  <li>
+    <div class="t">Simpson's paradox<span>辛普森悖论</span></div>
+    <div class="d">每个分组里成立的关系，合并之后可以完全反过来。合并均值是按人数加权的。　<a href="chapters/3-3-simpson.html#concept">→ 3.3</a></div>
+  </li>
+  <li>
+    <div class="t">confounder<span>混杂因素</span></div>
+    <div class="d">同时影响「原因」与「结果」的第三个变量。它发生在原因之前，必须分组控制。　<a href="chapters/3-3-simpson.html#concept">→ 3.3</a></div>
+  </li>
+  <li>
+    <div class="t">collider<span>对撞因子</span></div>
+    <div class="d">被两个变量共同影响的结果变量。控制它反而会凭空制造出相关性。　<a href="chapters/3-3-simpson.html#quiz">→ 3.3</a></div>
+  </li>
+  <li>
+    <div class="t">sample space<span>样本空间</span></div>
+    <div class="d">一个随机情境下所有等可能结果的集合。条件概率就是在样本空间上筛格子。　<a href="chapters/3-4-two-children.html#concept">→ 3.4</a></div>
+  </li>
+  <li>
+    <div class="t">two children problem<span>两个孩子问题</span></div>
+    <div class="d">「有两个孩子，其中一个是女孩，两个都是女孩的概率？」答案取决于这条信息是怎么产生的。　<a href="chapters/3-4-two-children.html#concept">→ 3.4</a></div>
+  </li>
+  <li>
+    <div class="t">gambler's fallacy<span>赌徒谬误</span></div>
+    <div class="d">以为独立事件会「补偿」前面的偏差。大数定律靠分母稀释，不靠纠偏。　<a href="chapters/4-1-gamblers-fallacy.html#concept">→ 4.1</a></div>
+  </li>
+  <li>
+    <div class="t">hot-hand fallacy<span>热手谬误</span></div>
+    <div class="d">以为连号意味着「势头」。与赌徒谬误方向相反，病根相同：认定连号需要解释。　<a href="chapters/4-1-gamblers-fallacy.html#concept">→ 4.1</a></div>
+  </li>
+  <li>
+    <div class="t">law of small numbers<span>小数定律</span></div>
+    <div class="d">错误地期待小样本呈现出与大样本相同的规律性。　<a href="chapters/4-1-gamblers-fallacy.html#case">→ 4.1</a></div>
+  </li>
+  <li>
+    <div class="t">regression to the mean<span>回归均值</span></div>
+    <div class="d">按极端表现挑出的样本，下一次会向平均值靠拢。不是力量，是「挑选」的算术后果。　<a href="chapters/4-2-regression-to-mean.html#concept">→ 4.2</a></div>
+  </li>
+  <li>
+    <div class="t">control group<span>对照组</span></div>
+    <div class="d">同样极端但不接受干预的一组。回归均值会同时作用于两组，因而在组间比较中被抵消。　<a href="chapters/4-2-regression-to-mean.html#concept">→ 4.2</a></div>
+  </li>
+  <li>
+    <div class="t">Poisson distribution<span>泊松分布</span></div>
+    <div class="d">随机撒点时每个格子里点数的分布。它预测大量空格与少量扎堆同时存在。　<a href="chapters/4-3-clustering-illusion.html#concept">→ 4.3</a></div>
+  </li>
+  <li>
+    <div class="t">clustering illusion<span>聚类错觉</span></div>
+    <div class="d">把随机分布必然产生的扎堆误读为有原因的聚集。　<a href="chapters/4-3-clustering-illusion.html#concept">→ 4.3</a></div>
+  </li>
+  <li>
+    <div class="t">Texas sharpshooter fallacy<span>德州神枪手谬误</span></div>
+    <div class="d">先在数据里找到异常，再围绕它划定范围提出假设，然后用同一批数据「验证」。　<a href="chapters/4-3-clustering-illusion.html#concept">→ 4.3</a></div>
+  </li>
+  <li>
+    <div class="t">survivorship bias<span>幸存者偏差</span></div>
+    <div class="d">只能观察到「活下来的样本」，而筛选标准恰与研究问题相关，导致系统性误判。　<a href="chapters/4-4-survivorship-bias.html#concept">→ 4.4</a></div>
+  </li>
+  <li>
+    <div class="t">selection effect<span>选择效应</span></div>
+    <div class="d">样本进入数据集的机制本身携带信息。幸存者偏差是它最常见的一种。　<a href="chapters/4-4-survivorship-bias.html#concept">→ 4.4</a></div>
+  </li>
+  <li>
+    <div class="t">St. Petersburg paradox<span>圣彼得堡悖论</span></div>
+    <div class="d">期望值无穷大的赌局，人们却只愿出十几元。期望效用的起点。　<a href="chapters/5-1-utility.html#concept">→ 5.1</a></div>
+  </li>
+  <li>
+    <div class="t">expected utility<span>期望效用</span></div>
+    <div class="d">用效用（而非金额）的期望来做决策。财富的边际效用递减。　<a href="chapters/5-1-utility.html#concept">→ 5.1</a></div>
+  </li>
+  <li>
+    <div class="t">certainty equivalent<span>确定性等价</span></div>
+    <div class="d">让你与某个赌局无差别的那笔确定的钱。它可以为负而期望值为正。　<a href="chapters/5-1-utility.html#lab">→ 5.1</a></div>
+  </li>
+  <li>
+    <div class="t">Kelly criterion<span>凯利公式</span></div>
+    <div class="d">最大化长期增长率的下注比例 f* = (p(b+1)−1)/b；赢亏对等时即 p−q。　<a href="chapters/5-2-kelly.html#concept">→ 5.2</a></div>
+  </li>
+  <li>
+    <div class="t">median vs mean<span>中位数与均值</span></div>
+    <div class="d">右偏分布下两者可以天差地别。均值属于集合，中位数属于个人。　<a href="chapters/5-2-kelly.html#quiz">→ 5.2</a></div>
+  </li>
+  <li>
+    <div class="t">fat tails<span>肥尾</span></div>
+    <div class="d">极端事件的概率远高于正态分布的预测。中心极限定理的前提被破坏时出现。　<a href="chapters/5-3-fat-tails.html#concept">→ 5.3</a></div>
+  </li>
+  <li>
+    <div class="t">black swan<span>黑天鹅</span></div>
+    <div class="d">认知之外、冲击极大、事后被编出「本该预见」解释的罕见事件。　<a href="chapters/5-3-fat-tails.html#concept">→ 5.3</a></div>
+  </li>
+  <li>
+    <div class="t">extreme value theory<span>极值理论</span></div>
+    <div class="d">专门估计分布尾部的方法，不依赖于「见过多少次极端事件」。　<a href="chapters/5-3-fat-tails.html#quiz">→ 5.3</a></div>
+  </li>
+  <li>
+    <div class="t">ergodicity<span>遍历性</span></div>
+    <div class="d">「很多人各做一次」的平均是否等于「一个人做很多次」的结果。期望值算的永远是前者。　<a href="chapters/5-4-when-to-ignore.html#concept">→ 5.4</a></div>
+  </li>
+  <li>
+    <div class="t">ensemble average<span>集合平均</span></div>
+    <div class="d">一群人各做一次的平均结果。期望值就是它。　<a href="chapters/5-4-when-to-ignore.html#concept">→ 5.4</a></div>
+  </li>
+  <li>
+    <div class="t">time average<span>时间平均</span></div>
+    <div class="d">一个人重复做很多次后的结果。你实际经历的是这个。　<a href="chapters/5-4-when-to-ignore.html#concept">→ 5.4</a></div>
+  </li>
+  <li>
+    <div class="t">precautionary principle<span>预防原则</span></div>
+    <div class="d">面对不可逆、系统性、无法试错的风险时，直接消除风险而非计算概率。　<a href="chapters/5-4-when-to-ignore.html#concept">→ 5.4</a></div>
+  </li>
+  </ul>
 </section>
-<nav class="next"><span><a href="index.html">← 目录</a></span></nav>
+
+<nav class="next">
+  <span><a href="chapters/5-4-when-to-ignore.html">← 5.4 最后一课</a></span>
+  <span><a href="index.html">目录</a></span>
+  <span><a href="firstaid.html">附录 B 直觉急救卡 →</a></span>
+</nav>
+
 </div>
+
 <script src="assets/theme.js"></script>
 </body>
 </html>
