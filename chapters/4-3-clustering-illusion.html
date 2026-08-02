@@ -17,30 +17,232 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i class="s"></i><i></i><i></i><i></i><i></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i><i></i>
   </div>
   <div class="kicker">Part 4 · Fooled by Randomness 随机性的陷阱</div>
   <h1>4.3 The Clustering Illusion
-    <span class="zh">聚类错觉与小数定律</span>
+    <span class="zh">聚类错觉与小数定律：随机撒点本来就会扎堆</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>高</b></span>
+    <span>前置 <b><a href="3-2-birthday.html">3.2 生日悖论</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>把 537 枚炸弹随机撒在 576 个街区上</h2>
+  <p>想象把 <b>537</b> 个点完全随机地撒在一张分成 <b>576 个格子</b>的地图上。平均下来每格差不多一个点。</p>
+  <p class="big">你觉得会有多少个格子<b>一个点都没有</b>？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="20">很少，20 个上下</button>
+      <button data-g="60">60 个左右</button>
+      <button data-g="130">130 个左右</button>
+      <button data-g="230">230 个左右</button>
+    </div>
+    <div class="after">押好了。答案是最后一个——<b>约 227 个格子是空的，接近四成。</b>同时还会有格子挤进 4 个、5 个点。这个「本该均匀却坑坑洼洼」的画面，是本章全部麻烦的来源。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>随机不等于均匀</h2>
+
+  <p>这是本书最需要反复强调的一句话，因为它和日常语感正好相反：<b>「随机分布」不是「摊得很平」，恰恰相反，随机分布必然会扎堆。</b></p>
+
+  <p>原因很简单：<b>每个点落在哪里，都不知道别的点落在了哪里。</b>它们之间没有任何「互相避让」的机制。要让点摊得很平，反而需要一种排斥力——而那正是<b>不随机</b>的表现。</p>
+
+  <p>把 537 个点撒进 576 个格子，每格的点数服从<span class="term">Poisson distribution</span>（泊松分布），平均值 λ = 537 ÷ 576 ≈ 0.93：</p>
+
+  <table class="data">
+    <tr><th>一格里落了几个点</th><th>预计有多少格</th></tr>
+    <tr><td>0 个（完全空白）</td><td class="s">227 格</td></tr>
+    <tr><td>1 个</td><td>211 格</td></tr>
+    <tr><td>2 个</td><td>99 格</td></tr>
+    <tr><td>3 个</td><td>31 格</td></tr>
+    <tr><td>4 个</td><td>7 格</td></tr>
+    <tr><td>5 个及以上</td><td class="s">约 1.6 格</td></tr>
+  </table>
+
+  <p><b>近四成的格子是空的，同时还有几个格子挤了 4 到 5 个点。</b>如果你看着这张图，很容易得出两个结论：「这几片区域被系统性地避开了」和「那个格子明显是重点目标」。<b>两个结论都是错的，而图上的一切都是纯随机产生的。</b></p>
+
+  <h3>小数定律：以为小样本也该「像」大样本</h3>
+  <p>这个错误有个名字，来自 Tversky 和 Kahneman：<span class="term">law of small numbers</span>（小数定律，戏仿「大数定律」）。它指的是<b>人们错误地期待小样本呈现出和大样本一样的规律性</b>。</p>
+  <p>大数定律是真的：撒 <b>5000 万</b>个点，每格的点数会非常接近平均值，图看起来是均匀的。但撒 537 个点时，每格只有大约 1 个的期望，<b>随机波动的相对幅度极大</b>——平方根定律在这里生效（<a href="1-1-what-is-probability.html">1.1 章</a>）：期望 1 个的格子，波动幅度也是 1 个的量级，也就是 100%。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>推论极其实用：越小的单位，越容易出现极端值。</b>全国癌症发病率最高的县和最低的县，往往都是<b>人口很少的小县</b>——不是因为那里有什么特殊之处，而是因为分母小，随机波动大。同理，「最好的学校」和「最差的学校」的榜单里，小规模学校会双双超额出现。<b>看到一份「极端排行榜」，先问一句：分母有多大？</b></p>
+  </div>
+
+  <h3>德州神枪手：先开枪，再画靶</h3>
+  <p>还有一层错误，比看错图更隐蔽。<span class="term">Texas sharpshooter fallacy</span>（德州神枪手谬误）说的是这样一个人：他朝谷仓墙上胡乱开了一梭子，然后走过去，<b>在弹孔最密集的地方画上靶心</b>，宣称自己百发百中。</p>
+  <p>现实中的版本是：<b>先在数据里找到一处异常，再围绕这处异常划定范围、提出假设，然后用同一批数据来「验证」它。</b></p>
+  <p>为什么这必然出错？因为<b>你没有事先指定要看哪里</b>。一个国家有几千个乡镇、几十种癌症、几十年时间跨度——<b>组合数是天文数字</b>（这正是 <a href="3-2-birthday.html">3.2 章</a>那个「先数一数一共有多少次机会」）。在这么多组合里找不出几个「显著异常」，才是真正需要解释的怪事。</p>
+  <p><b>唯一的解法：假设必须用另一批独立数据来检验。</b>发现异常的那批数据只能用来<b>提出</b>假设，不能同时用来<b>检验</b>假设。这条规则在科学上叫预注册，在日常生活里叫「先说好你要看什么」。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>哪一张是随机撒的？</h2>
+  <p>下面两张图撒了同样多的点。<b>一张是真随机（每个点独立地随便落），另一张是「均匀」的</b>（先摊到网格上再小幅抖动——正是人手画「随机」时的做法）。</p>
+  <p><b>先用眼睛判断哪张是真随机的，再点按钮揭晓。</b>多数人会选错，因为真随机那张看起来「太有规律了」。</p>
+
+  <div class="lab" data-print-note="（在线版可反复重撒、调节点数。打印版展示默认场景：537 个点撒进 24×24 = 576 格，对应二战伦敦 V-1 落点的数据规模。真随机那张有 232 格完全空白（泊松理论预测 226.7 格）、最密的一格挤了 5 个点，整张计数分布与 λ=0.93 的泊松分布高度吻合；「均匀」那张只有 39 格空白、537 格恰好各 1 个点，没有任何一格超过 1 个。人眼通常判定后者「更随机」——而它恰恰是人为摊平的。完整计数对照见下方表格。）">
+    <div class="lab-head">
+      <span class="t">Scatter Generator · 撒点生成器</span>
+      <span class="presets">
+        <button data-p="537">二战伦敦（537）</button>
+        <button data-p="200">稀疏（200）</button>
+        <button data-p="1200">密集（1200）</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>撒多少个点（地图共 576 格）<b id="vPoints">537 个点</b></label>
+          <input type="range" id="sPoints" min="100" max="1500" step="10" value="537">
+        </div>
+      </div>
+
+      <div class="readout">
+        <div>
+          <p style="font-weight:500;margin-bottom:4px">图甲</p>
+          <div class="chart"><svg id="dotsA" viewBox="0 0 288 288" role="img" aria-label="点图甲"></svg></div>
+        </div>
+        <div>
+          <p style="font-weight:500;margin-bottom:4px">图乙</p>
+          <div class="chart"><svg id="dotsB" viewBox="0 0 288 288" role="img" aria-label="点图乙"></svg></div>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:14px">
+        <button class="btn" type="button" id="gA">我猜「甲」是真随机</button>
+        <button class="btn" type="button" id="gB">我猜「乙」是真随机</button>
+        <button class="btn ghost" type="button" id="respread">重撒一次</button>
+      </div>
+      <p style="font-size:14.5px" id="verdict"></p>
+
+      <div class="readout three" style="margin-top:16px">
+        <div class="bignum"><div class="n s" id="nEmpty">232 格</div><div class="l">真随机图里完全空白的格子</div></div>
+        <div class="bignum"><div class="n a" id="nMax">5 个</div><div class="l">最挤的一格里有几个点</div></div>
+        <div class="bignum"><div class="n" id="nLam">0.93</div><div class="l">每格平均点数 λ</div></div>
+      </div>
+
+      <table class="data" id="histTable"></table>
+    </div>
+  </div>
+
+  <p>看那张计数表的中间两列：<b>真随机图的实际计数，和泊松分布的理论预测几乎逐行对得上</b>。而「均匀」图那一列完全是另一副样子——空格极少，也几乎没有一格挤到 3 个以上。</p>
+  <p>这就是本章最实用的一条：<b>当有人说「这个分布不可能是随机的，你看它明显扎堆」时，他心里的对照组通常是那张「均匀」图，而不是真随机图。</b>把两张图并排放一次，很多「异常聚集」的说法就自己散了。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>伦敦人以为德军在精确瞄准</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>R. D. Clarke · V-1 飞弹落点的泊松检验, 1946</div>
+    <div class="case-body">
+      <p>1944 年，德军开始用 V-1 飞弹轰炸伦敦。这种早期巡航导弹的制导极其粗糙，理论上落点应当接近随机。</p>
+      <p>但伦敦市民不这么认为。<b>落点在地图上明显是成团的</b>：有些街区被反复击中，有些区域却毫发无损。于是流言四起——有人说德军掌握了精确的瞄准技术，有人说完好的区域里住着德国间谍，所以被刻意避开。这些猜测影响了民众的疏散决策。</p>
+      <p>战后，英国精算师 R. D. Clarke 用一个漂亮的方法回答了这个问题。他把伦敦南部一片区域划成 <b>576 个</b>各 0.25 平方公里的方格，数出总共 <b>537 次</b>命中，然后把每格的命中次数和<b>泊松分布</b>的预测放在一起比：</p>
+      <table class="data">
+        <tr><th>一格被击中几次</th><th>实际格数</th><th>泊松分布预测</th></tr>
+        <tr><td>0 次</td><td>229</td><td>226.74</td></tr>
+        <tr><td>1 次</td><td>211</td><td>211.39</td></tr>
+        <tr><td>2 次</td><td>93</td><td>98.54</td></tr>
+        <tr><td>3 次</td><td>35</td><td>30.62</td></tr>
+        <tr><td>4 次</td><td>7</td><td>7.14</td></tr>
+        <tr><td>5 次及以上</td><td>1</td><td>1.57</td></tr>
+        <tr class="total"><td>合计</td><td>576</td><td>576.0</td></tr>
+      </table>
+      <div class="stats">
+        <div class="stat"><div class="n good">高度吻合</div><div class="l">实际分布与泊松预测</div></div>
+        <div class="stat"><div class="n bad">229 格</div><div class="l">一次没被击中——正是「被刻意避开」的传言来源</div></div>
+        <div class="stat"><div class="n good">无需瞄准</div><div class="l">数据不支持存在精确制导</div></div>
+      </div>
+      <p><b>吻合得几乎逐行对齐。</b>结论是：落点的聚集完全符合纯随机撒点的预期，<b>没有任何证据表明德军在精确瞄准</b>。那 229 个「幸运街区」不是因为住着间谍，而是因为随机撒 537 个点到 576 个格子里，本来就该有两百多个格子空着。</p>
+
+      <h3>同一个错误，今天叫「癌症村」</h3>
+      <p>这个故事的现代版本每年都在上演。某个社区发现「短时间内出现了好几例癌症」，居民自然怀疑附近的工厂、基站或水源。这类担忧完全可以理解，而且<b>有时候是对的</b>——历史上确实有过被证实的环境污染致病事件。</p>
+      <p>但从统计上看，绝大多数「癌症聚集」经不起检验。医生兼作家 Atul Gawande 在 1999 年为《纽约客》撰写的一篇文章里梳理过这个现象：美国各州卫生部门每年收到大量癌症聚集的报告并展开调查，而<b>能够最终确认存在特定环境原因的极少</b>。原因正是本章讲的两件事叠加：<b>随机撒点必然成团</b>，加上<b>德州神枪手</b>——聚集是先被注意到、再被划定边界的。</p>
+      <div class="callout">
+        <p style="margin:0"><b>这一节需要小心措辞，因为它很容易被读成冷漠。</b>说「大多数癌症聚集是统计假象」，<b>不等于</b>说「居民的担忧是愚蠢的」，更不等于「不必调查」。恰恰相反：正确的做法是<b>调查，但用正确的方法调查</b>——事先划定边界、用独立数据检验、和恰当的基线比较。<b>本章反对的不是警惕，而是「用发现异常的同一批数据去证实这个异常」。</b>随机会制造出看起来像信号的东西，这既意味着不该轻信，也意味着不该在没查之前就下结论。</p>
+      </div>
+      <div class="src">来源：R. D. Clarke, "An application of the Poisson distribution", Journal of the Institute of Actuaries, Vol. 72, 1946, p. 481（表中数据即该文所载）。癌症聚集的讨论见 Atul Gawande, "The Cancer-Cluster Myth", The New Yorker, 1999 年 2 月 8 日；确认率的表述为该文及后续公共卫生文献的量级概括，各州统计口径不一。小数定律见 Tversky &amp; Kahneman, "Belief in the Law of Small Numbers", Psychological Bulletin, 1971。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>某疾病的年发病率是每 10 万人 5 例。一个 2000 人的村庄，一年内出现了 <b>2 例</b>。这是异常吗？</summary>
+      <div class="answer">
+        <p>期望值：2000 × 5/100000 = <b>0.1 例</b>。出现 2 例看起来是期望的 20 倍，非常吓人。</p>
+        <p>用泊松分布算这个村庄一年内出现至少 2 例的概率（λ = 0.1）：</p>
+        <p>P(0 例) = e⁻⁰·¹ ≈ 0.905；P(恰好 1 例) ≈ 0.0905 → <b>P(至少 2 例) ≈ 0.47%</b>。</p>
+        <p>单独看，确实很罕见——大约两百分之一。<b>但这正是德州神枪手的陷阱。</b>关键的下一问是：<b>全国有多少个这样规模的村庄？</b></p>
+        <p>假设有 <b>20 万个</b>，那么纯随机之下，一年里预计有 20 万 × 0.47% ≈ <b>940 个村庄</b>会出现「至少 2 例」。<b>你听说的这一个，几乎肯定是从那 940 个里被报道出来的。</b></p>
+        <p><b>正确的做法：</b>不要问「这个村庄的概率是多少」，而要问「<b>全国范围内，这种程度的聚集本来预计会出现多少次</b>」。如果答案是几百次，那这一次就不构成证据。真正值得警惕的是：同一个村庄<b>接下来几年继续</b>出现（用新数据检验），或者聚集程度远超随机预期（比如 2000 人里出现 15 例）。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么「全国癌症发病率最高的县」和「最低的县」，往往都是小县？这个现象和 <a href="4-2-regression-to-mean.html">4.2 章</a>的回归均值有什么关系？</summary>
+      <div class="answer">
+        <p><b>因为小县的分母小，随机波动的相对幅度大。</b>一个 1000 人的县，多两例少两例就能让发病率翻倍或减半；一个 100 万人的县，几乎不可能偏离基准值太多。所以排行榜的<b>两端</b>都会被小县占据——它们不是特别健康或特别危险，只是特别<b>不稳定</b>。</p>
+        <p>这正是 <a href="1-1-what-is-probability.html">1.1 章</a>那个平方根定律：相对波动约按 1/√n 缩小。n 小，波动就大。</p>
+        <p><b>与回归均值的关系：这两件事是同一枚硬币的两面。</b>4.2 章讲的是「按极端表现挑出来的样本，下次会回落」；这里讲的是「极端表现更容易出现在小样本里」。合起来就是：<b>排行榜顶端富集了小样本，而小样本的极端值主要来自噪声，所以明年它们会掉下去。</b></p>
+        <p>这有一个著名的现实后果：一些教育改革项目曾观察到「小规模学校的成绩表现最好」，据此投入巨资推动学校小型化。<b>但如果同时去看成绩最差的学校，会发现它们同样是小规模学校</b>——真正的规律不是「小学校更好」，而是「小学校方差更大」。<b>只看榜单一端，就会把方差误读成均值。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>你的团队上线了新功能，第二周某个地区的活跃度突然涨了 40%。产品经理认为是新功能在那个地区特别受欢迎，打算加大投入。你会说什么？</summary>
+      <div class="answer">
+        <p><b>第一问：一共看了多少个格子？</b>如果你们的看板同时切了 30 个地区 × 10 个指标 × 每周对比，那就是每周 300 次比较的机会。在纯噪声下，其中出现几个「涨了 40%」是必然的——这是 <a href="3-2-birthday.html">3.2 章</a>的机会数问题，也是德州神枪手。</p>
+        <p><b>第二问：那个地区的基数有多大？</b>如果它是个小地区，40% 的波动可能只对应几十个用户。<b>先看绝对数，再看百分比。</b>大区涨 5% 往往比小区涨 40% 更有信息量。</p>
+        <p><b>第三问：其他地区呢？</b>如果只报告了涨得最多的那个，你看到的是被筛选过的极值。<b>要求看完整的分布</b>——所有地区的变化画成一张图，那个 40% 是孤零零的离群点，还是分布右尾里自然的一员？</p>
+        <p><b>怎么做才对：</b>把它当成<b>假设</b>而不是<b>结论</b>。事先声明「我们预测该地区下两周将持续高于基线 X%」，然后用<b>新数据</b>检验。如果能持续，才值得投入；如果第三周就退回去了，那是 <a href="4-2-regression-to-mean.html">4.2 章</a>的回归均值，你差点为噪声掏钱。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>如果随机撒点必然扎堆，那我们到底还能不能识别出真正的「异常聚集」？请给出一套可操作的判断流程。</summary>
+      <div class="answer">
+        <p><b>当然能——Clarke 用的就是这个方法，只不过他的结论恰好是「没有异常」。</b>关键在于把「随机会产生什么」量化出来，作为对照。流程如下：</p>
+        <p><b>① 先算基线。</b>纯随机之下，这种聚集程度预计出现多少次？这需要泊松分布（或更贴合场景的模型），以及诚实的「一共看了多少个格子」。</p>
+        <p><b>② 事先划定边界。</b>范围、时间窗、疾病类型必须在看数据之前定好。<b>让数据自己划边界，就是在画靶心。</b>Clarke 的方格是按地理均匀划分的，不是围着弹坑画的。</p>
+        <p><b>③ 用独立数据检验。</b>发现异常的那批数据只能提出假设。检验必须用<b>另一段时间</b>或<b>另一个地区</b>的数据。这一条是整套流程里最不可妥协的。</p>
+        <p><b>④ 找机制。</b>统计上的聚集只是线索，真正的确认需要一条可检验的因果通路：什么物质？什么暴露途径？剂量反应关系存在吗？<b>没有机制的关联，永远只是待检验的假设。</b></p>
+        <p><b>⑤ 权衡两类错误的代价。</b>这一条最容易被统计学训练所忽略。<b>把真实污染当成噪声（漏报），和把噪声当成污染（误报），代价是不对称的</b>，而且随场景变化。如果嫌疑污染源可以低成本地检测，那就该去测——即便统计证据不足。<b>「证据不足以定论」和「不必采取行动」是两回事</b>，这也正是 <a href="5-4-when-to-ignore.html">5.4 章</a>要展开的预防原则。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="4-2-regression-to-mean.html">← 4.2 回归均值：骂完之后变好，不是骂的功劳</a></span>
+  <span><a href="4-2-regression-to-mean.html">← 4.2 回归均值</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="4-4-survivorship-bias.html">4.4 幸存者偏差：看不见的那一半数据 →</a></span>
+  <span><a href="4-4-survivorship-bias.html">4.4 幸存者偏差 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/4-3-clustering-illusion.js"></script>
 </body>
 </html>
