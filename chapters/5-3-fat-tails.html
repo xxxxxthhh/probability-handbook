@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5.3 肥尾与黑天鹅：正态分布什么时候骗人 · 概率直觉手册</title>
+<title>5.3 肥尾与黑天鹅 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,237 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="s"></i>
   </div>
-  <div class="kicker">Part 5 · Risk & Decisions 风险与决策</div>
-  <h1>5.3 Fat Tails & Black Swans
-    <span class="zh">肥尾与黑天鹅：正态分布什么时候骗人</span>
+  <div class="kicker">Part 5 · Risk &amp; Decisions 风险与决策</div>
+  <h1>5.3 Fat Tails &amp; Black Swans
+    <span class="zh">肥尾与黑天鹅：为什么「百年一遇」总在遇</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="1-3-expected-value.html">1.3 期望值</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>一天跌掉 22.6%</h2>
+  <p>1987 年 10 月 19 日，星期一。道琼斯工业指数在<b>一个交易日内下跌 22.6%</b>。</p>
+  <p>如果股市的日涨跌幅服从<b>正态分布</b>（当时绝大多数风险模型的标准假设），按那个年代的典型日波动率算，这是一次约 <b>22 个标准差</b>的事件。</p>
+  <p class="big">按正态分布，这样的一天大约多久出现一次？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="100">一百年一遇</button>
+      <button data-g="10000">一万年一遇</button>
+      <button data-g="1e9">十亿年一遇</button>
+      <button data-g="never">远远超过宇宙年龄</button>
+    </div>
+    <div class="after">押好了。答案是最后一个，而且不是勉强超过——<b>大约是宇宙年龄的 10¹⁰⁰ 倍。</b>可它就是发生了，而且距今不到四十年。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>正态分布的尾巴掉得太快了</h2>
+
+  <p>正态分布（钟形曲线）在描述很多东西时非常好用——身高、体重、测量误差。它的尾部按 e^(−x²/2) 衰减，<b>掉得极快</b>：</p>
+
+  <table class="data">
+    <tr><th>偏离幅度</th><th>正态分布下多久一遇（按每年 252 个交易日）</th></tr>
+    <tr><td>3 个标准差</td><td>约 1 年</td></tr>
+    <tr><td>4 个标准差</td><td>约 63 年</td></tr>
+    <tr><td>5 个标准差</td><td>约 <b>6,900 年</b></td></tr>
+    <tr><td>6 个标准差</td><td>约 <b>200 万年</b></td></tr>
+    <tr><td>8 个标准差</td><td>约 <b>3 万亿年</b>（宇宙年龄的两百多倍）</td></tr>
+  </table>
+
+  <p>看这张表你会得出一个结论：<b>5 个标准差以上的事情基本不可能发生。</b>而这个结论在金融市场、地震、洪水、战争伤亡、流行病、城市规模、图书销量上——<b>全都是错的</b>。</p>
+
+  <p>这些领域的分布有<span class="term">fat tails</span>（肥尾）：<b>极端事件的概率，比正态分布预测的高出几个数量级。</b></p>
+
+  <h3>肥尾从哪来</h3>
+  <p>正态分布不是凭空来的，它来自中心极限定理，而那个定理有前提：<b>大量、独立、影响力相当的小因素叠加</b>。三个词，每一个在现实中都经常不成立：</p>
+  <p>· <b>不独立。</b>市场恐慌时所有人同时抛售，因为他们互相看着对方。<a href="1-2-conditional.html">1.2 章</a>那个「有没有共同原因」在这里变成了系统性风险。</p>
+  <p>· <b>影响力不相当。</b>一家银行倒闭可以拖垮整个体系。当单个因素能主导全局时，加和不再趋向正态。</p>
+  <p>· <b>存在正反馈。</b>下跌触发平仓，平仓造成进一步下跌。<b>正反馈是肥尾最常见的制造机。</b></p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>最危险的地方在于：肥尾和正态在「日常」里几乎无法区分。</b>两条分布曲线在中间部分高度重合——你收集一年的日常数据做检验，看不出任何异常。<b>区别只在尾巴上，而尾巴的定义就是「很少出现」。</b>于是模型可以在长达数年的时间里表现得完美无缺，然后在某一天一次性失效。下面的实验会让你亲眼看到这种「日常无破绽」。</p>
+  </div>
+
+  <h3>黑天鹅：三个特征</h3>
+  <p>Nassim Taleb 用<span class="term">black swan</span>（黑天鹅）指称这样一类事件，它有三个特征：<b>①</b> 在既有认知之外，极为罕见；<b>②</b> 一旦发生，冲击极大；<b>③</b> 事后被人们编造出一套「本来就该预见到」的解释。</p>
+  <p>第三条最值得警惕，因为它<b>阻止我们从中学习</b>——把一次「模型本身错了」的事件，解释成「这次是特殊情况」，于是模型被保留了下来，等着下一次。<b>这正是 <a href="2-4-conspiracy.html">2.4 章</a>那个「解释掉反证」的机制，只是换了个体面的场合。</b></p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>把尾巴调厚，看日常有没有变化</h2>
+  <p>下面两条曲线：<b>灰线是正态分布，青绿线是肥尾分布</b>（用学生 t 分布代表，自由度越小尾越厚；两者都已把标准差归一化到 1，所以「几个标准差」是可比的）。<b>纵轴是对数刻度</b>——不然尾部在图上完全看不见，而尾部正是全部的问题所在。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动尾部厚度。打印版展示默认场景：肥尾用自由度 ν=4 的标准化 t 分布。一次 5 个标准差的事件，正态分布说约 6,900 年一遇，肥尾说约 2 年一遇，相差约 3,700 倍；6 个标准差：正态约 201 万年 vs 肥尾约 4 年；8 个标准差：正态约 3.2 万亿年 vs 肥尾约 11 年。而两条密度曲线在 ±2 个标准差以内几乎完全重合——日常数据看不出任何区别。切到 ν=30 时肥尾曲线几乎与正态重合，切到 ν=2.5 则尾部进一步抬高。完整对照见下方表格。）">
+    <div class="lab-head">
+      <span class="t">Tail Comparison · 正态 vs 肥尾</span>
+      <span class="presets">
+        <button data-p="30">几乎是正态</button>
+        <button data-p="4">肥尾</button>
+        <button data-p="2.5">极端肥尾</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>尾部厚度（t 分布自由度 ν，越小尾越厚）<b id="vNu">4.0</b></label>
+          <input type="range" id="sNu" min="2.2" max="30" step="0.1" value="4">
+        </div>
+      </div>
+
+      <div class="chart">
+        <svg id="tailChart" viewBox="0 0 600 230" role="img" aria-label="正态分布与肥尾分布的密度对比（对数纵轴）">
+          <line x1="58" y1="14" x2="58" y2="194" class="axis"></line>
+          <line x1="58" y1="194" x2="586" y2="194" class="axis"></line>
+          <text x="52" y="18" text-anchor="end">1</text>
+          <text x="52" y="104" text-anchor="end">10⁻⁴</text>
+          <text x="52" y="198" text-anchor="end">10⁻⁹</text>
+          <text x="58" y="214">0σ</text>
+          <text x="234" y="214" text-anchor="middle">2σ</text>
+          <text x="410" y="214" text-anchor="middle">4σ</text>
+          <text x="586" y="214" text-anchor="end">6σ</text>
+          <polyline id="normLine" class="line n" points=""></polyline>
+          <polyline id="fatLine" class="line k" points=""></polyline>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i></i>正态分布</span>
+        <span class="k"><i></i>肥尾分布</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nNorm5">6,900 年一遇</div><div class="l">5σ 事件<br>正态分布说</div></div>
+        <div class="bignum"><div class="n s" id="nFat5">2 年一遇</div><div class="l">5σ 事件<br>肥尾说</div></div>
+        <div class="bignum"><div class="n a" id="nRatio5">3,700 倍</div><div class="l">差多少倍</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+
+      <table class="data" id="tailTable"></table>
+    </div>
+  </div>
+
+  <p>请注意曲线的形状：<b>在 ±2 个标准差以内，两条线几乎叠在一起。</b>这意味着如果你只看日常数据——一年、两年、甚至十年的常规波动——<b>你根本无法分辨自己身处哪个世界。</b></p>
+  <p>而右边呢？到了 5σ 的位置，两条线已经差了三个数量级。<b>正态模型会告诉你「这辈子不用担心」，而真实世界里它每隔几年就来一次。</b></p>
+  <p>把滑块从 30 拖到 2.2，盯着表格最后一行（8σ）：从「三万亿年一遇」一路变成「几年一遇」。<b>尾部厚度这一个参数的微小变化，可以让极端事件的频率改变十几个数量级——而它对日常统计量（均值、标准差）几乎没有影响。</b>这就是为什么用历史波动率去估计尾部风险，是一件系统性危险的事。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>黑色星期一，以及两位诺奖得主的基金</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>1987 年 10 月 19 日 · 与 LTCM, 1998</div>
+    <div class="case-body">
+
+      <h3>第一幕：一个不该发生的星期一</h3>
+      <p>1987 年 10 月 19 日，道琼斯工业指数单日下跌 <b>508 点</b>，跌幅 <b>22.6%</b>，标普 500 下跌约 20.5%。这是该指数历史上最大的单日百分比跌幅，至今未被超越。</p>
+      <p>按当时通行的正态分布假设，以那个年代的典型日波动率计算，这是一次二十多个标准差的事件。它的概率有多小？</p>
+      <div class="formula">正态分布下 P(|X| &gt; 22.6σ) ≈ <b>4 × 10⁻¹¹³</b><br><br>
+      换算成频率：约每 <b>10¹¹⁰ 年</b>出现一次<br>
+      而宇宙的年龄约为 <b>1.4 × 10¹⁰ 年</b><br><br>
+      → 约为宇宙年龄的 <b>10¹⁰⁰ 倍</b></div>
+      <p><b>当一个模型给出这样的数字，而事件确实发生了，唯一理性的结论是：模型错了。</b>不是「遇到了极小概率事件」，而是「这个概率算错了好几百个数量级」。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">−22.6%</div><div class="l">道指单日跌幅（1987.10.19）</div></div>
+        <div class="stat"><div class="n bad">10⁻¹¹³</div><div class="l">正态分布给出的概率</div></div>
+        <div class="stat"><div class="n good">模型错了</div><div class="l">唯一站得住的结论</div></div>
+      </div>
+      <p>值得说明的是，这一天的成因至今仍有争论——程序化交易（尤其是「组合保险」策略的自动卖出）、流动性枯竭、市场结构问题都被认为起了作用。<b>而这些成因本身正好解释了肥尾的来源：它们都是正反馈机制。</b>下跌触发程序卖出，卖出造成进一步下跌——「独立小因素叠加」的前提在那一天彻底崩塌了。</p>
+
+      <h3>第二幕：十一年后，同样的教训</h3>
+      <p>1994 年成立的长期资本管理公司（LTCM）是当时华尔街最耀眼的对冲基金，合伙人中包括 <b>Myron Scholes</b> 与 <b>Robert Merton</b>——两人在 1997 年因期权定价理论获得诺贝尔经济学奖。基金前几年的回报极为可观。</p>
+      <p>它的策略高度依赖历史数据估计出的相关性与波动率，并使用了很高的杠杆。1998 年，俄罗斯债务违约引发全球市场动荡，<b>那些历史上几乎从不同时发生的事情，同时发生了</b>——各类资产的相关性一起跳向 1，分散化在最需要它的时刻失效。</p>
+      <p>基金在不到四个月里损失约 <b>46 亿美元</b>。由于它与几乎所有大型金融机构都有交易对手关系，纽约联邦储备银行出面组织了一场由十余家机构参与的、约 <b>36 亿美元</b>的注资接管，以避免连锁反应。</p>
+      <div class="callout">
+        <p style="margin:0"><b>LTCM 的教训不是「他们不懂数学」——恰恰相反，他们是当时地球上最懂的一批人。</b>问题出在别处：<b>他们的模型用历史数据估计尾部，而历史数据里恰恰缺少尾部事件</b>（这也是 <a href="4-4-survivorship-bias.html">4.4 章</a>幸存者偏差的一个变体——你的样本里没有那些「还没发生过的灾难」）。再加上高杠杆，把 <a href="5-2-kelly.html">5.2 章</a>「仓位过大」的问题推到了极致。<b>正确的模型 + 过大的仓位 = 灾难；而他们的模型还不完全正确。</b></p>
+      </div>
+      <div class="src">来源：1987 年 10 月 19 日行情数据见美国证券交易委员会《The October 1987 Market Break》报告（1988）及 Brady Commission 报告（1988）。LTCM 事件见 Roger Lowenstein《When Genius Failed》(2000)，及纽约联邦储备银行相关公开说明；亏损额与注资额为公开报道的量级数字。肥尾与黑天鹅的论述见 Nassim Nicholas Taleb《The Black Swan》(2007) 与 Benoit Mandelbrot 关于金融市场分形结构的早期工作（1963 年起）。1987 年当日的标准差倍数取决于所用波动率窗口，本节按当时典型日波动率量级估算，属量级概括。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么说「用历史数据估计尾部风险」是一件系统性危险的事？</summary>
+      <div class="answer">
+        <p><b>因为尾部事件的定义就是「很少出现」，所以你的历史样本里几乎必然缺少它们。</b></p>
+        <p>假设某类事件真实频率是「每 50 年一次」。你手上有 10 年数据，那么<b>大概率一次都没见过</b>。基于这份数据，你的模型会得出「这种事不会发生」的结论——而且它在统计上完全「拟合良好」，因为数据里确实没有反例。</p>
+        <p><b>更糟的是这个偏差的方向是固定的：它总是让你低估风险，从不高估。</b>数据里缺失的永远是极端值那一侧，而不是中间。这和 <a href="4-4-survivorship-bias.html">4.4 章</a>的结构完全一致——你看不见的那部分，恰恰是最要命的那部分。</p>
+        <p><b>那该怎么办？三条实务路径：</b></p>
+        <p><b>① 扩大样本的范围而非长度。</b>看别的国家、别的市场、别的时代发生过什么。你没经历过的事，别人经历过。</p>
+        <p><b>② 用尾部本身的规律外推。</b>极值理论提供了一套专门估计尾部的方法，它不依赖于「见过多少次极端事件」，而是从分布形状外推。</p>
+        <p><b>③ 承认估不准，转而做压力测试。</b>不问「这有多大概率」，改问「如果它发生了，我还活着吗」。<b>这是本章最实用的一条，也是通往 <a href="5-4-when-to-ignore.html">5.4 章</a>的桥。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">计算题</span>某风控模型说「单日亏损超过 5% 的概率是万分之一」。运行三年（约 750 个交易日）后，这种情况出现了 <b>3 次</b>。模型有问题吗？</summary>
+      <div class="answer">
+        <p><b>用泊松分布算</b>（<a href="4-3-clustering-illusion.html">4.3 章</a>的工具）。若模型正确，750 天里的期望次数 λ = 750 × 0.0001 = <b>0.075 次</b>。</p>
+        <p>P(出现 3 次或以上) = 1 − P(0) − P(1) − P(2)</p>
+        <p>P(0) = e^(−0.075) ≈ 0.9277；P(1) ≈ 0.0696；P(2) ≈ 0.0026</p>
+        <p>→ P(≥3) ≈ <b>0.0066%</b>，约<b>一万五千分之一</b>。</p>
+        <p><b>结论：模型几乎肯定有问题。</b>观测到的频率是模型预测的 40 倍（3/750 = 0.4% vs 0.01%），而这个偏离在模型正确的假设下几乎不可能出现。</p>
+        <p><b>但要小心一个常见的错误反应：</b>很多机构在这种时候会说「这三次都是特殊事件——一次是政策突变，一次是黑天鹅，一次是流动性问题」，然后<b>把它们剔除，保留模型</b>。这正是 <a href="2-4-conspiracy.html">2.4 章</a>那个「把反证解释掉」的动作，穿着风控的外衣。<b>如果每一次超限都能找到理由剔除，那这个模型就永远不会被证伪。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>哪些领域适合用正态分布，哪些必须警惕肥尾？给一个判断的方法。</summary>
+      <div class="answer">
+        <p><b>适合正态的：单个个体的物理属性。</b>身高、体重、血压、测量误差、生产件的尺寸偏差。这些量有<b>物理上限</b>，而且个体之间基本独立——没有一个人的身高会因为别人长高而变化。</p>
+        <p><b>必须警惕肥尾的：财富、城市规模、书籍销量、地震能量、战争伤亡、传染病规模、网络流量、公司市值。</b></p>
+        <p><b>一个非常好用的判断方法（Taleb 提出的版本）：想象抽 1000 个样本，然后问——「一个样本能不能显著改变总和？」</b></p>
+        <p>· 随机找 1000 个人量身高，再加进一个全世界最高的人：总和几乎不变，均值挪动不到千分之一。<b>→ 正态世界。</b></p>
+        <p>· 随机找 1000 个人统计财富，再加进一位世界首富：<b>总和可能翻好几倍，均值面目全非。</b><b>→ 肥尾世界。</b></p>
+        <p><b>这个测试之所以有效，是因为它直接检验了中心极限定理的「影响力相当」前提。</b>一旦单个样本能主导总和，加和就不再趋向正态，「平均值」这个概念本身也开始失去意义。</p>
+        <p>一条推论值得记住：<b>在肥尾世界里，「平均」是个危险的词。</b>平均收入、平均回报、平均损失——这些数字都可能被极少数样本主导，从而既不描述典型情况，也不稳定。<a href="5-2-kelly.html">5.2 章</a>那个「中位数 vs 均值」的分裂，就是这件事的一个具体实例。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>如果尾部风险根本无法准确估计，那我们还能做什么？</summary>
+      <div class="answer">
+        <p>这是整个 Part 5 收束的地方。答案是：<b>把问题从「估准概率」换成「设计出不依赖概率估计的应对」。</b>四条具体的路径：</p>
+        <p><b>① 关注后果，而不是概率。</b>不问「这有多大可能发生」，改问「<b>如果发生了，我还在不在</b>」。前者需要一个你估不准的数，后者只需要你诚实。这个转换是本章最重要的一句话。</p>
+        <p><b>② 控制暴露规模。</b>这是 <a href="5-2-kelly.html">5.2 章</a>的直接应用：只要单次损失不会让你出局，尾部估错也不会致命。<b>仓位控制之所以珍贵，正是因为它不需要你知道真实概率。</b></p>
+        <p><b>③ 追求冗余而非效率。</b>现代系统的优化目标通常是效率——零库存、高杠杆、单一供应商。<b>而这些优化恰恰是把缓冲垫抽掉的过程。</b>冗余在正常时期看起来是浪费，它的全部价值都体现在尾部事件中；正因如此，它总是最先被砍掉的东西。</p>
+        <p><b>④ 分辨可逆与不可逆。</b>可以试错的事情，尽管去试——试错本身就是获取尾部信息的方式。<b>不可逆的事情，必须用完全不同的标准对待</b>，因为一次错误就没有下一次了。</p>
+        <p>这四条有一个共同点：<b>它们都不要求你知道尾部有多厚。</b>它们承认「估不准」这个前提，然后在这个前提下寻找仍然稳健的做法。<b>而最后一章要讲的，正是这个思路推到底之后的样子——什么时候，你应该完全不看概率。</b></p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="5-2-kelly.html">← 5.2 凯利公式的直觉版：下注比例比方向更要命</a></span>
+  <span><a href="5-2-kelly.html">← 5.2 凯利公式的直觉版</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="5-4-when-to-ignore.html">5.4 概率素养的最后一课：什么时候该忽略概率 →</a></span>
+  <span><a href="5-4-when-to-ignore.html">5.4 概率素养的最后一课 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/5-3-fat-tails.js"></script>
 </body>
 </html>
