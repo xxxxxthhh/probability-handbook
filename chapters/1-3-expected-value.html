@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1.3 期望值：彩票是智商税，保险为什么不是 · 概率直觉手册</title>
+<title>1.3 期望值 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,23 +17,210 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="a"></i><i></i><i></i><i></i><i></i><i class="s"></i><i></i><i></i><i></i><i></i><i></i><i class="a"></i>
   </div>
   <div class="kicker">Part 1 · The Language of Chance 概率的语言</div>
   <h1>1.3 Expected Value
     <span class="zh">期望值：彩票是智商税，保险为什么不是</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>中</b></span>
+    <span>前置 <b><a href="1-1-what-is-probability.html">1.1</a> · <a href="1-2-conditional.html">1.2</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>两个都是亏本买卖</h2>
+  <p>彩票和保险有一个共同点，而且这个共同点不是秘密：<b>它们的期望值对你来说都是负的</b>。彩票公司要留奖池管理费和公益金，保险公司要付理赔之外的员工工资和利润——长期来看，两边你都是净流出。</p>
+  <p class="big">既然两个都是负期望值，为什么「买彩票是智商税」几乎是共识，而「买保险是智商税」听起来就很荒谬？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="a">保险的期望值其实没那么负</button>
+      <button data-g="b">因为保险是刚需，彩票不是</button>
+      <button data-g="c">因为两者改变的是<br>结果的分布形状</button>
+      <button data-g="d">其实买保险也是智商税</button>
+    </div>
+    <div class="after">押好了。这道题的答案会引出本书后半程最重要的一个概念——所以本章不只是教你算一个平均数。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>期望值：把所有结局按出现频率摊平</h2>
+
+  <p><span class="term">expected value</span>（期望值，简称 EV）的定义只有一句话：<b>把每种可能的结果乘以它出现的频率，全部加起来。</b>用自然频率讲更顺——它就是「玩很多很多次，平均每次的收支」。</p>
+
+  <div class="formula">某彩票：每注 2 元，中奖概率 1/1000，奖金 1000 元。<br><br>玩 <b>1000 注</b>：花掉 2000 元，其中大约 <b>1 注</b>中奖，拿回 1000 元。<br>净收支 = 1000 − 2000 = <b>−1000 元</b><br>摊到每注 = −1000 ÷ 1000 = <b>每注亏 1 元</b><br><br>换句话说：<b>每投入 2 元，长期只能拿回 1 元。返奖率 50%。</b></div>
+
+  <p>这就是「智商税」这个说法的算术根据：你每次掏 2 块钱，买到的东西的长期价值是 1 块钱。而且注意——<b>这个结论和你选什么号码、买多少注、坚持多少年都没有关系</b>。多买只会让实际结果更贴近这个平均值（这正是<a href="1-1-what-is-probability.html">大数定律</a>），不会让平均值变好。</p>
+
+  <h3>那保险呢？算一遍</h3>
+  <p>保险的算术其实一模一样，只是符号方向反过来：</p>
+  <div class="formula">某重疾险：年保费 5000 元，保额 50 万元，年发病率 0.6%。<br><br>1000 个投保人：交上去 500 万元，其中约 <b>6 人</b>出险，赔出 300 万元。<br>对投保人整体：净流出 <b>200 万元</b>，摊到每人 <b>每年亏 2000 元</b>。<br><br>期望值同样是负的，而且亏得比彩票那注还多。</div>
+
+  <p><b>可你不会因此觉得买保险是傻事。</b>为什么？因为期望值把一件极其重要的事情丢掉了：<b>它只看平均数，完全不看结果的分布形状。</b></p>
+
+  <h3>方差登场：同一个平均数，两种命运</h3>
+  <p>比较这两个局面，它们的期望值完全相同（都是 0）：</p>
+  <div class="formula"><b>局面甲：</b>不管怎样，你都拿到 0 元。<br><b>局面乙：</b>一半概率赚 100 万，一半概率亏 100 万。</div>
+  <p>期望值这个工具会告诉你「两者一样」。而任何一个正常人都知道它们完全不一样。差别在<span class="term">variance</span>（方差）——结果围绕平均值散开的程度。局面甲方差为零，局面乙方差巨大。</p>
+
+  <p>现在可以回答开头那道题了。<b>彩票和保险都是负期望值，但它们对方差做的事情正好相反：</b></p>
+  <p>· <b>彩票在给你增加方差</b>。你花 2 块钱，买来一个「绝大多数情况下什么也没有、极小概率暴富」的分布。它把你的财务结果摊得更开。</p>
+  <p>· <b>保险在给你削减方差</b>。你花 5000 块钱，买来一个「不会因为一场大病而彻底破产」的分布。它把最坏的那条尾巴剪掉了。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>一句话版本：</b>你为彩票支付的是「方差溢价」，你为保险支付的也是方差溢价——只不过一个是买进方差，一个是卖出方差。<b>买保险不是在追求收益，是在花钱买掉一个你承受不起的结局。</b>至于「承受不起」为什么值得花钱去消除，那是 <a href="5-1-utility.html">5.1 章</a>（期望效用与破产吸收态）的主题。这也是本书从 Part 1 通往 Part 5 的那根主线。</p>
+  </div>
+
+  <p>所以判断一个赌局好不好，光算期望值远远不够。你至少要问三个问题：<b>期望值是多少？方差有多大？以及——最坏的结果我扛不扛得住？</b>第三个问题往往才是决定性的。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>玩一万注，看看钱包</h2>
+  <p>下面这个模拟器每注 2 元，你可以调中奖概率、奖金和注数。青绿色的曲线是你的<b>实际钱包余额</b>，虚线是<b>期望值给出的理论轨迹</b>。默认参数（1/1000 中奖、奖 1000 元、玩 10000 注）下：理论上应该亏 <b>1 万元</b>；这一轮固定种子的手气略好，中了 <b>12 次</b>（理论上该中 10 次），实际亏 <b>8,000 元</b>。<b>手气好了两成，方向依然毫无悬念。</b></p>
+
+  <div class="lab" data-print-note="（在线版可调整三个滑块、反复重玩。打印版展示默认场景：每注 2 元、中奖概率 1/1000、奖金 1000 元、玩 10000 注。返奖率 50%，每注期望 −1 元，理论终值 −10,000 元；固定种子下实际中奖 12 次、实际终值 −8,000 元。曲线形状为长期缓慢下滑、被 12 次向上跳变打断——这就是彩票的典型钱包形状。切到「绝对公平」预设（奖金 2000 元、每注期望 0）时，同一轮的实际终值是 +4,000 元而非 0，这正是方差的体现。）">
+    <div class="lab-head">
+      <span class="t">Wallet Curve · 钱包曲线模拟器（每注 2 元）</span>
+      <span class="presets">
+        <button data-p="1000,1000,10000">典型彩票</button>
+        <button data-p="1000,2000,10000">绝对公平</button>
+        <button data-p="1000,3000,10000">庄家犯错时</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>中奖概率 <b id="vOdds">1 / 1,000</b></label>
+          <input type="range" id="sOdds" min="100" max="5000" step="100" value="1000">
+        </div>
+        <div class="sl">
+          <label>中一次的奖金 <b id="vPrize">1,000 元</b></label>
+          <input type="range" id="sPrize" min="200" max="6000" step="100" value="1000">
+        </div>
+        <div class="sl">
+          <label>玩多少注 <b id="vDraws">10,000 注</b></label>
+          <input type="range" id="sDraws" min="1000" max="30000" step="1000" value="10000">
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn ghost" type="button" id="replay">再玩一轮（换随机种子）</button>
+        <span class="hint">默认画面用固定种子，正文里的数字就是你现在看到的数字。</span>
+      </div>
+
+      <div class="chart">
+        <svg id="walletChart" viewBox="0 0 600 250" role="img" aria-label="钱包余额随注数变化的折线图，与期望值理论线对比">
+          <line x1="62" y1="12" x2="62" y2="220" class="axis"></line>
+          <line id="zeroLine" x1="62" y1="20" x2="588" y2="20" class="gridline"></line>
+          <text id="yTop" x="56" y="16" text-anchor="end">0</text>
+          <text id="yMid" x="56" y="120" text-anchor="end">0</text>
+          <text id="yBot" x="56" y="220" text-anchor="end">0</text>
+          <line id="evLine" x1="62" y1="20" x2="588" y2="200" class="ref"></line>
+          <polyline id="walletLine" class="line k" points=""></polyline>
+          <text x="62" y="240">第 1 注</text>
+          <text x="588" y="240" text-anchor="end">最后一注</text>
+        </svg>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n s" id="nEv">−1.00 元</div><div class="l">每注期望值</div></div>
+        <div class="bignum"><div class="n" id="nPayback">50%</div><div class="l">返奖率<br>（投入 1 元拿回多少）</div></div>
+        <div class="bignum"><div class="n" id="nWins">12 次</div><div class="l">这一轮的中奖次数</div></div>
+      </div>
+      <div class="readout" style="margin-top:14px">
+        <div class="bignum"><div class="n" id="nTheory">−1.0 万 元</div><div class="l">期望值算出的理论终值</div></div>
+        <div class="bignum"><div class="n s" id="nReal">−8,000 元</div><div class="l">这一轮的实际终值</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p>三个预设讲一个完整的故事。<b>「典型彩票」</b>里曲线是一条被几次向上跳变打断的下滑线——那几次跳变就是你中奖的时刻，它们让人记忆深刻，却完全不足以扭转趋势。切到<b>「绝对公平」</b>（奖金翻倍到 2000 元，每注期望值恰好为 0），曲线开始围着水平线上下游荡：<b>它并不会稳稳停在 0</b>——这一轮的实际终值是 <b>+4,000 元</b>。期望值为零不代表结果为零，这就是方差。</p>
+  <p>最值得玩的是<b>「庄家犯错时」</b>：奖金 3000 元，每注期望值变成 +1 元，曲线一路向上，这一轮终值 <b>+1.6 万元</b>。<b>这不是幻想——真实世界里出现过这种局面，而且真的有人算出来了。</b>下面就是那个案子。</p>
+  <p>还有一个实验值得做：把注数滑块拖到最小（1000 注），反复点「再玩一轮」。你会看到实际终值有时离理论线很远；再拖到最大（30000 注），实际值就被牢牢摁在理论线附近。<b>期望值是一个关于「玩很多次」的承诺，玩得少的时候它对你几乎没有约束力。</b></p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>当彩票的期望值真的变成正数</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Massachusetts Cash WinFall · 2005–2011</div>
+    <div class="case-body">
+      <p>美国马萨诸塞州曾发行一款名为 <b>Cash WinFall</b> 的彩票。它有一条与众不同的规则：当头奖累积到 <b>200 万美元</b>而当期无人中头奖时，头奖奖金不再继续滚存，而是「<b>向下分配</b>」（roll-down）——按比例灌进二等奖、三等奖等较低奖级里。</p>
+      <p>后果是：在 roll-down 发生的那一期，低奖级的赔付额被大幅抬高。有人算了一笔账，发现在这样的期次里，<b>每张 2 美元彩票的期望值超过了 2 美元</b>——期望值由负转正。</p>
+      <p>至少三个团队独立发现了这件事并开始系统性买入，其中包括一个源自麻省理工学院的学生团队、一个来自东北大学的团队，以及一位密歇根州的退休夫妇。他们的做法并不神秘：在 roll-down 期次集中买入大量彩票，把方差用「买得足够多」摊平，让实际结果向正的期望值收敛——正是你在上面那个模拟器里拖动注数滑块时看到的效果。</p>
+      <div class="stats">
+        <div class="stat"><div class="n good">&gt; 2 美元</div><div class="l">roll-down 期次里每张 2 美元彩票的期望值</div></div>
+        <div class="stat"><div class="n good">数百万美元</div><div class="l">各团队累计获利的量级</div></div>
+        <div class="stat"><div class="n bad">2012 年</div><div class="l">该玩法终止；州总督察长发布调查报告</div></div>
+      </div>
+      <p>2012 年，马萨诸塞州总督察长办公室发布调查报告，认定这些团队<b>没有作弊、也没有违反彩票规则</b>——他们只是比设计规则的人更认真地算了一遍期望值。报告批评的对象是彩票管理方：明知存在这个结构却长期未加处理。该玩法于 2012 年终止。</p>
+      <p>这个案例是本章最好的收尾，因为它同时证明了两件事。<b>第一，期望值是真东西</b>——它不是课堂上的抽象概念，算对了可以变成几百万美元。<b>第二，它需要方差作为搭档才能兑现</b>：这些团队之所以能赢，不只是因为期望值为正，更是因为他们买得足够多、本金足够厚，撑得到大数定律生效。同样的正期望值，如果你只买 10 张，大概率还是空手而归。</p>
+      <div class="callout">
+        <p style="margin:0"><b>提醒：</b>这里讲的是概率结构，不是攻略。这类结构性漏洞极其罕见、会被迅速修补，而且需要巨额本金与全职投入才可能兑现。本书不构成任何投资或博彩建议。真正该带走的是那个思维习惯：<b>看到一个赌局，先问期望值是多少，再问自己撑不撑得到期望值兑现。</b></p>
+      </div>
+      <div class="src">来源：Gregory W. Sullivan（Massachusetts Office of the Inspector General），"Letter Report: Massachusetts State Lottery Commission's Cash WinFall Game", 2012 年 7 月；相关报道见 The Boston Globe 2011 年的系列调查。获利金额为各方报道的量级概括，各团队的具体数字有出入。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>一个游戏：交 10 元入场，掷一枚公平骰子，掷出 6 就拿 50 元，否则什么也没有。期望值是多少？如果把奖金改成 60 元呢？</summary>
+      <div class="answer">
+        <p>用 600 次来算最省事：交出去 6000 元，其中约 <b>100 次</b>掷出 6，拿回 100 × 50 = 5000 元。净亏 1000 元，摊到每次 <b>−1.67 元</b>。（公式版：50 × 1/6 − 10 = 8.33 − 10 = −1.67）</p>
+        <p>奖金改成 60 元：600 次拿回 100 × 60 = 6000 元，正好打平，期望值 <b>0</b>。</p>
+        <p>值得留意第二问：期望值为 0 <b>不等于</b>「玩了等于没玩」。玩 600 次，你的实际结果会在 0 附近漂出上千元的幅度（方差不是 0）。如果你只玩 6 次，最可能的结果是一次没中、净亏 60 元——<b>期望值 0 的赌局，短期内最常见的结局是亏钱</b>，因为收益集中在少数几次大额命中上。这个不对称是理解彩票心理的关键。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>「返奖率 50% 的彩票，我买两注就能中一注回本」——这句话错在哪？</summary>
+      <div class="answer">
+        <p>它把<b>返奖率</b>和<b>中奖率</b>搞混了。返奖率 50% 的意思是「投入的钱里有一半会以奖金形式发回给全体购买者」，它<b>完全没有说</b>这些钱是怎么分给谁的。</p>
+        <p>在默认参数里，1000 注中才有 1 注中奖，奖金 1000 元——返奖率是 50%，但中奖率只有 0.1%。同样是 50% 返奖率，也可以设计成「每 2 注就有 1 注中奖、每次奖 2 元」，那才是「买两注中一注」。<b>返奖率决定的是总额，奖级结构决定的是方差。</b></p>
+        <p>现实中的彩票几乎都刻意把奖金集中在极低概率的大奖上——因为那正是它在出售的东西。<b>如果只想要 50% 的返奖率，没有人会去买彩票；人们买的是那条极细的尾巴。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>朋友说：「我有个稳赚的机会，期望值是正的，年化 15%，但有 3% 的概率会亏掉全部本金。」他打算把全部积蓄投进去。从期望值角度这是好决策吗？</summary>
+      <div class="answer">
+        <p><b>期望值为正，但这仍然可能是个糟糕的决策</b>——而且理由不在算术里。</p>
+        <p>问题出在「全部积蓄」和「亏掉全部本金」这两个词碰在一起。期望值这个工具默认了一个隐藏前提：<b>你可以重复很多次，让平均值兑现</b>。但一旦本金归零，你就出局了，没有下一次——这个状态在数学上叫<span class="term">absorbing state</span>（吸收态）。3% 听起来很小，可如果每年都赌一次，十年里至少爆一次的概率约为 26%；二十年就是 46%。</p>
+        <p>正确的问法不是「期望值正不正」，而是「<b>下多大的注</b>」。同样一个正期望值机会，投入 5% 的积蓄和投入 100% 的积蓄，是两个完全不同的决策——前者可能很划算，后者可能是灾难。<b>这就是 <a href="5-2-kelly.html">5.2 章</a>凯利公式要回答的问题：方向对了还不够，比例才是要命的那一维。</b></p>
+        <p>（本题只讨论概率结构，不构成任何投资建议。）</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>Cash WinFall 的团队靠「买得足够多」把方差摊平。为什么这一招对普通彩民完全不适用？请用本章的三个问题（期望值多少、方差多大、最坏结果扛不扛得住）分别回答。</summary>
+      <div class="answer">
+        <p><b>期望值：</b>普通期次的期望值是<b>负</b>的，买得再多也只会让你更确定地亏到那个负数上。大数定律是中立的——它让结果贴近真实期望值，不管那个值是正是负。<b>「多买摊平方差」这招只在期望值为正时才有意义，否则它是在加速你的亏损。</b></p>
+        <p><b>方差：</b>要让方差被摊平，需要的注数量级取决于奖金有多集中。头奖概率越低、奖金越集中，需要的注数就越多。WinFall 的团队之所以可行，一个关键前提是他们赚的是<b>二三等奖</b>——那些奖级的中奖概率高得多，几千张票就能让大数定律开始生效。追头奖是做不到的。</p>
+        <p><b>最坏结果：</b>他们有几十万美元的资金池，单期投入是可承受的一部分；对普通彩民来说，要买到方差被摊平的规模，投入早就超出了「输得起」的范围——而一旦输不起，前面两个问题算得再对都无关紧要了。</p>
+        <p>这三层结构（正期望值 → 足够的重复次数 → 撑得住的本金）是本书 Part 5 的核心，请记住它的形状。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="1-2-conditional.html">← 1.2 条件概率与独立性：方向反了，答案就反了</a></span>
+  <span><a href="1-2-conditional.html">← 1.2 条件概率与独立性</a></span>
   <span><a href="../index.html">目录</a></span>
   <span><a href="2-1-medical-test.html">2.1 医疗检测悖论 →</a></span>
 </nav>
@@ -42,5 +229,6 @@
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/1-3-expected-value.js"></script>
 </body>
 </html>
