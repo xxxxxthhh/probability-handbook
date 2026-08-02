@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5.2 凯利公式的直觉版：下注比例比方向更要命 · 概率直觉手册</title>
+<title>5.2 凯利公式的直觉版 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,252 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i></i><i class="a"></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i></i>
   </div>
-  <div class="kicker">Part 5 · Risk & Decisions 风险与决策</div>
+  <div class="kicker">Part 5 · Risk &amp; Decisions 风险与决策</div>
   <h1>5.2 The Kelly Criterion, Intuitively
     <span class="zh">凯利公式的直觉版：下注比例比方向更要命</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★★</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="5-1-utility.html">5.1 期望值 ≠ 好决策</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<div class="callout">
+  <p style="margin:0"><b>本章只讲概率直觉，不构成任何交易、投资或博彩建议。</b>凯利公式在现实中的应用受到诸多限制（真实胜率无法精确知道、赔率会变、结果并非独立、存在交易成本与流动性约束），本章的模拟是理想化的教学模型，不能直接套用于任何实际决策。涉及资金的决定请咨询有资质的专业人士。</p>
+</div>
+
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>一个明显有利的赌局</h2>
+  <p>有这样一个赌局，你可以反复玩 <b>200 次</b>：</p>
+  <div class="formula"><b>60%</b> 概率赢，赢了<b>翻倍</b>（押多少赚多少）<br>
+  <b>40%</b> 概率输，输了<b>本金全没</b><br><br>
+  每一注的期望值 = 0.6 × 1 − 0.4 × 1 = <b>+0.2 倍</b>，明显有利。</div>
+  <p>你有 100 元本金。<b>每一轮该押上本金的百分之几？</b></p>
+  <p class="big">凭直觉选一个：</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="100">全押，期望值为正</button>
+      <button data-g="50">押一半</button>
+      <button data-g="20">押两成</button>
+      <button data-g="5">押 5% 就好</button>
+    </div>
+    <div class="after">押好了。正确答案是 <b>20%</b>——而选「押一半」的人，在 1000 条模拟路径里有 <b>76.5% 会破产</b>，尽管每一注的期望值都是正的。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>为什么「押多少」比「押哪边」更要命</h2>
+
+  <p><a href="5-1-utility.html">5.1 章</a>末尾那条曲线已经剧透了答案：<b>它先升后降。</b>下注太少，赚得慢；下注太多，会亏——即使每一注的期望值都是正的。中间有一个最优点。</p>
+
+  <p>为什么会「亏」？因为财富是<b>连乘</b>的，不是连加的。而连乘对损失极不宽容：</p>
+
+  <div class="formula">先赚 50%，再亏 50%：<br>
+  100 → 150 → <b>75</b>　（不是 100）<br><br>
+  亏掉 50% 之后，需要赚 <b>100%</b> 才能回本。<br>
+  亏掉 90% 之后，需要赚 <b>900%</b>。</div>
+
+  <p><b>这个不对称是所有麻烦的根源。</b>下注比例越大，单次损失越深，而深的损失需要不成比例的收益才能补回来。到某个点之后，「偶尔的大亏」造成的复利伤害，会超过「经常的小赚」带来的复利收益——<b>于是长期增长率由正转负。</b></p>
+
+  <h3>凯利公式</h3>
+  <p>1956 年，贝尔实验室的 John L. Kelly Jr. 给出了那个最优点的表达式：</p>
+  <div class="formula"><b>f* = (p × (b+1) − 1) ÷ b</b><br><br>
+  f* = 该押上本金的比例　　p = 胜率　　b = 赢一次赚几倍<br><br>
+  代入本章的赌局：p = 0.6，b = 1<br>
+  f* = (0.6 × 2 − 1) ÷ 1 = <b>0.2</b>，即 <b>20%</b></div>
+
+  <p>还有一个更好记的等价形式（当 b = 1，即赢亏对等时）：</p>
+  <div class="formula"><b>f* = p − q</b>　（胜率减去败率）<br><br>
+  60% 胜率 → 0.6 − 0.4 = <b>20%</b>。<br>
+  <b>直觉版：你的优势有多大，就押多大比例。</b></div>
+
+  <p>这个公式最优化的<b>不是期望财富</b>，而是<b>财富的长期增长率</b>——也就是你实际经历的那条时间线上的复合收益。它等价于最大化 <a href="5-1-utility.html">5.1 章</a>的对数效用，这不是巧合：对数正是把连乘变成连加的那个函数。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>凯利公式回答的问题，和「这个赌局值不值得赌」是两个完全不同的问题。</b>期望值告诉你方向（该不该赌），凯利告诉你规模（赌多大）。<b>方向错了，你会慢慢亏钱；规模错了，你会迅速归零——即使方向是对的。</b>下面的实验会让你看到，同一个「有利」的赌局，规模选错就是一场灾难。</p>
+  </div>
+
+  <h3>为什么现实中几乎没人用满仓凯利</h3>
+  <p>需要立刻加上的三条限制，否则这个公式会害人：</p>
+  <p><b>① 你不知道真实的 p。</b>公式假设你精确知道胜率。现实中 p 是估计出来的，而<b>高估 p 会让你系统性地超额下注</b>——而超过凯利比例的代价是不对称的（下面实验会看到）。因此实务中常用「半凯利」等更保守的比例：增长率只损失约 25%，波动却能减半。</p>
+  <p><b>② 凯利比例下的波动大得超出多数人的承受力。</b>即便在最优比例上，路径中出现腰斩也是家常便饭。<b>一个数学上最优、但你会在半路上放弃的策略，实际上并不最优。</b></p>
+  <p><b>③ 它假设结果独立、可以无限重复。</b>现实中的机会往往相关、有限、且伴随成本。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>1000 条路径，200 轮</h2>
+  <p>每条细线是一条独立的人生：从本金 ×1 出发，走 200 轮。<b>纵轴是对数刻度</b>（财富要跨好几个数量级）。红线是破产的路径。</p>
+  <p><b>请务必盯住「中位数」和「破产率」这两个数字，而不是均值。</b>均值描述的是所有平行宇宙的平均，而你只走一条路。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动仓位、胜率与赔率。打印版展示默认场景：胜率 60%、赢了赚 1 倍、每轮押 20%（即凯利比例），1000 条路径 × 200 轮。三档仓位的结果对比——押 5%：中位数 ×6.37，破产率 0.0%；押 20%（凯利）：中位数 ×56.10，破产率 0.6%；押 50%：中位数 ×0.00（几乎全部归零），破产率 76.5%，而同一档的均值高达 ×98000。均值与中位数的这个分裂，正是本章要讲的全部内容：均值被极少数暴富路径拉高，而你走的是中位数那条。）">
+    <div class="lab-head">
+      <span class="t">Kelly Paths · 千条路径模拟</span>
+      <span class="presets">
+        <button data-p="5,60,100">保守（5%）</button>
+        <button data-p="20,60,100">凯利（20%）</button>
+        <button data-p="50,60,100">激进（50%）</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>每轮押上本金的多少 <b id="vFrac">20%</b></label>
+          <input type="range" id="sFrac" min="1" max="90" step="1" value="20">
+        </div>
+        <div class="sl">
+          <label>胜率 <b id="vWin">60%</b></label>
+          <input type="range" id="sWin" min="35" max="80" step="1" value="60">
+        </div>
+        <div class="sl">
+          <label>赔率 <b id="vOdds">赢了赚 1.00 倍</b></label>
+          <input type="range" id="sOdds" min="30" max="300" step="10" value="100">
+        </div>
+      </div>
+
+      <div class="chart">
+        <svg viewBox="0 0 600 260" role="img" aria-label="一千条财富路径的对数刻度折线图">
+          <line x1="62" y1="14" x2="62" y2="226" class="axis"></line>
+          <line x1="62" y1="226" x2="586" y2="226" class="axis"></line>
+          <text id="yTop" x="56" y="18" text-anchor="end">—</text>
+          <text id="yMid" x="56" y="120" text-anchor="end">×1</text>
+          <text x="56" y="230" text-anchor="end">归零</text>
+          <g id="pathLayer"></g>
+          <text x="62" y="248">第 1 轮</text>
+          <text x="586" y="248" text-anchor="end">第 200 轮</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i></i>活下来的路径（图中抽样 40 条）</span>
+        <span class="s"><i></i>破产的路径</span>
+        <span>横虚线 = 本金水平</span>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nMedian">×56.10</div><div class="l">中位数结局<br>（你最可能经历的）</div></div>
+        <div class="bignum"><div class="n a" id="nMean">×5.5e+3</div><div class="l">平均值<br>（被极少数路径拉高）</div></div>
+        <div class="bignum"><div class="n s" id="nRuin">0.6%</div><div class="l">破产率</div></div>
+      </div>
+      <div class="readout" style="margin-top:14px">
+        <div class="bignum"><div class="n" id="nKelly">20.0%</div><div class="l">这个赌局的凯利比例 f*</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+    </div>
+  </div>
+
+  <p>三个预设的对比，是本书最值得记住的一组数字：</p>
+  <table class="data">
+    <tr><th>每轮仓位</th><th>中位数结局</th><th>平均值</th><th>破产率</th></tr>
+    <tr><td>5%（保守）</td><td>×6.37</td><td>×7.6</td><td class="k">0.0%</td></tr>
+    <tr><td><b>20%（凯利）</b></td><td class="k"><b>×56.10</b></td><td>×5,500</td><td>0.6%</td></tr>
+    <tr><td>50%（激进）</td><td class="s">×0.00</td><td>×98,000</td><td class="s">76.5%</td></tr>
+  </table>
+  <p>请仔细看「激进」那一行。<b>它的平均值是凯利档的 18 倍，看起来遥遥领先。可它的中位数是零，而且四分之三的路径破了产。</b>那个惊人的平均值，来自极少数几条一路狂赢的路径——它们把均值单枪匹马地扛了起来，而绝大多数人走的不是那几条。</p>
+  <p><b>这就是「均值」和「你的人生」之间的鸿沟</b>，也是 <a href="5-4-when-to-ignore.html">5.4 章</a>遍历性问题的具体形态。</p>
+  <p>还有一个值得亲手做的实验：<b>把仓位从 20% 慢慢往上拖。</b>你会发现中位数在 20% 附近见顶，然后开始下滑；到 40% 左右转为亏损；再往上就是断崖。<b>而在整个过程中，每一注的期望值始终是正的，从头到尾没变过。</b>——赌局一直有利，只是你押得太多，把有利的赌局玩成了必输的赌局。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>一条信息论公式，怎么跑到赌桌上去的</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>J. L. Kelly Jr., 1956 · 与 Edward Thorp 的实践</div>
+    <div class="case-body">
+      <p>1956 年，贝尔实验室的物理学家 <b>John L. Kelly Jr.</b> 在《贝尔系统技术期刊》上发表了一篇题为《信息率的一种新解释》的论文。</p>
+      <p>有意思的是，<b>这篇论文的出发点根本不是赌博，而是信息论。</b>Kelly 的同事 Claude Shannon 刚刚建立了信息论，而 Kelly 想给「信息率」这个抽象量找一个具体的解释。他构造了一个思想实验：假设赌徒能通过一条<b>有噪声的信道</b>提前收到比赛结果，那么他的财富增长率能有多快？</p>
+      <p>答案漂亮得惊人：<b>财富的最大长期增长率，恰好等于那条信道的信息传输率。</b>而实现这个增长率的下注策略，就是按上面那个公式分配仓位。<b>「信息」和「钱」在这里被一个等式连了起来。</b></p>
+      <div class="stats">
+        <div class="stat"><div class="n good">1956</div><div class="l">Kelly 论文发表于信息论语境</div></div>
+        <div class="stat"><div class="n good">1962</div><div class="l">Thorp《Beat the Dealer》出版</div></div>
+        <div class="stat"><div class="n bad">增长率</div><div class="l">它最大化的是这个，不是期望财富</div></div>
+      </div>
+      <p>把它带到现实赌桌上的是数学家 <b>Edward Thorp</b>。1960 年代初，Thorp 证明了二十一点的算牌可以让玩家获得微小但真实的优势，随后用凯利公式来决定每一手该下多大注——<b>因为他很清楚，光有优势是不够的，下注规模决定了他能否活到优势兑现。</b>他把这套方法写成了 1962 年的畅销书《Beat the Dealer》，此后又将类似的思路用于金融市场。</p>
+      <p>Kelly 本人从未用这个公式赌过钱，他 1965 年因病去世，年仅 41 岁。</p>
+      <div class="callout">
+        <p style="margin:0"><b>关于凯利公式，学术界有过一场值得一提的争论。</b>包括 Paul Samuelson 在内的一些经济学家批评过「凯利准则是唯一理性选择」这一主张——他们指出，最大化长期增长率<b>只是众多合理目标之一</b>，它等价于假定投资者恰好具有对数效用；而一个风险偏好不同的人，选择别的比例是完全理性的。Samuelson 的批评相当尖锐，甚至写过一篇几乎全用单音节词的文章来表达。<b>这场争论至今没有定论，而它本身正是 <a href="5-1-utility.html">5.1 章</a>那句话的注脚：不存在一个对所有人都正确的效用函数。</b></p>
+      </div>
+      <p>不过有一点是各方都同意的，也是本章唯一希望你带走的：<b>下注规模是一个独立于「方向是否正确」的决策维度，而且它对长期结果的影响，往往大于方向本身。</b></p>
+      <div class="src">来源：J. L. Kelly Jr., "A New Interpretation of Information Rate", Bell System Technical Journal, Vol. 35, 1956, pp. 917–926；Edward O. Thorp,《Beat the Dealer》, 1962，及其后续关于凯利准则的论述。相关批评见 Paul A. Samuelson, "Why we should not make mean log of wealth big though years to act are long", Journal of Banking &amp; Finance, 1979。本节不构成任何交易或博彩建议。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>一个赌局：55% 概率赢，赢了赚 1 倍，输了本金全没。凯利比例是多少？如果赢了能赚 2 倍呢？</summary>
+      <div class="answer">
+        <p><b>第一问（b = 1）：</b>用简化式 f* = p − q = 0.55 − 0.45 = <b>10%</b>。</p>
+        <p><b>第二问（b = 2）：</b>f* = (p(b+1) − 1) ÷ b = (0.55 × 3 − 1) ÷ 2 = 0.65 ÷ 2 = <b>32.5%</b>。</p>
+        <p>值得注意的是<b>赔率改善带来的杠杆</b>：胜率一点没变，只是赢的时候赚得更多，最优仓位就从 10% 跳到了 32.5%，翻了三倍多。</p>
+        <p>直觉上的解释：凯利比例衡量的是<b>你的优势相对于风险的大小</b>。赔率变好时，同样的胜率带来了更大的优势，而下行风险（输掉本金）没变——于是值得押更多。<b>这也提醒一件事：在评估任何机会时，「赢面多大」和「赢了能拿多少」是两个必须分开问的问题，而人们往往只盯着前一个。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么押 50% 时平均值高达 ×98,000，中位数却是 0？这两个数字哪个更能描述「你会经历什么」？</summary>
+      <div class="answer">
+        <p><b>因为财富分布是极度右偏的。</b>200 轮之后，绝大多数路径已经归零，但极少数「运气好到离谱」的路径财富呈天文数字——比如连赢 150 轮的那条，财富是 1.5¹⁵⁰ 这个量级。<b>这一条路径足以把 1000 条路径的平均值单独扛起来。</b></p>
+        <p><b>中位数更能描述你会经历什么。</b>因为你只走一条路，而中位数正是「一半路径比它好、一半比它差」的那个分界点——它回答的是「典型情况」。均值回答的是「如果我能同时活在 1000 个平行宇宙里、并且能把财富汇总」，而这个前提对个人根本不成立。</p>
+        <p>一个更锋利的说法：<b>均值属于集合（很多人各赌一次），中位数属于个人（一个人赌很多次）。</b>只有当分布不太偏、或者你真的能把风险分散到很多独立的赌局上时，两者才接近。<b>这个区分就是遍历性问题，<a href="5-4-when-to-ignore.html">5.4 章</a>的主题。</b></p>
+        <p>顺带一句实用推论：<b>看到任何用「平均回报」宣传的东西，问一句中位数是多少。</b>两者差得越远，说明结果越依赖极少数的幸运儿。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>你估计某个机会的胜率是 60%，于是按凯利押 20%。但你的估计其实有误差，真实胜率只有 50%。会发生什么？反过来，如果真实胜率是 70% 而你只押了 20% 呢？</summary>
+      <div class="answer">
+        <p><b>高估的情况（真实 50%，你押 20%）：</b>真实的凯利比例是 f* = 0.5 − 0.5 = <b>0</b>——这个赌局根本没有优势，最优仓位是不下注。你押 20%，等于在一个零期望的赌局上反复承担波动，<b>长期增长率是负的，财富会缓慢但稳定地被磨掉</b>（因为连乘对波动的惩罚）。可以在实验里把胜率拖到 50%、仓位保持 20% 亲眼看看。</p>
+        <p><b>低估的情况（真实 70%，你押 20%）：</b>真实的凯利比例是 40%，你只押了一半。结果是<b>增长率低于最优，但完全不会出事</b>——保守的代价是「赚得慢」，激进的代价是「归零」。</p>
+        <p><b>这个不对称是本章最实用的一条：估计误差在两个方向上的代价完全不同。</b>低估让你少赚，高估可能让你出局。而现实中你对胜率的估计几乎必然带着误差，方向还未必知道。</p>
+        <p><b>因此实务中的通行做法是「半凯利」或更保守：</b>按公式算出 f* 之后只押一半。数学上，半凯利的长期增长率约为满凯利的 <b>75%</b>，而波动大约减半。<b>用四分之一的增长率，换掉一半的波动和大部分的估计误差风险</b>——对绝大多数人来说，这是一笔划算得多的交易。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>凯利公式假设你能反复下注、且每次结果独立。现实中哪些决策符合这个前提，哪些不符合？对不符合的那些，本章还剩下什么可用的东西？</summary>
+      <div class="answer">
+        <p><b>比较符合的：</b>高频、小额、彼此独立的重复决策。比如做市商的报价、保险公司的承保、大规模 A/B 测试的资源分配。这些场景里「很多次」是真的，独立性也大致成立。</p>
+        <p><b>不符合的（也就是人生的大部分）：</b></p>
+        <p>· <b>一次性的重大决定。</b>换工作、买房、创业、结婚——没有「反复下注」可言。凯利在这里没有直接适用性。</p>
+        <p>· <b>结果高度相关的决策。</b>同时持有十只同行业股票，看起来是十注，实际上接近一注。<b>把相关的赌注当成独立的，是超额下注最常见的隐蔽形式。</b></p>
+        <p>· <b>损失不可逆的场合。</b>健康、声誉、关系——这些没有「本金归零后重新开始」的选项。</p>
+        <p><b>那还剩下什么？剩下的其实是最有价值的部分——三个可以随身携带的问题：</b></p>
+        <p><b>① 这个决定占我总资源的多大比例？</b>凯利最深的洞见不是那个公式，而是「规模是一个独立的决策维度」。哪怕算不出精确的 f*，问一句「这占我的百分之几」也已经避开了大部分灾难。</p>
+        <p><b>② 最坏情况下我会不会出局？</b>如果会，那么无论期望值多好，比例都太大了。<b>这一条不需要任何公式。</b></p>
+        <p><b>③ 我这些赌注真的互相独立吗？</b>把相关的风险数成独立的，是所有超额下注的共同起点。</p>
+        <p><b>这三个问题，比公式本身更接近本章想留下的东西。</b>而它们也把我们带到了最后两章：当尾部比你以为的厚（<a href="5-3-fat-tails.html">5.3</a>），以及当「重复很多次」这个前提根本不成立时（<a href="5-4-when-to-ignore.html">5.4</a>），该怎么办。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
   <span><a href="5-1-utility.html">← 5.1 期望值 ≠ 好决策</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="5-3-fat-tails.html">5.3 肥尾与黑天鹅：正态分布什么时候骗人 →</a></span>
+  <span><a href="5-3-fat-tails.html">5.3 肥尾与黑天鹅 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/5-2-kelly.js"></script>
 </body>
 </html>
