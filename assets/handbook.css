@@ -173,6 +173,140 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .formula{font-family:var(--mono);font-size:14px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:14px 18px;margin:18px 0;overflow-x:auto;line-height:1.8}
 
 .next{margin-top:72px;padding-top:24px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--disp);font-weight:600;font-size:14px}
+.next a{text-decoration:none}
+
+/* ==========================================================================
+   通用组件词汇（全书各章交互实验共用，章节页只填内容不重新设计样式）
+   ========================================================================== */
+
+/* 通用图标阵列：列数由 --cols 决定，语义色沿用 sick / fp / neutral */
+.iconarray{display:grid;grid-template-columns:repeat(var(--cols,40),1fr);gap:2px;margin:8px 0 14px}
+.iconarray i{aspect-ratio:1;border-radius:50%;background:var(--neutral);transition:background .15s ease}
+.iconarray i.s{background:var(--sick)}
+.iconarray i.a{background:var(--fp)}
+.iconarray i.k{background:var(--accent)}
+.iconarray i.dim{opacity:.28}
+.iconarray i.ghost{background:transparent;border:1px solid var(--line)}
+.legend .s i{background:var(--sick)}
+.legend .a i{background:var(--fp)}
+.legend .k i{background:var(--accent)}
+.legend .dim i{background:var(--sick);opacity:.28}
+
+/* 控制条：模拟类实验的按钮 + 计数 */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.btn{font-family:var(--body);font-weight:500;font-size:14px;padding:9px 18px;border-radius:8px;
+  border:1.5px solid var(--accent);background:var(--accent);color:var(--paper);cursor:pointer}
+.btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft);opacity:1}
+.btn:disabled{opacity:.4;cursor:default}
+.hint{font-size:13px;color:var(--ink-soft)}
+
+/* 分段切换：聚合/分组、看得见/看不见 之类的双视角对照 */
+.segmented{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.segmented button{font-family:var(--mono);font-size:12.5px;padding:7px 16px;border:0;background:var(--paper);
+  color:var(--ink-soft);cursor:pointer}
+.segmented button+button{border-left:1.5px solid var(--line)}
+.segmented button.on{background:var(--accent);color:var(--paper)}
+
+/* SVG 图表框：所有 SVG 内部颜色一律经由这些 class 走 CSS 变量，禁止写死 */
+.chart{margin:8px 0 16px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .axis{stroke:var(--ink-soft);stroke-width:1;fill:none}
+.chart .gridline{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4;fill:none}
+.chart .ref{stroke:var(--ink-soft);stroke-width:1;stroke-dasharray:5 4;fill:none;opacity:.7}
+.chart text{fill:var(--ink-soft);font-family:var(--mono);font-size:11px}
+.chart text.strong{fill:var(--ink);font-weight:500}
+.chart .line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart .line.k{stroke:var(--accent)}
+.chart .line.s{stroke:var(--sick)}
+.chart .line.a{stroke:var(--fp)}
+.chart .line.n{stroke:var(--neutral);stroke-width:1.2;opacity:.75}
+.chart .fill.k{fill:var(--accent);opacity:.14}
+.chart .fill.s{fill:var(--sick);opacity:.16}
+.chart .fill.a{fill:var(--fp);opacity:.16}
+.chart .bar{fill:var(--neutral)}
+.chart .bar.k{fill:var(--accent)}
+.chart .bar.s{fill:var(--sick)}
+.chart .bar.a{fill:var(--fp)}
+.chart .dot{fill:var(--accent)}
+.chart .dot.s{fill:var(--sick)}
+.chart .dot.a{fill:var(--fp)}
+.chart .dot.n{fill:var(--neutral)}
+.chart .bubble{fill-opacity:.55;stroke-width:1.5}
+.chart .bubble.k{fill:var(--accent);stroke:var(--accent)}
+.chart .bubble.s{fill:var(--sick);stroke:var(--sick)}
+.chart .link{stroke:var(--accent);stroke-width:1;opacity:.4;fill:none}
+
+/* 序列条：抛硬币、真假随机序列 */
+.seq{display:flex;flex-wrap:wrap;gap:3px;margin:10px 0 16px}
+.seq i{width:18px;height:18px;border-radius:4px;background:var(--neutral);display:inline-flex;
+  align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--paper)}
+.seq i.h{background:var(--accent)}
+.seq i.t{background:var(--neutral)}
+.seq i.run{outline:2px solid var(--sick);outline-offset:1px}
+
+/* 大数字读出（.ppv 的通用版） */
+.bignum{background:var(--answer-bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-align:center}
+.bignum .n{font-family:var(--disp);font-weight:700;font-size:40px;line-height:1.1;color:var(--accent)}
+.bignum .n.s{color:var(--sick)}
+.bignum .n.a{color:var(--fp)}
+.bignum .l{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-top:4px}
+.readout.three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:560px){.readout.three{grid-template-columns:1fr}}
+
+/* 数据表：兼作交互组件的打印回退 */
+table.data{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0 18px}
+table.data th,table.data td{border:1px solid var(--line);padding:8px 12px;text-align:right}
+table.data th{background:var(--answer-bg);font-weight:500;color:var(--ink-soft);font-family:var(--mono);font-size:12px}
+table.data td:first-child,table.data th:first-child{text-align:left}
+table.data tr.total td{font-weight:700;background:var(--answer-bg)}
+table.data td.s{color:var(--sick)}
+table.data td.k{color:var(--accent)}
+
+/* 提示块：红线声明（不构成医疗/投资建议）、学术争议提示 */
+.callout{border:1px solid var(--line);border-left:4px solid var(--fp);background:var(--fp-soft);
+  border-radius:6px;padding:14px 18px;margin:20px 0;font-size:14.5px}
+.callout.k{border-left-color:var(--accent);background:var(--accent-soft)}
+.callout b{font-family:var(--disp)}
+
+/* ==========================================================================
+   目录页 / 附录页
+   ========================================================================== */
+header.book{padding:72px 0 36px;border-bottom:2px solid var(--ink)}
+.toc-part{margin-top:52px}
+.toc-part .ph{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:6px}
+.toc-part .ph .no{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase}
+.toc-part .ph h2{font-size:22px;margin:0}
+.toc-part .tagline{font-size:14px;color:var(--ink-soft);margin:0 0 14px}
+.toc-list{list-style:none}
+.toc-list li{border-bottom:1px solid var(--line)}
+.toc-list a{display:flex;gap:14px;align-items:baseline;padding:14px 4px;text-decoration:none;color:var(--ink)}
+.toc-list a:hover{background:var(--answer-bg)}
+.toc-list .no{font-family:var(--mono);font-size:13px;color:var(--accent);min-width:34px}
+.toc-list .tt{flex:1}
+.toc-list .tt b{font-weight:500}
+.toc-list .tt span{display:block;font-size:13px;color:var(--ink-soft);margin-top:2px}
+.toc-list .ix{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);white-space:nowrap}
+
+/* 术语表 */
+.gloss{list-style:none;margin-top:8px}
+.gloss li{border-bottom:1px solid var(--line);padding:16px 4px;display:grid;grid-template-columns:230px 1fr;gap:18px}
+.gloss .t{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--ink)}
+.gloss .t span{display:block;font-family:var(--body);font-size:13px;color:var(--ink-soft);margin-top:2px}
+.gloss .d{font-size:14.5px}
+.gloss .d a{font-family:var(--mono);font-size:12px;white-space:nowrap}
+@media (max-width:640px){.gloss li{grid-template-columns:1fr;gap:6px}}
+
+/* 直觉急救卡 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:20px}
+.fcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:16px 18px;
+  break-inside:avoid;page-break-inside:avoid}
+.fcard .nm{font-family:var(--disp);font-weight:700;font-size:17px;margin-bottom:2px}
+.fcard .en{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-bottom:10px}
+.fcard .sym{font-size:13.5px;color:var(--ink-soft);border-left:3px solid var(--fp);padding-left:10px;margin-bottom:10px}
+.fcard .fix{font-size:14.5px;border-left:3px solid var(--accent);padding-left:10px}
+.fcard .ref{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px}
 
 @media print{
   /* 打印强制浅色。三个选择器缺一不可：
@@ -183,9 +317,11 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     --sick:#D64550;--sick-soft:#F6DCDE;--fp:#DE9B2D;--fp-soft:#F6EAD2;--neutral:#CFC9C0;
     --line:#E2DCD2;--card:#fff;--code-bg:#F0EBE2;--answer-bg:#FCFAF6;--head-bg:#2B2530;--head-fg:#fff;
   }
-  .theme-toggle,.presets{display:none}
+  .theme-toggle,.presets,.controls,.segmented{display:none}
   body{background:#fff;font-size:12.5px}
   input[type=range]{display:none}
+  .lab,.case,.fcard,.chart,.quiz details{break-inside:avoid;page-break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
   .quiz details:not([open]) .answer{display:block}
   .quiz summary::after{display:none}
   .next{display:none}
