@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4.4 幸存者偏差：看不见的那一半数据 · 概率直觉手册</title>
+<title>4.4 幸存者偏差 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,23 +17,229 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i class="s"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
   </div>
   <div class="kicker">Part 4 · Fooled by Randomness 随机性的陷阱</div>
   <h1>4.4 Survivorship Bias
     <span class="zh">幸存者偏差：看不见的那一半数据</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~18 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="3-1-monty-hall.html">3.1 蒙提霍尔</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>该把装甲加在哪里</h2>
+  <p>二战期间，你负责给轰炸机加装甲。装甲很重，只能加在少数几个部位。</p>
+  <p>你手上有一批数据：所有<b>执行任务后飞回来的</b>飞机的弹孔分布图。图上显示——<b>机翼和机身上密密麻麻都是弹孔，而引擎和驾驶舱附近几乎干干净净。</b></p>
+  <p class="big">装甲该加在哪里？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="holes">弹孔最多的<br>机翼和机身</button>
+      <button data-g="even">全机身均匀加</button>
+      <button data-g="clean">弹孔最少的<br>引擎和驾驶舱</button>
+      <button data-g="more">数据不够，<br>再收集一些</button>
+    </div>
+    <div class="after">押好了。正确答案是第三个——<b>加在弹孔最少的地方</b>。理由一旦说破，会让人有点后背发凉。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>你的数据是被筛过的</h2>
+
+  <p>那批弹孔图有一个致命的问题，而且它不在数据里——<b>它在于哪些飞机没能成为数据。</b></p>
+
+  <p>你统计的是<b>飞回来的</b>飞机。那些被击落的飞机，弹孔分布图谁也没见过。于是：</p>
+
+  <div class="formula"><b>「返航飞机的引擎上没什么弹孔」</b><br>
+  ↓ 不等于<br>
+  <b>「引擎不容易被打中」</b><br>
+  ↓ 而是等于<br>
+  <b>「引擎被打中的飞机，飞不回来」</b></div>
+
+  <p>那片干净的区域<b>不是安全区，恰恰是最致命的区域</b>。它之所以在图上干净，是因为中弹的样本被系统性地从数据里删除了。<b>装甲应该加在弹孔最少的地方。</b></p>
+
+  <p>这就是<span class="term">survivorship bias</span>（幸存者偏差）：<b>当你只能观察到「活下来的样本」时，你看到的分布已经被筛选过了，而筛选的标准恰恰和你想研究的问题相关。</b></p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>它和 <a href="3-1-monty-hall.html">3.1 章</a>是同一个问题的两副面孔。</b>那里问的是「这扇门凭什么活到我面前」，这里问的是「这架飞机凭什么飞了回来」。答案都指向同一个地方：<b>你看到的东西，是被某种规则筛过的；不理解那条规则，就读不懂你看到的东西。</b></p>
+  </div>
+
+  <h3>它在日常生活中的样子</h3>
+  <p>这个结构一旦认出来，你会发现它无处不在，而且几乎总是伪装成「成功经验」：</p>
+  <p>· <b>「成功人士都早起 / 都退过学 / 都很自信。」</b>——那些同样早起、同样退学、同样自信却失败了的人，不会有人来采访他们。<b>要判断早起有没有用，你必须去看失败者里有多少早起的。</b>这个对照组几乎从不出现在任何一本成功学书里。</p>
+  <p>· <b>「这只基金过去十年年化 20%。」</b>——业绩榜单上只有还活着的基金。表现太差的基金会被清盘、合并，它们的历史从榜单上消失了。这叫<b>基金业绩的幸存者偏差</b>，是量化研究中一个被广泛记录的现象，它会系统性地抬高「基金整体表现」的估计。</p>
+  <p>· <b>「老房子/老家具质量真好，几十年不坏。」</b>——那个年代的劣质品早就坏掉扔了。你看到的是<b>幸存下来的那一批</b>。这个版本有个专名，叫「幸存者偏差的美学版本」。</p>
+  <p>· <b>「用户反馈说这个功能很好用。」</b>——会主动反馈的用户，本来就是那些用下来还没走的人。<b>被这个功能劝退的用户不会填问卷。</b>（这也是 <a href="3-4-two-children.html">3.4 章</a>那个「信息是怎么到你手上的」。）</p>
+
+  <h3>解药：三个问题</h3>
+  <p><b>① 什么样的样本会从我的数据里消失？</b>这是最核心的一问。破产的公司、离职的员工、退出的病人、被删除的帖子——先把「消失机制」说出来。</p>
+  <p><b>② 消失的机制和我要研究的问题相关吗？</b>如果无关（比如随机丢失了一部分数据），影响不大；<b>如果相关（引擎中弹→坠毁→不进样本），偏差可能是致命的、而且方向可预测。</b></p>
+  <p><b>③ 我能不能找到「失败样本」？</b>这往往很难，但常常是可能的：查清盘基金的历史数据、访谈离职员工、追踪流失用户。<b>找到失败样本，比在幸存样本上做更精细的分析有价值得多。</b></p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>两张弹孔图</h2>
+  <p>下面模拟 <b>1000 架</b>出击的轰炸机。每架挨的炮弹按面积随机分布——<b>敌方并没有瞄准任何特定部位</b>。但不同部位中弹后的致命程度差别很大：引擎和驾驶舱中弹往往意味着回不来。</p>
+  <p>用切换按钮对比两张图：<b>「只看返航的」是你在现实中唯一能拿到的数据，「全部出击的」是上帝视角的真相。</b></p>
+
+  <div class="lab" data-print-note="（在线版可切换视角、调节引擎中弹的致命率。打印版展示默认场景：1000 架出击、引擎中弹致命率 70%。1000 架出击有 462 架未返航。「只看返航的」视角下（538 架），引擎部位每百架只有 17.7 个弹孔、驾驶舱只有 1.1 个，而机翼有 150.2 个——看起来引擎和驾驶舱「没人打」；切到「全部出击的」视角，引擎每百架其实有 51.8 个、驾驶舱 10.2 个，而机翼几乎没变（155.4）。引擎的弹孔密度被低估了 2.9 倍。这个差额完全由「中弹的飞机没回来」造成——敌方从未瞄准任何部位。把致命率调到 95% 时低估倍数升至 12.8 倍：越致命的部位，在返航样本里看起来越安全。）">
+    <div class="lab-head">
+      <span class="t">Bullet Holes · 返航样本 vs 全部出击</span>
+      <span class="presets">
+        <button data-p="30">引擎较耐打</button>
+        <button data-p="70">引擎很脆弱</button>
+        <button data-p="95">引擎一打就掉</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="controls">
+        <span class="segmented">
+          <button type="button" data-m="returned" class="on">只看返航的（你的数据）</button>
+          <button type="button" data-m="all">全部出击的（真相）</button>
+        </span>
+      </div>
+      <div class="sliders">
+        <div class="sl">
+          <label>引擎中弹后被击落的概率 <b id="vLethal">70%</b></label>
+          <input type="range" id="sLethal" min="5" max="95" step="5" value="70">
+        </div>
+      </div>
+
+      <div class="chart" style="max-width:440px;margin:0 auto">
+        <svg viewBox="0 0 400 260" role="img" aria-label="轰炸机弹孔分布图">
+          <g class="chart">
+            <rect x="40" y="96" width="320" height="40" rx="6" fill="none" class="axis"></rect>
+            <rect x="186" y="26" width="28" height="214" rx="8" fill="none" class="axis"></rect>
+            <rect x="158" y="212" width="84" height="28" rx="5" fill="none" class="axis"></rect>
+            <rect x="78" y="98" width="28" height="36" rx="3" fill="none" class="ref"></rect>
+            <rect x="136" y="98" width="28" height="36" rx="3" fill="none" class="ref"></rect>
+            <rect x="236" y="98" width="28" height="36" rx="3" fill="none" class="ref"></rect>
+            <rect x="294" y="98" width="28" height="36" rx="3" fill="none" class="ref"></rect>
+            <rect x="187" y="26" width="26" height="34" rx="3" fill="none" class="ref"></rect>
+            <text x="92" y="152" text-anchor="middle">引擎</text>
+            <text x="308" y="152" text-anchor="middle">引擎</text>
+            <text x="200" y="20" text-anchor="middle">驾驶舱</text>
+            <text x="60" y="90">机翼</text>
+            <text x="248" y="200">机身</text>
+            <text x="200" y="256" text-anchor="middle">尾翼</text>
+          </g>
+          <g id="planeHits"></g>
+        </svg>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nPlanes">—</div><div class="l">这张图里统计了几架</div></div>
+        <div class="bignum"><div class="n s" id="nLost">—</div><div class="l">没能返航的飞机</div></div>
+        <div class="bignum"><div class="n a" id="nGap">—</div><div class="l">引擎弹孔密度<br>被低估的倍数</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="story"></p>
+
+      <table class="data" id="hitTable"></table>
+    </div>
+  </div>
+
+  <p>在「只看返航的」视角下，引擎那一行的数字低得刺眼——而这正是当年那份真实报告的样子。<b>如果你据此把装甲加在机翼上，你会加固一个「中弹了也能飞回来」的部位，而对真正要命的地方毫无作为。</b></p>
+  <p>把致命率滑块从 5% 拖到 95%，注意一个反直觉的规律：<b>某个部位越致命，它在返航样本里看起来就越安全。</b>偏差的大小和真实危险程度是<b>同向</b>的——最危险的地方，被低估得最厉害。这让幸存者偏差比一般的测量误差危险得多：<b>它不是让你的估计变模糊，而是让你的估计精确地指向反方向。</b></p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>Abraham Wald 与统计研究小组</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Statistical Research Group · 哥伦比亚大学, 1943</div>
+    <div class="case-body">
+      <p>二战期间，美国在哥伦比亚大学设立了「统计研究小组」（Statistical Research Group, SRG），召集了一批当时最好的统计学家为战时决策服务。其中一位是从纳粹统治下的欧洲逃出的匈牙利数学家 <b>Abraham Wald</b>。</p>
+      <p>军方交给他们的问题正是本章开头那个：<b>飞机装甲应该加在哪里？</b>军方提供了返航飞机的中弹分布数据，并倾向于加固弹孔密集的区域。</p>
+      <p>Wald 在 1943 年撰写了一系列备忘录处理这个问题。他的贡献不是喊一句口号，而是<b>建立了一个数学模型</b>：把「按部位统计的、飞机在中弹后仍能存活的概率」当作待估计的未知量，用返航飞机的弹孔分布反推出来。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">返航样本</div><div class="l">军方手上唯一的数据</div></div>
+        <div class="stat"><div class="n good">缺失的信息</div><div class="l">Wald 模型真正的估计对象</div></div>
+        <div class="stat"><div class="n good">1943</div><div class="l">SRG 备忘录成文，1980 年代公开重印</div></div>
+      </div>
+      <p>模型的核心洞见是：<b>如果炮火大体上是随机分布的，那么某个部位在返航飞机上的弹孔「缺口」，恰恰度量了在那里中弹的致命程度。</b>缺口越大，中弹后越活不下来。于是「哪里弹孔少就加固哪里」不是一句机灵话，而是模型推导出的结论。</p>
+
+      <div class="callout">
+        <p style="margin:0"><b>关于这个故事的流传版本，有必要澄清两点。</b><br><br>
+        <b>其一，「把装甲加在没有弹孔的地方」这句话是后世的通俗概括，不是 Wald 的原话。</b>他的备忘录是一份技术性的统计文献，处理的是「按部位估计飞机的存活概率」这一估计问题，篇幅相当长，也远比那句箴言复杂。<br><br>
+        <b>其二，流传甚广的那个「Wald 当场反驳将军」的戏剧化场景，缺乏可靠的一手记录。</b>Wald 的工作是通过书面备忘录完成的，SRG 也确实向军方提供了分析。至于军方最终在多大程度上采纳了这些建议，公开史料的记载并不充分。<br><br>
+        <b>把这两点说清楚，恰恰符合本章的主题：一个故事之所以广为流传，往往是因为它讲得好，而不是因为它经过了核实——这本身就是一种幸存者偏差。</b>流传下来的故事，是那些好听的故事。</p>
+      </div>
+      <p>需要强调的是，<b>澄清故事的细节丝毫没有削弱统计洞见本身</b>。Wald 的备忘录是真实存在的文献，其中的推理是严密的，而幸存者偏差作为一个统计现象，在此后的金融、医学、社会科学研究中被反复确认，是数据分析中最重要的偏差来源之一。</p>
+      <div class="src">来源：Abraham Wald, "A Method of Estimating Plane Vulnerability Based on Damage of Survivors"（Statistical Research Group, Columbia University, 1943 年系列备忘录；1980 年由美国 Center for Naval Analyses 以 CRC 432 编号重印）。关于该故事通俗版本与原始文献差异的讨论，见 Jordan Ellenberg《How Not to Be Wrong》(2014) 第一章及后续科普文献的考订。军方采纳程度的记载不充分，本节据此不作断言。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么说幸存者偏差比一般的「样本量不够」危险得多？</summary>
+      <div class="answer">
+        <p><b>因为它们的错误性质完全不同。</b></p>
+        <p><b>样本量不够</b>造成的是<b>随机误差</b>：你的估计围绕真值上下波动，方向不定。多收集数据就能改善，而且你能算出误差有多大（置信区间）。<b>它让你的答案变模糊，但不会骗你。</b></p>
+        <p><b>幸存者偏差</b>造成的是<b>系统误差</b>：估计朝一个固定方向偏离，<b>而且多收集数据完全无济于事</b>——你收集的每一份新数据，都经过同一道筛子。收集一万架返航飞机，引擎照样是空白的。</p>
+        <p>更糟的是本章实验里那条规律：<b>偏差的大小和真实效应的大小同向</b>。某个部位越致命，它在数据里看起来越安全。这意味着<b>你的结论不只是不准，而是精确地指向反方向</b>——你会在最危险的地方最放心。</p>
+        <p>一句话：<b>样本量不足让你不确定，幸存者偏差让你确信一个错的答案。</b>后者可怕得多，因为它不会让你察觉到有问题。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>某公司分析离职率，发现「入职满 3 年的员工，满意度显著高于入职 1 年的员工」，据此宣称「公司文化需要时间适应，待久了就好了」。这个结论有什么问题？</summary>
+      <div class="answer">
+        <p><b>典型的幸存者偏差。</b>「入职满 3 年的员工」是一个<b>被筛选过</b>的群体——那些对公司不满意的人，大部分在 3 年之内就走了。你调查的是幸存者，而筛选标准（不满意→离职）恰恰和你要测量的变量（满意度）直接相关。</p>
+        <p><b>正确的做法有几种，按可行性排序：</b></p>
+        <p><b>① 做离职面谈，并把离职者纳入分析。</b>这是最直接的「找到失败样本」。注意离职面谈本身也有偏差（人们会说客气话），但总比没有强。</p>
+        <p><b>② 用队列分析（cohort analysis）。</b>追踪同一批入职的人，看他们的满意度随时间如何变化，<b>包括那些中途离开的人在离开前的最后一次评分</b>。这样「消失」就变成了可观测的数据点。</p>
+        <p><b>③ 把「留存」本身当成结果变量。</b>与其问「待久的人满意度高不高」，不如问「入职时满意度低的人，后来留下来的比例是多少」。<b>这个问法把选择效应从偏差变成了研究对象。</b></p>
+        <p>顺便，这个案例里可能还叠加了 <a href="4-2-regression-to-mean.html">4.2 章</a>的问题和认知失调效应（待得久的人有动机说服自己这里不错）。<b>幸存者偏差往往不是单独出现的。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">计算题</span>某创业孵化器宣传：「我们孵化的公司里，有 30 家现在估值超过 10 亿。」你还需要知道什么才能判断它厉害不厉害？</summary>
+      <div class="answer">
+        <p><b>最关键的一个数：分母——一共孵化了多少家？</b></p>
+        <p>如果一共孵化了 <b>200 家</b>，30 家成为独角兽 = 15%，这是极其惊人的成绩（行业内通常远低于此）。</p>
+        <p>如果一共孵化了 <b>20000 家</b>，30 家 = 0.15%，那可能还不如市场平均水平——这个数字甚至可能纯粹反映「广撒网」。</p>
+        <p><b>但还有第二个、更容易被忽略的问题：他们是怎么筛选项目的？</b>如果这家孵化器只接收已经拿到 A 轮、有成熟团队的项目，那么高成功率主要反映的是<b>筛选能力</b>甚至只是<b>准入门槛</b>，而不是<b>孵化能力</b>。</p>
+        <p><b>第三个问题：对照组在哪里？</b>要证明孵化真的有用，需要的是「条件相似但没有进入孵化器的公司」的后续表现。<b>没有对照组，你无法区分「孵化器让公司变好」和「好公司选择了孵化器」。</b>（这正是 <a href="3-3-simpson.html">3.3 章</a>的混杂因素问题。）</p>
+        <p>三个问题合起来是一句可以随身携带的话：<b>任何「成功案例数量」都是分子。在拿到分母和筛选规则之前，分子不含任何信息。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>本章开头说「加装甲在弹孔最少的地方」。这个结论在什么条件下会失效？</summary>
+      <div class="answer">
+        <p>这个结论依赖若干前提，把它们一条条挑明，比记住结论有用得多：</p>
+        <p><b>① 炮火大体随机分布。</b>如果敌方确实在瞄准某个部位（比如专门打驾驶舱），那么该部位弹孔少就可能真的因为难打中，而不是因为致命。<b>模型的前提是「命中位置与部位无关」，一旦这个前提破了，反推就不成立。</b></p>
+        <p><b>② 「未返航」主要由中弹造成。</b>如果大量飞机是因为燃油耗尽、天气、导航失误坠毁的，那么缺失样本就不再携带「哪里中弹致命」的信息，反推会被噪声污染。</p>
+        <p><b>③ 装甲确实能提高该部位的存活率。</b>如果某个部位（比如油箱）中弹后无论多厚的装甲都会起火，那加固它是浪费重量——<b>该问的不是「哪里最致命」，而是「哪里加装甲的边际收益最大」。</b>这两个问题的答案未必相同。</p>
+        <p><b>④ 重量预算的约束是真实的。</b>整个问题之所以存在，是因为装甲有重量、会牺牲航程和载弹量。如果没有这个约束，答案就是「哪儿都加」。</p>
+        <p><b>更一般的教训：</b>「加固弹孔最少处」是<b>某个具体模型在某组具体假设下的结论</b>，不是一条普适箴言。这本身也呼应了本章案例里的澄清——<b>当一个统计洞见被压缩成一句朗朗上口的话时，被丢掉的正是它成立的条件。</b>而条件才是你在别的场景里真正需要的东西。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="4-3-clustering-illusion.html">← 4.3 聚类错觉与小数定律</a></span>
+  <span><a href="4-3-clustering-illusion.html">← 4.3 聚类错觉</a></span>
   <span><a href="../index.html">目录</a></span>
   <span><a href="5-1-utility.html">5.1 期望值 ≠ 好决策 →</a></span>
 </nav>
@@ -42,5 +248,6 @@
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/4-4-survivorship-bias.js"></script>
 </body>
 </html>
