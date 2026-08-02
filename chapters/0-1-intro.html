@@ -23,24 +23,253 @@
   <h1>0 Your Brain Was Not Built for Probability
     <span class="zh">你的大脑不是为概率设计的</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★☆☆</b></span>
+    <span>阅读 + 玩 <b>~15 min</b></span>
+    <span>直觉翻车率 <b>接近 100%</b></span>
+    <span>前置 <b>无</b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>三道题，凭直觉，十秒一道</h2>
+  <p>这本书的第一件事不是教你什么，而是先让你在三个地方翻车。请<b>不要算</b>——就用你现在脑子里第一个冒出来的数。翻车是安全的：这里没人看着你，也不记分。</p>
+
+  <div class="guess" id="g1">
+    <h3>① 一种病，1000 人里有 10 人得。检测很准：得病的人九成能测出来，健康的人只有不到一成会被误报。你体检查出阳性——你真的得病了吗？</h3>
+    <div class="opts">
+      <button data-g="90">八九不离十</button>
+      <button data-g="60">大概一半多</button>
+      <button data-g="30">三成左右</button>
+      <button data-g="10">一成都不到</button>
+    </div>
+    <div class="after">记下了。这是 <a href="2-1-medical-test.html">2.1 章</a>的主菜。</div>
+  </div>
+
+  <div class="guess" id="g2">
+    <h3>② 一个 23 人的房间。里面存在两个人生日同一天（不含年份）的概率是——</h3>
+    <div class="opts">
+      <button data-g="5">很低，5% 上下</button>
+      <button data-g="15">15% 左右</button>
+      <button data-g="30">三成</button>
+      <button data-g="50">一半上下</button>
+    </div>
+    <div class="after">记下了。这是 <a href="3-2-birthday.html">3.2 章</a>。</div>
+  </div>
+
+  <div class="guess" id="g3">
+    <h3>③ 轮盘已经连开 5 次红。下一把开黑的概率是——</h3>
+    <div class="opts">
+      <button data-g="75">明显偏高，该黑了</button>
+      <button data-g="60">略高一点</button>
+      <button data-g="49">和平时一样</button>
+      <button data-g="30">反而更可能继续红</button>
+    </div>
+    <div class="after">记下了。这是 <a href="4-1-gamblers-fallacy.html">4.1 章</a>。</div>
+  </div>
+
+  <p class="big">三道题的正确答案分别是：约 9%、约 51%、约 49%。</p>
+  <p>如果你三道全中，恭喜——你要么学过，要么已经被这些题坑过。如果你至少错了一道（绝大多数人错两道以上），那正是这本书存在的理由：<b>这三个错误不是「粗心」，它们是三种有名字、有结构、可以被预测的系统性偏差</b>。知道它们叫什么，你下次就能认出来。</p>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>不是你笨，是题目用错了语言</h2>
+
+  <p>先说一个让人稍微好受些的事实：你的大脑在概率上并不是全面失灵的。它在某些概率任务上快得惊人——你能一眼判断出该不该横穿马路，能听出朋友语气里「事情不太对」的那一丝可能性。这些都是概率判断，而且做得相当好。</p>
+
+  <p>失灵发生在特定的地方。一个被广泛接受的解释大致是这样：我们的祖先从环境里获得的信息，形式是<b>一次次亲身遭遇的计数</b>——「这片林子我去过十几回，有三回碰上蛇」。这种格式叫<span class="term">natural frequencies</span>（自然频率）。它天然带着分母，天然记录着基础率，天然是可以直接相加的整数。</p>
+
+  <p>而「假阳性率 9%」「灵敏度 90%」这种格式——单个事件的百分比——在人类历史上出现不过几百年。它把分母藏了起来。而分母，恰恰是这三道题里唯一重要的东西。</p>
+
+  <div class="formula">同一道题，两种说法：<br><br>❌ 百分比版：患病率 1%，灵敏度 90%，假阳性率 9%，求 P(患病 | 阳性)<br><br>✅ 自然频率版：1000 人里，10 人有病、其中 <b>9 人</b>测出阳性；990 人健康、其中 <b>89 人</b>被误报。<br>拿到阳性报告的一共 9 + 89 = <b>98 人</b>，真有病的 <b>9 人</b> → 不到十分之一。</div>
+
+  <p>第二种说法里，答案几乎是自己走出来的——你甚至没意识到自己在做贝叶斯推断。这就是本书的方法论支柱：<b>凡是能用「1000 人里有几人」讲清楚的，绝不写成公式。</b>公式不是解药，公式常常正是病因。</p>
+
+  <h3>三道题，三种谬误</h3>
+  <p>刚才那三道题，各自对应一个具体的、有名字的直觉故障。</p>
+  <p><b>①</b> 是 <span class="term">base rate neglect</span>（基础率忽视）：你盯着「检测有多准」，忘了问「这病有多罕见」。健康人基数太大，哪怕误报率很低，误报的<b>绝对人数</b>也能压倒真阳性。</p>
+  <p><b>②</b> 是<b>配对数的低估</b>：你下意识算的是「有人和<u>我</u>同生日」，但题目问的是「<u>任意两人</u>同生日」。23 个人能组出 253 对，不是 22 对。人类对「成对关系随人数平方增长」几乎没有直觉。</p>
+  <p><b>③</b> 是 <span class="term">gambler's fallacy</span>（赌徒谬误）：轮盘没有记忆，也没有「补偿」的义务。你脑子里那个「总数该平衡一下了」的声音，是在把<b>长期频率的稳定</b>误当成<b>短期内的自动纠偏</b>。</p>
+
+  <p>这三个名字就是本书的形状。<b>给谬误起名字，是为了让它在下一次出现时能被认出来</b>——认出来，就已经解决了一大半。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>量一量你的直觉差多远</h2>
+  <p>下面这个「直觉误差计」把刚才三道题摆在一起。切换场景，拖动滑块放上<b>你的直觉答案</b>，它会和真实答案并排显示，并把差距算出来。默认场景（体检阳性）里，最常见的直觉答案是 90%，真实答案是 9.2%——<b>差 80.8 个百分点</b>。另外两个场景的真实答案：23 人生日题 <b>50.7%</b>，轮盘连红后开黑 <b>48.6%</b>（欧式轮盘 18/37，和前五把毫无关系）。</p>
+
+  <div class="lab" data-print-note="（在线版可切换场景、拖动滑块比较直觉与真实答案。打印版展示默认场景「体检阳性」：典型直觉 90%、真实答案 9.2%、误差 80.8 个百分点。另两个场景的真实答案：23 人生日 50.7%（典型直觉 5%），轮盘连红后开黑 48.6%（典型直觉 75%）。）">
+    <div class="lab-head">
+      <span class="t">Intuition Gap Meter · 直觉误差计</span>
+      <span class="presets">
+        <button data-p="test">体检阳性</button>
+        <button data-p="bday">23 人生日</button>
+        <button data-p="roul">轮盘连红</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <p style="font-size:15px;margin-bottom:14px" id="qText">1% 的人患病，检测灵敏度 90%、假阳性率 9%。体检查出阳性——你真的患病的概率是？</p>
+      <div class="sliders">
+        <div class="sl">
+          <label>你的直觉答案 <b id="vGuess">90%</b></label>
+          <input type="range" id="guessSl" min="0" max="100" step="1" value="90">
+        </div>
+      </div>
+
+      <div class="chart">
+        <svg viewBox="0 0 600 128" role="img" aria-label="直觉答案与真实答案的对比条形图">
+          <text x="0" y="23">你的直觉</text>
+          <rect x="86" y="8" width="500" height="20" rx="4" class="bar"></rect>
+          <rect x="86" y="8" width="450" height="20" rx="4" class="bar a" id="barGuess"></rect>
+          <text x="0" y="71">真实答案</text>
+          <rect x="86" y="56" width="500" height="20" rx="4" class="bar"></rect>
+          <rect x="86" y="56" width="46" height="20" rx="4" class="bar k" id="barTruth"></rect>
+          <line x1="86" y1="94" x2="586" y2="94" class="axis"></line>
+          <text x="86" y="112">0%</text>
+          <text x="336" y="112" text-anchor="middle">50%</text>
+          <text x="586" y="112" text-anchor="end">100%</text>
+        </svg>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n a" id="nGuess">90%</div><div class="l">你的直觉</div></div>
+        <div class="bignum"><div class="n" id="nTruth">9.2%</div><div class="l">真实答案</div></div>
+        <div class="bignum"><div class="n s" id="nGap">80.8</div><div class="l">误差（百分点）</div></div>
+      </div>
+
+      <p style="margin:20px 0 8px;font-size:14px;color:var(--ink-soft)">真实答案摆成 100 个人的样子：</p>
+      <div class="iconarray" id="arr" style="--cols:25" aria-label="一百人图标阵列"></div>
+      <div class="legend">
+        <span class="s"><i></i><span id="legS">真的患病</span></span>
+        <span><i></i><span id="legN">虚惊一场</span></span>
+      </div>
+      <p style="font-size:14.5px;margin:0" id="whyText"><b>错在哪：</b>基础率忽视——你盯着检测多准，忘了问这病多罕见。健康人基数太大，误报的绝对人数压倒了真阳性。</p>
+    </div>
+  </div>
+
+  <p>三个场景的共同点值得留意：<b>直觉的错误方向是有规律的</b>。检测题里直觉严重高估，生日题里严重低估，轮盘题里被「该轮到黑了」的错觉推偏。它们不是随机的噪声，而是三种可以提前预判的系统性偏移——这也正是它们可以被学会、被防住的原因。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>Linda 是银行出纳员吗</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Tversky &amp; Kahneman · 合取谬误实验</div>
+    <div class="case-body">
+      <p>1980 年代，Amos Tversky 与 Daniel Kahneman 给受试者读了这样一段描述：</p>
+      <div class="formula">Linda，31 岁，单身，直率，非常聪明。大学主修哲学。学生时代深切关注歧视与社会公正问题，并参与过反核示威。</div>
+      <p>然后问：下面哪个更有可能？</p>
+      <div class="formula">（A）Linda 是一名银行出纳员。<br>（B）Linda 是一名银行出纳员，<b>并且</b>积极参与女权运动。</div>
+      <p>绝大多数人选了 B。但 B 是 A 的<b>子集</b>——所有满足 B 的 Linda 都满足 A，而满足 A 的 Linda 不一定满足 B。<b>一个集合不可能比包含它的集合更大</b>，所以 B 的概率在数学上不可能高于 A。这个错误有个名字：<span class="term">conjunction fallacy</span>（合取谬误）。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">约 85%</div><div class="l">选了 B 的受试者比例（量级概括）</div></div>
+        <div class="stat"><div class="n bad">依然多数</div><div class="l">受过统计训练的受试者中选 B 的比例</div></div>
+        <div class="stat"><div class="n good">显著下降</div><div class="l">改问「100 个人里有几个」之后的出错率</div></div>
+      </div>
+      <p>这个案例之所以放在导读，是因为它一次讲清了本书的三个前提。第一，<b>直觉的失灵和聪明程度无关</b>——受过统计训练的人照样掉进去。第二，<b>错误来自一个合理的心理动作</b>：你在评估「这个描述像不像」，而不是「这个概率有多大」，而 B 显然更像那个 Linda。第三，也是最有用的一条：<b>换个问法，错误率就掉下来</b>——把「哪个更有可能」改成「100 个像 Linda 这样的人里，有几个是银行出纳员？有几个是参与女权运动的银行出纳员？」，多数人立刻答对，因为后一个数字明显装不下前一个。</p>
+      <p>换句话说：不是脑子坏了，是格式不对。这本书要做的，就是把每一个概率问题都翻译回大脑能处理的格式。</p>
+      <p>需要说明的是，合取谬误的实验设计后来也受到过质疑——有研究者认为部分受试者把选项 A 理解成了「只是银行出纳员、并不参与女权运动」，若如此则选 B 并不违反逻辑。这一争论至今没有完全平息。但即便在措辞被收紧、明确排除该解读的实验版本里，出错率依然显著存在，而频率格式依然能改善它——这两点是本书要用的部分。</p>
+      <div class="src">来源：Tversky &amp; Kahneman, "Extensional versus intuitive reasoning: The conjunction fallacy in probability judgment", Psychological Review, 1983；Kahneman《Thinking, Fast and Slow》第 15 章。频率格式的改善效应见 Gigerenzer &amp; Hoffrage, "How to improve Bayesian reasoning without instruction", Psychological Review, 1995。上列数字为量级概括，各版本实验的具体比例有出入，详见原文。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 0.2 ============ -->
+<section id="howto">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">0.2 · How to Read 这本书怎么读</span></div>
+  <h2>先猜、再玩、后懂</h2>
+  <p>每一章的结构都一样，因为这个顺序本身就是方法。</p>
+  <p><b>先猜。</b>每章开头会逼你押一个答案。这一步不判对错，也不记录到任何地方——它唯一的作用是制造认知张力。先做出错误预测、再看到正确答案的人，记得比直接看答案的人牢。所以别跳过，也别偷偷先算。</p>
+  <p><b>再玩。</b>每章至少有一个可以拖的交互实验。参数一动，图形立刻变，结论自己浮现——这比读十遍推导有效。不想拖滑块的话，每个实验都配了 2–3 个<b>预设按钮</b>，点一下就能看到最关键的那组对比。</p>
+  <p><b>后懂。</b>核心概念一律用自然频率讲，公式只在能让事情<i>更</i>清楚的时候才出现。每章配一个真实案例——这些谬误不是智力游戏，它们把无辜的人送进过监狱，也让公共政策走过弯路。章末三到四道自测题，答案默认折叠，含完整推导。</p>
+  <div class="callout k">
+    <p style="margin:0"><b>关于交互：</b>所有实验都是原生 JavaScript，没有框架、没有追踪，也不写入你浏览器的任何存储（刷新即重置，这是有意的）。如果你禁用了 JavaScript，或者读的是打印版——每个实验的默认结论都写在正文里，这本书照样能读完，不会漏掉任何一步论证。</p>
+  </div>
+</section>
+
+<!-- ============ 0.3 ============ -->
+<section id="firstaid-preview">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">0.3 · Preview 急救卡预告</span></div>
+  <h2>你其实只需要记住十几句话</h2>
+  <p>全书读完，真正需要随身带走的东西大概只有一页纸。<a href="../firstaid.html">附录 B 直觉急救卡</a>把每一章压缩成三行：<b>谬误叫什么 → 症状长什么样 → 一句话解药</b>。它可以单独打印成一页，贴在你需要做判断的地方。</p>
+  <p>先给三张，正是刚才那三道题的解药：</p>
+  <div class="cards">
+    <div class="fcard">
+      <div class="nm">基础率忽视</div>
+      <div class="en">base rate neglect</div>
+      <div class="sym">症状：听到「这个检测 99% 准确」，就觉得阳性等于确诊。</div>
+      <div class="fix">解药：先问「1000 个人里，本来有几个？」——罕见的东西，误报的绝对人数能轻松压过真阳性。</div>
+      <a class="ref" href="2-1-medical-test.html">→ 2.1 医疗检测悖论</a>
+    </div>
+    <div class="fcard">
+      <div class="nm">配对数的低估</div>
+      <div class="en">birthday-problem blindness</div>
+      <div class="sym">症状：觉得「怎么这么巧」，于是相信背后一定有原因。</div>
+      <div class="fix">解药：先数一数一共有<b>多少对</b>机会。n 个人有 n(n−1)/2 对，23 人就是 253 对——巧合的机会比你以为的多得多。</div>
+      <a class="ref" href="3-2-birthday.html">→ 3.2 生日悖论</a>
+    </div>
+    <div class="fcard">
+      <div class="nm">赌徒谬误</div>
+      <div class="en">gambler's fallacy</div>
+      <div class="sym">症状：连开 5 次红，觉得「该轮到黑了」。</div>
+      <div class="fix">解药：问一句「它凭什么记得？」——独立事件没有记忆，也没有补偿的义务。大数定律靠<b>稀释</b>，不靠纠偏。</div>
+      <a class="ref" href="4-1-gamblers-fallacy.html">→ 4.1 赌徒谬误与热手争议</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么说「自然频率」不只是把百分比换个说法，而是真的改变了题目的难度？</summary>
+      <div class="answer">
+        <p>因为百分比<b>把分母藏起来了</b>。「假阳性率 9%」这句话里，9% 是对「健康的人」而言的，但这个分母（990 人）在句子里是隐形的。你要正确使用它，必须先在脑子里把它还原出来——而这一步正是大多数人漏掉的一步。</p>
+        <p>自然频率把分母写在明面上：「990 个健康人里有 89 个被误报」。一旦所有数字都落在同一个 1000 人的框架里，剩下的只是整数加法和一次除法，贝叶斯定理被消化在了叙述结构里。这也是为什么它被称为「让问题回到大脑能处理的格式」，而不是「简化」——<b>信息量一点没少，只是分母不再隐形</b>。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>朋友说：「我买彩票十年没中过，按概率也该轮到我了。」这句话犯的是三种谬误里的哪一种？如果他改说「我买了十年，中奖的机会累计起来应该不小了」，这句话对吗？</summary>
+      <div class="answer">
+        <p>第一句是<b>赌徒谬误</b>：彩票不记得他买过十年，每一期的中奖概率完全独立，不会因为「欠」了他十年就补偿他。</p>
+        <p>第二句<b>方向是对的，但要小心量级</b>。多买多期确实提高了「至少中一次」的概率，这是真的累积——但基数太小的时候，累积也救不了。假设某玩法头奖概率是千万分之一，十年每周买一期共 520 期，至少中一次的概率约为 520 ÷ 1000 万 ≈ <b>0.0052%</b>，也就是两万分之一左右。</p>
+        <p>这两句话的区别正是本书要反复讲的：<b>独立事件不会互相补偿（谬误），但独立事件会累积机会（真的）</b>。区分它们的方法永远是同一个——把它翻译成「多少次里有几次」。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>Linda 问题里，如果把选项 B 改成「Linda 是一名<b>积极参与女权运动的人</b>」（去掉「银行出纳员」），多数人还会选 B 吗？这说明合取谬误的触发条件是什么？</summary>
+      <div class="answer">
+        <p>会——而且这次<b>选 B 完全合理</b>。「参与女权运动」和「银行出纳员」是两个独立的类别，前者与 Linda 的描述高度吻合，后者不吻合。这里没有集合包含关系，所以判断 P(女权运动者) &gt; P(银行出纳员) 没有任何逻辑问题。</p>
+        <p>这正说明了合取谬误的触发条件：<b>它需要一个「不像」的成分和一个「很像」的成分被 AND 在一起</b>。「银行出纳员」压低了相似度，「女权运动者」拉高了相似度，两者相加在直觉上产生了一个折中的、比单独的「银行出纳员」更高的「像样度」——而你误把这个像样度当成了概率。</p>
+        <p>更一般的教训：<b>人脑在被问「概率」时，经常悄悄换成了「代表性」来回答</b>。这个替换叫代表性启发式（representativeness heuristic），它是本书后面好几章故障的共同源头——包括 <a href="4-1-gamblers-fallacy.html">4.1 章</a>里「随机序列应该看起来杂乱无章」的错觉。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
   <span><a href="../index.html">← 封面</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="1-1-what-is-probability.html">1.1 概率是什么：频率派与信念派 →</a></span>
+  <span><a href="1-1-what-is-probability.html">1.1 概率是什么 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/0-1-intro.js"></script>
 </body>
 </html>
