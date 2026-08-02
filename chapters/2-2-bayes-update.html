@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2.2 贝叶斯更新的日常化：证据是怎么搬动信念的 · 概率直觉手册</title>
+<title>2.2 贝叶斯更新的日常化 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,225 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i></i><i class="s"></i><i></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i></i><i class="s"></i><i class="s"></i><i class="s"></i>
   </div>
   <div class="kicker">Part 2 · Bayesian Thinking 贝叶斯思维</div>
   <h1>2.2 Bayesian Updating, Everyday Edition
-    <span class="zh">贝叶斯更新的日常化：证据是怎么搬动信念的</span>
+    <span class="zh">贝叶斯更新的日常化：证据是怎么一点点搬动信念的</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>中</b></span>
+    <span>前置 <b><a href="2-1-medical-test.html">2.1 医疗检测悖论</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>四条线索，能把你从 5% 推到哪</h2>
+  <p>你收到一封邮件。凭空来说，你收件箱里大约 <b>5%</b> 的邮件是诈骗。然后你注意到四件事：</p>
+  <p>① 发件域名很陌生，和落款公司对不上　② 正文有明显错别字　③ 要求你 24 小时内处理否则冻结账户　④ 称呼是「尊敬的用户」而不是你的名字</p>
+  <p class="big">四条线索加完，这封邮件是诈骗的概率大约到了——</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="40">四成上下</button>
+      <button data-g="65">六成半</button>
+      <button data-g="85">八成半</button>
+      <button data-g="96">九成六以上</button>
+    </div>
+    <div class="after">押好了。这一章要给你的不是这道题的答案，而是一台能算所有这类题的机器。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>把贝叶斯定理写成一句人话</h2>
+
+  <p><a href="2-1-medical-test.html">2.1 章</a>里我们用千人图算出了一次更新。但现实中的判断很少只有一条证据——你会连续看到好几个迹象，而且它们有强有弱，有的甚至指向相反方向。要处理这种情况，需要把贝叶斯定理换一个写法。</p>
+
+  <p>这个写法叫<b>赔率形式</b>，它是本章唯一需要记住的东西：</p>
+
+  <div class="formula"><b>后验赔率 = 先验赔率 × 似然比</b><br><br>
+  · <b>赔率</b>（odds）：不说「20% 的概率」，说「1 比 4」——是 1 份可能性对 4 份不可能。<br>
+  · <b>似然比</b>（<span class="term">likelihood ratio</span>，LR）：<br>
+  &nbsp;&nbsp;&nbsp;LR = P(看到这条证据 | 假设为真) ÷ P(看到这条证据 | 假设为假)</div>
+
+  <p>似然比就是一条证据的<b>力度表</b>。它回答的是一个非常具体的问题：<b>「这条证据在『真』的世界里出现的频率，是在『假』的世界里的几倍？」</b></p>
+  <p>· LR = 10：这条证据在真的世界里常见十倍 → 强烈支持</p>
+  <p>· LR = 1：两个世界里一样常见 → <b>毫无信息量，一点都不该动你的信念</b></p>
+  <p>· LR = 0.2：在假的世界里反而常见五倍 → 这条证据是<b>反证</b></p>
+
+  <p>为什么赔率形式好用？因为<b>它把「更新」变成了纯粹的乘法</b>。三条独立证据来了，就把三个似然比乘起来，一次搞定：</p>
+
+  <div class="formula">先验：5% 是诈骗 → 赔率 = 5 : 95 ≈ <b>1 : 19</b><br><br>
+  陌生域名（LR 3）、错别字（LR 5）、限时威胁（LR 8）、通用称呼（LR 4）<br>
+  总似然比 = 3 × 5 × 8 × 4 = <b>480</b><br><br>
+  后验赔率 = (1 : 19) × 480 = <b>480 : 19</b> ≈ 25 : 1<br>
+  换回概率 = 25 ÷ 26 ≈ <b>96.2%</b></div>
+
+  <p>这就是开头那道题的答案：从 5% 到 <b>96.2%</b>。四条各自都不算铁证的线索，乘起来的力量大得惊人——<b>因为它们是相乘，不是相加。</b></p>
+
+  <h3>链式更新：上一轮的后验，就是下一轮的先验</h3>
+  <p>赔率形式还让一件事变得显然：<b>证据的顺序无关紧要</b>。乘法可以交换，先看到错别字还是先看到限时威胁，最后落在同一个数上。你可以把它想象成一次次搬家——每一条证据都把你从一群人里挪到另一群人里，而挪的顺序不影响终点。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>但有一个前提，而且它经常被违反：证据之间必须相互独立。</b>「错别字」和「翻译腔」很可能是同一个原因（作者不是母语者）的两个表现——把它们当两条独立证据相乘，等于把同一份信息数了两遍，信念会被推得过头。这正是 <a href="1-2-conditional.html">1.2 章</a>那个「有没有共同原因」的问题，在这里换了副面孔。<b>现实中，重复计算相关证据是过度自信最常见的来源。</b></p>
+  </div>
+
+  <h3>先验不是偏见</h3>
+  <p>很多人对「先验」有抵触：凭什么还没看证据就先有个数？可你没有别的选择。<b>「不带先验地看证据」在数学上是不可能的</b>——似然比只能告诉你信念该<i>移动</i>多少，不能告诉你从哪儿出发。没有起点，倍数是没有意义的。</p>
+  <p>真正的要求不是「不要先验」，而是<b>「先验要诚实，而且要肯被证据推动」</b>。诚实的先验来自基础率：这类邮件里有多少是诈骗？这类肿块里有多少是恶性？肯被推动，则意味着不能把先验设成 0 或 1——<b>因为 0 乘以任何似然比还是 0。</b>一旦你说「这件事绝无可能」，你就把自己从贝叶斯的游戏里永久除名了。这个陷阱是 <a href="2-4-conspiracy.html">2.4 章</a>的全部内容。</p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>一条条把证据加进去</h2>
+  <p>点亮下面的证据卡片，看信念怎么被一步步搬走。默认是「典型钓鱼邮件」——四条线索把 5% 推到 <b>96.2%</b>。琥珀色的卡片是<b>反证</b>（似然比小于 1），它们会把信念往回拉。</p>
+
+  <div class="lab" data-print-note="（在线版可拖动先验、逐条开关证据。打印版展示默认场景「典型钓鱼邮件」：先验 5%（赔率 1:19），叠加陌生域名 3× / 错别字 5× / 限时威胁 8× / 通用称呼 4×，总似然比 480×，后验赔率 25.3:1，信念 96.2%。另两个预设：「日常工作邮件」5% + 两条反证（0.5× 与 0.2×）→ 降到 0.5%；「高明的定向钓鱼」5% + 限时威胁 8× + 危险附件 20× + 一条反证「准确报出订单号」0.2× → 62.7%。）">
+    <div class="lab-head">
+      <span class="t">Belief Updater · 证据链信念更新器</span>
+      <span class="presets">
+        <button data-p="normal">日常工作邮件</button>
+        <button data-p="phish">典型钓鱼邮件</button>
+        <button data-p="spear">高明的定向钓鱼</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>先验：你收件箱里诈骗邮件的基础比例 <b id="vPrior">5.0%</b></label>
+          <input type="range" id="sPrior" min="0.2" max="40" step="0.2" value="5">
+        </div>
+      </div>
+
+      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:8px">点击加入或移除证据：</p>
+      <div class="toggles" id="evList"></div>
+
+      <div class="chart">
+        <svg viewBox="0 0 600 190" role="img" aria-label="信念随证据逐条加入而变化的折线图">
+          <line x1="46" y1="14" x2="46" y2="146" class="axis"></line>
+          <line x1="46" y1="146" x2="588" y2="146" class="axis"></line>
+          <line x1="46" y1="80" x2="588" y2="80" class="gridline"></line>
+          <text x="40" y="18" text-anchor="end">100%</text>
+          <text x="40" y="84" text-anchor="end">50%</text>
+          <text x="40" y="150" text-anchor="end">0%</text>
+          <polyline id="beliefLine" class="line k" points=""></polyline>
+          <g id="beliefDots"></g>
+          <g id="beliefLabels"></g>
+        </svg>
+      </div>
+
+      <div class="posbar-box" style="margin-bottom:14px">
+        <div class="l">加完所有证据之后的信念：</div>
+        <div class="posbar"><span class="tp" id="bTp"></span><span class="fp" id="bFp"></span></div>
+        <div class="posbar-nums"><span>是诈骗</span><span>是正常邮件</span></div>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n s" id="nPost">96.2%</div><div class="l">后验信念</div></div>
+        <div class="bignum"><div class="n" id="nOdds">25.3 : 1</div><div class="l">后验赔率</div></div>
+        <div class="bignum"><div class="n a" id="nLr">480.0×</div><div class="l">证据的总似然比</div></div>
+      </div>
+
+      <p style="margin-top:18px;font-size:14.5px" id="freqLine"></p>
+    </div>
+  </div>
+
+  <p>有三件事值得亲手试一遍。</p>
+  <p><b>一、反证的力量。</b>切到「高明的定向钓鱼」：限时威胁（8×）和危险附件（20×）加起来是 160 倍的正向推力，可只要加上一条「邮件里准确报出了你的订单号」（0.2×），信念就从 89% 掉到 <b>62.7%</b>。<b>一条强反证能抵消好几条弱正证</b>——这正是骗子要费力伪造真实细节的原因。</p>
+  <p><b>二、先验的分量。</b>保持证据不变，把先验滑块从 5% 拖到 0.2%。同样四条线索，后验从 96.2% 掉到约 <b>49%</b>。<b>证据决定你移动多少倍，先验决定你从哪儿出发</b>——两者缺一不可。这也是 2.1 章那个「同一份阳性报告在不同人群里含义不同」的道理。</p>
+  <p><b>三、乘法的可怕。</b>逐条点开四张卡片，看折线一级一级往上跳。每一条单独看都不算铁证（最强的也才 8 倍），但 3×5×8×4 = 480 倍。<b>大量弱证据的乘积可以远强于任何单条证据</b>——这既是贝叶斯思维最有用的地方，也是它最危险的地方：如果这些证据其实彼此相关，你就把同一份信息乘了好几遍。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>在大西洋底找一架飞机</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>法航 447 航班残骸搜寻 · 2009–2011</div>
+    <div class="case-body">
+      <p>2009 年 6 月 1 日，法国航空 447 航班在从里约热内卢飞往巴黎途中于大西洋上空失事，机上 228 人全部遇难。飞机坠入水深约 4000 米的深海，只有少量漂浮残骸被找到。</p>
+      <p>此后两年，三轮大规模搜索<b>全部无功而返</b>。搜索区域是以最后已知位置为中心的一片圆形海域，面积以万平方公里计，海底地形复杂。到 2011 年初，已经有人认为这架飞机可能永远找不到了。</p>
+      <p>2011 年，法国航空事故调查局（BEA）委托美国 Metron 公司做一件事：<b>用贝叶斯方法重新计算残骸最可能在哪里。</b></p>
+      <p>做法正是本章那台机器，只不过对象是一张地图而不是一个数字：</p>
+      <p><b>先验：</b>把所有独立于搜索结果的信息做成一张概率地图——最后已知位置、飞行动力学模拟出的可能坠落轨迹、其他事故中失控客机的落点统计、漂浮残骸被发现的位置加上洋流反推。每一块海域分到一个先验概率。</p>
+      <p><b>更新：</b>关键的一步是<b>把三次失败的搜索当作证据</b>。「在 A 区搜过但没找到」不等于「A 区没有」——每种搜索手段都有各自的漏检率。于是每块海域按 P(搜不到 | 残骸在这里) 打折，剩下的概率重新归一化。<b>失败的搜索不会把一个区域的概率清零，只会把它压低，同时把其他区域的概率抬高。</b></p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">3 轮</div><div class="l">此前失败的大规模搜索</div></div>
+        <div class="stat"><div class="n good">1 周内</div><div class="l">按新概率图搜索后发现残骸所用的时间量级</div></div>
+        <div class="stat"><div class="n good">2011.4</div><div class="l">残骸被找到，黑匣子随后打捞出水</div></div>
+      </div>
+      <p>更新后的概率图把重心指向了一片<b>此前被认为可能性较低、且前几轮搜索覆盖不足</b>的区域。2011 年 4 月，新一轮搜索按这张图展开，很快就发现了残骸。黑匣子随后被打捞上来，事故原因（空速管结冰导致读数失效、随后进入失速状态且未被正确改出）才得以查明。</p>
+      <p>这个案例最值得学的是那个反直觉的动作：<b>把「找过了，没找到」当成一条有力度但不绝对的证据。</b>直觉倾向于两个极端——要么「搜过了就排除」，要么「搜索无效，忽略它」。贝叶斯给的是中间答案：<b>按这次搜索的可靠程度打个折。</b>搜得越彻底，折扣越狠；搜得越马虎，这条证据的似然比越接近 1，也就越该被当作没发生过。</p>
+      <div class="src">来源：Lawrence D. Stone, Colleen M. Keller, Thomas M. Kratzke, Johan P. Strumpfer, "Search Analysis for the Location of the AF447 Underwater Wreckage"（Metron Inc. 提交给法国 BEA 的报告，2011 年 1 月）；后续同作者论文见 Statistical Science, 2014。搜索时长为量级概括，具体作业记录见 BEA 事故最终报告（2012）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>某病先验患病率 2%。一项检测的灵敏度 90%、假阳性率 10%。用赔率形式算一遍阳性后的患病概率，并验证它和千人图的答案一致。</summary>
+      <div class="answer">
+        <p><b>赔率形式：</b>先验赔率 = 2 : 98 = 1 : 49。这项检测的似然比 = P(阳性|患病) ÷ P(阳性|健康) = 0.90 ÷ 0.10 = <b>9</b>。</p>
+        <p>后验赔率 = (1 : 49) × 9 = <b>9 : 49</b> → 概率 = 9 ÷ 58 ≈ <b>15.5%</b>。</p>
+        <p><b>千人图验证：</b>1000 人里 20 人患病，其中 18 人阳性；980 人健康，其中 98 人误报。阳性共 116 人，患病 18 人 → 18 ÷ 116 ≈ <b>15.5%</b>。✓</p>
+        <p>两种算法必然一致，因为它们是同一个定理的两种写法。<b>千人图更适合一次更新、也更容易向别人解释；赔率形式更适合多条证据连乘。</b>建议两个都留在手边。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>一条证据的似然比是 1，意味着什么？给一个日常生活中「看起来像证据、实际上似然比接近 1」的例子。</summary>
+      <div class="answer">
+        <p>似然比 1 意味着：<b>这条证据在「假设成立」和「假设不成立」两个世界里出现得一样频繁</b>，因此它不含任何区分力，<b>看到了也不该动你的信念分毫</b>。</p>
+        <p>日常例子：「他考试前一晚熬夜复习了」——用来判断他会不会挂科。考前熬夜的人里，会挂的和不会挂的都很多，这条信息几乎不改变判断。再比如占星术里的性格描述（「你有时外向，有时也需要独处」），它对所有人都成立，所以似然比精确地等于 1——这也是它听起来「说得真准」的原因：<b>它准，是因为它没说任何东西。</b></p>
+        <p>实操价值：面对一条听起来很有说服力的信息，问一句 <b>「如果结论是反的，我还会看到这条吗？」</b>如果答案是「大概也会」，那它的似然比接近 1，可以直接扔掉。<b>能扔掉无信息量的证据，是贝叶斯思维给普通人最实用的一项能力。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>AF447 的搜索中，如果某轮搜索的手段特别不可靠（比如声呐在那种海底地形下有一半概率漏检），那么「在 A 区搜过没找到」这条证据的似然比是多少？它该把 A 区的概率压低多少？</summary>
+      <div class="answer">
+        <p>设假设 H = 「残骸在 A 区」。证据 E = 「搜了 A 区，没找到」。</p>
+        <p>P(E | H) = 漏检率 = <b>0.5</b>（残骸真在那里，但声呐有一半概率没看见）<br>P(E | 非 H) = <b>1.0</b>（残骸不在那里，那必然找不到）</p>
+        <p>似然比 = 0.5 ÷ 1.0 = <b>0.5</b>。也就是说，这次失败的搜索只把 A 区的赔率<b>砍掉一半</b>——远不是排除。</p>
+        <p>对比一下：如果搜索手段极其可靠、漏检率只有 5%，似然比就是 0.05，A 区的赔率被砍到二十分之一，那才接近「基本排除」。</p>
+        <p>这就是本案例的核心技巧：<b>「找过了没找到」这条证据的力度，完全取决于你找得有多认真。</b>而无论多认真，只要漏检率不是 0，这个区域的概率就永远不会归零——它只是被压低，随时可能因为别处也搜空而重新浮上来。前三轮搜索之所以没能定位残骸，部分原因正是把「搜过的区域」当成了「已排除的区域」。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>实验里「错别字」（5×）和「翻译腔」如果被当成两条独立证据，会发生什么？请估算被高估的幅度，并说明现实中该怎么处理这类相关证据。</summary>
+      <div class="answer">
+        <p>假如两条都按 5× 计入，总似然比会被算成 25×，而它们实际上很可能来自同一个原因（写信的人不是中文母语者）。真实的联合似然比也许只有 6× 或 7×——因为一旦你已经知道有错别字，「还有翻译腔」这件事就几乎不再提供新信息了。</p>
+        <p><b>被高估的幅度可以到四倍</b>，而且这个误差还会和别的证据继续相乘，越滚越大。只看这两条、从 5% 的先验出发：正确算法（联合 6×）给出约 <b>24%</b>，重复计算（25×）给出约 <b>57%</b>——从「四分之一可疑」变成了「过半可疑」，而这个跃迁完全是虚构的。</p>
+        <p>现实中的处理办法有三种，由粗到细：<b>（1）合并</b>——把高度相关的证据打包成一条，给一个整体的似然比；<b>（2）折价</b>——只给第二条一个明显更小的似然比（比如从 5× 降到 1.5×），代表它的<i>增量</i>信息；<b>（3）换角度找证据</b>——主动去寻找与已有证据来源不同的信息（比如查发件服务器的 IP 归属），因为独立证据的价值远高于同源证据的堆叠。</p>
+        <p>这条教训比它看起来重要得多：<b>现实中的过度自信，绝大多数不是因为算错了似然比，而是因为把同一份信息数了好几遍。</b>一屋子人都同意某个判断，可能只是因为他们都读了同一篇报道。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
   <span><a href="2-1-medical-test.html">← 2.1 医疗检测悖论</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="2-3-prosecutor.html">2.3 检察官谬误与法庭上的概率 →</a></span>
+  <span><a href="2-3-prosecutor.html">2.3 检察官谬误 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/2-2-bayes-update.js"></script>
 </body>
 </html>

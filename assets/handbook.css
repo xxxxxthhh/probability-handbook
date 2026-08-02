@@ -209,6 +209,15 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .segmented button+button{border-left:1.5px solid var(--line)}
 .segmented button.on{background:var(--accent);color:var(--paper)}
 
+/* 证据开关：逐条加入/移除证据的实验（2.2 信念更新、2.4 先验封闭、3.4 信息来源） */
+.toggles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px;margin-bottom:18px}
+.toggles button{text-align:left;font-family:var(--body);font-size:13.5px;line-height:1.5;padding:10px 14px;
+  border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink-soft);cursor:pointer}
+.toggles button .lr{display:block;font-family:var(--mono);font-size:11.5px;margin-top:3px;opacity:.85}
+.toggles button:hover{border-color:var(--accent)}
+.toggles button.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.toggles button.against.on{border-color:var(--fp);background:var(--fp-soft)}
+
 /* SVG 图表框：所有 SVG 内部颜色一律经由这些 class 走 CSS 变量，禁止写死 */
 .chart{margin:8px 0 16px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
