@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1.1 概率是什么：频率派与信念派 · 概率直觉手册</title>
+<title>1.1 概率是什么 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,207 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i>
   </div>
   <div class="kicker">Part 1 · The Language of Chance 概率的语言</div>
   <h1>1.1 What Is a Probability, Anyway?
-    <span class="zh">概率是什么：频率派与信念派</span>
+    <span class="zh">概率是什么：同一个词，两种完全不同的东西</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★☆☆</b></span>
+    <span>阅读 + 玩 <b>~16 min</b></span>
+    <span>直觉翻车率 <b>中</b></span>
+    <span>前置 <b><a href="0-1-intro.html">0 导读</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>「很有可能」是多少？</h2>
+  <p>一份情报简报里写着：「敌方<b>很有可能</b>在本月内行动。」</p>
+  <p class="big">请把「很有可能」翻译成一个数字——你觉得它是多大的概率？</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="95">95% 左右</button>
+      <button data-g="80">80% 左右</button>
+      <button data-g="65">65% 左右</button>
+      <button data-g="50">50% 出头</button>
+    </div>
+    <div class="after">记住你的选择。等下你会看到：同一句话，不同的人读出的数字能差出三倍——而这曾经是要出人命的。</div>
+  </div>
+  <p>顺便再押一个：一枚公平硬币抛 <b>10 次</b>，正面出现的次数「明显偏离一半」（比如 7 次以上或 3 次以下）的概率有多大？你觉得这算常见还是罕见？</p>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>「概率」这个词，其实是两个词</h2>
+
+  <p>看这三句话，它们都用了同一个词：</p>
+  <div class="formula">① 这枚硬币抛出正面的概率是 50%。<br>② 明天下雨的概率是 70%。<br>③ 火星上曾经存在过生命的概率是 30%。</div>
+
+  <p>句①好办。它的意思是：<b>如果你抛很多很多次，正面的比例会稳定在一半附近</b>。这个理解叫<span class="term">frequentist</span>（频率派）——概率是「长期重复中出现的比例」。它有个明确的验证方式：真的去抛，抛够多次，看数字。</p>
+
+  <p>句③就麻烦了。火星只有一个，历史只发生过一次，你没法「重复很多次火星」。按频率派的定义，句③根本不是一个概率陈述。但它显然又在说一件有意义的事——它在说<b>说话人有多相信这件事</b>。这个理解叫<span class="term">Bayesian</span>（贝叶斯派）或信念派——概率是「一个人对某命题的相信程度」，可以随证据更新。</p>
+
+  <p>句②夹在中间，也因此最容易吵架。「明天下雨概率 70%」到底指什么？气象部门给的通常是：<b>在历史上所有与明天气象条件相似的日子里，约有七成下了雨</b>——这是频率派的说法，用「相似日子」造出了一个可重复的参照类。但对你来说，明天只有一个，你听到的其实是一句信念陈述。</p>
+
+  <div class="callout k">
+    <p style="margin:0"><b>这本书的立场：</b>两种都用，但要知道自己在用哪种。<b>频率派回答「这类事情有多常发生」，贝叶斯派回答「面对眼前这一件，我该有多信」。</b>本书 Part 1 主要在频率派的地盘上打基础，Part 2 整个转向贝叶斯派——因为现实生活里的绝大多数判断（这份报告可信吗？这个人在说谎吗？）都是一次性的，没有「重复很多次」可言。</p>
+  </div>
+
+  <h3>频率派的地基：大数定律，以及它<i>不</i>保证的事</h3>
+  <p>频率派靠一条定理撑着：<span class="term">law of large numbers</span>（大数定律）——抛的次数越多，正面的<b>比例</b>越接近 50%。这是真的，而且下面的实验会让你亲眼看到。</p>
+  <p>但它有一个被广泛误读的地方，值得现在就说清楚。大数定律保证的是<b>比例</b>收敛，<b>不</b>保证正反两面的<b>次数差</b>会缩小。恰恰相反——次数差通常还会越拉越大：</p>
+  <div class="formula">抛 100 次：典型的正反次数差约 <b>8 次</b>，占比例的 8%<br>抛 10000 次：典型的次数差约 <b>80 次</b>——差值大了十倍<br>可比例呢？80 ÷ 10000 = <b>0.8%</b>，反而小了十倍<br><br>（次数差大致按 √n 增长，而比例偏差按 1/√n 缩小）</div>
+  <p>换句话说：<b>硬币不是靠「把亏欠补回来」来收敛的，它是靠「分母越来越大，把偏差稀释掉」来收敛的。</b>这一句话就是<a href="4-1-gamblers-fallacy.html">赌徒谬误</a>的解药，请先记住——4.1 章会专门拆它。</p>
+
+  <h3>日常语言里的「可能」是个坏工具</h3>
+  <p>回到开头那道题。「很有可能」「有相当大的机会」「不能排除」——这些词听起来在传递概率，实际上传递的是<b>一片区间，而且每个人心里的区间都不一样</b>。研究反复发现，同一个词在不同人那里能被读成相差三四倍的数字。这不是语文没学好，是自然语言在这件事上本来就不够用。</p>
+  <p>解决办法很朴素，也是本书从头到尾在做的事：<b>把话翻译成数字，把数字翻译成「多少次里有几次」。</b></p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>亲手抛一万次</h2>
+  <p>下面是一枚公平硬币。横轴是抛的次数（<b>对数刻度</b>——这样短序列的疯狂摆动和长序列的收敛能挤在同一张图里），纵轴是「到目前为止正面的比例」。虚线是 50%。</p>
+  <p>先看默认的 1000 次：曲线在前几十次里上蹿下跳，能轻松跑到 70% 或 30%；到了几百次以后，它被牢牢摁在 50% 附近再也甩不开。<b>点「再抛一轮」多试几次——重点不是某一轮的结果，而是「前面乱、后面稳」这个形状每一轮都会出现。</b></p>
+
+  <div class="lab" data-print-note="（在线版可拖动次数、反复重抛。打印版展示默认场景：固定随机种子抛 1000 次，正面 494 次、频率 49.4%、偏离 50% 仅 −0.6 个百分点；而同一轮的前 10 次里正面 4 次，频率 40%——偏离了 10 个百分点。这正是本章要看的对比：小样本剧烈摆动，大样本贴住 50%。）">
+    <div class="lab-head">
+      <span class="t">Coin Convergence · 抛硬币收敛模拟器</span>
+      <span class="presets">
+        <button data-p="10">只抛 10 次</button>
+        <button data-p="1000">1000 次</button>
+        <button data-p="10000">10000 次</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>抛的次数 <b id="vN">1000 次</b></label>
+          <input type="range" id="nFlips" min="1" max="40" step="1" value="27">
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn ghost" type="button" id="reflip">再抛一轮（换随机种子）</button>
+        <span class="hint">默认画面用固定种子，保证正文里的数字和你看到的一致。</span>
+      </div>
+
+      <div class="chart">
+        <svg id="convChart" viewBox="0 0 600 230" role="img" aria-label="正面比例随抛掷次数收敛到 50% 的折线图">
+          <line x1="42" y1="12" x2="42" y2="200" class="axis"></line>
+          <line x1="42" y1="200" x2="590" y2="200" class="axis"></line>
+          <line x1="42" y1="106" x2="590" y2="106" class="ref"></line>
+          <line x1="42" y1="59" x2="590" y2="59" class="gridline"></line>
+          <line x1="42" y1="153" x2="590" y2="153" class="gridline"></line>
+          <text x="36" y="16" text-anchor="end">100%</text>
+          <text x="36" y="63" text-anchor="end">75%</text>
+          <text x="36" y="110" text-anchor="end">50%</text>
+          <text x="36" y="157" text-anchor="end">25%</text>
+          <text x="36" y="204" text-anchor="end">0%</text>
+          <text x="42" y="220">1</text>
+          <text x="179" y="220" text-anchor="middle">10</text>
+          <text x="316" y="220" text-anchor="middle">100</text>
+          <text x="453" y="220" text-anchor="middle">1000</text>
+          <text x="590" y="220" text-anchor="end">10000</text>
+          <polyline id="convLine" class="line k" points=""></polyline>
+        </svg>
+      </div>
+
+      <div class="readout three">
+        <div class="bignum"><div class="n" id="nHeads">494</div><div class="l">正面次数</div></div>
+        <div class="bignum"><div class="n" id="nFreq">49.4%</div><div class="l">正面比例</div></div>
+        <div class="bignum"><div class="n a" id="nDev">−0.6</div><div class="l">偏离 50%（百分点）</div></div>
+      </div>
+
+      <p style="margin:20px 0 6px;font-size:14px;color:var(--ink-soft)">这一轮的前 60 次长这样：</p>
+      <div class="seq" id="seqStrip" aria-label="前六十次抛掷结果"></div>
+    </div>
+  </div>
+
+  <p>把滑块拖到最左边（只抛 10 次），然后反复点「再抛一轮」。你会看到 8 正 2 反、3 正 7 反这种结果频繁出现——<b>10 次里正面出现 7 次以上或 3 次以下的概率大约是 34%，也就是每三轮就有一轮</b>。这就是本章开头第二道题的答案：小样本里的「明显偏离」不是异常，是常态。</p>
+  <p>顺便留意那条序列条：几乎每一轮都会出现连着四五个同面的片段。<b>这看起来「不随机」，但它恰恰是随机的标志</b>——真正的随机序列里，连号比人想象的多得多。这个观察在 <a href="4-1-gamblers-fallacy.html">4.1 章</a>会变成一整个实验。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>「严重的可能性」到底是多少</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Sherman Kent · 情报机构的估测语言问题</div>
+    <div class="case-body">
+      <p>1951 年 3 月，美国国家情报评估在讨论苏联对南斯拉夫的意图时，用了这样一句措辞：苏联进攻南斯拉夫存在「<b>严重的可能性</b>」（a serious possibility）。</p>
+      <p>负责该评估的 Sherman Kent 后来回忆，几天后他问一位国务院官员：你把这句话理解成多大概率？对方答：大概<b>两成</b>。Kent 说，我们写的时候心里想的是<b>六成半</b>。他随即去问了评估委员会的其他成员，得到的答案从 <b>20% 一路铺到 80%</b>——所有人都读了同一句话，并且都认为自己理解得没错。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">20%–80%</div><div class="l">同一句「严重的可能性」被读出的概率范围</div></div>
+        <div class="stat"><div class="n bad">~65%</div><div class="l">起草者本人的原意</div></div>
+        <div class="stat"><div class="n good">数字化</div><div class="l">Kent 提出的解法：给每个措辞钉死一个百分比区间</div></div>
+      </div>
+      <p>Kent 由此写下了情报界的经典文章《估测性概率的词汇》，主张给每一个措辞钉死一个数值区间——「几乎肯定」= 93%±6、「很可能」= 75%±12，诸如此类。这套做法后来被各国情报与风险机构广泛采用，联合国政府间气候变化专门委员会（IPCC）报告里那套「virtually certain（>99%）/ likely（>66%）」的措辞规范，走的是同一条路。</p>
+      <p>这个案例对普通读者的意义不在情报，而在于：<b>你每天都在收发这种句子</b>。「这个方案风险不大」「他应该会来」「基本没问题」——每一句都在传递一个概率，而收发双方心里的数字很可能差着两三倍。下次听到，不妨追问一句：「你说的『应该会』，是十次里有几次？」</p>
+      <div class="src">来源：Sherman Kent, "Words of Estimative Probability", Studies in Intelligence, 1964（美国中央情报局，后公开解密）。对措辞歧义的现代实验复现见 Mandel &amp; Irwin 等人的研究；IPCC 的措辞规范见其 AR5/AR6 不确定性表述指南。上文 20%–80% 与 65% 为 Kent 原文所述，属其亲历记述。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">概念题</span>「这枚硬币是公平的」——频率派和贝叶斯派会怎样各自验证这句话？两者的分歧在哪？</summary>
+      <div class="answer">
+        <p><b>频率派：</b>抛它很多次，看正面比例是否稳定在 50% 附近。「公平」是关于这枚硬币<b>长期行为</b>的客观断言，可以被数据证伪。分歧点：抛多少次算够？任何有限次数都无法完全确定。</p>
+        <p><b>贝叶斯派：</b>先给「它公平」一个先验信念（比如从口袋里随手掏的硬币，先验相当高），然后每抛一次就更新一点。抛出 10 连正之后，「它公平」的信念会明显下降，但不会归零——因为公平硬币抛出 10 连正的概率虽小（约 1/1024），也不是零。</p>
+        <p><b>真正的分歧不在算法，在「概率」这个词指向什么。</b>频率派认为「公平」要么真要么假，概率描述的是数据；贝叶斯派认为概率描述的是你对这个命题的信心状态。有意思的是，两者在数据足够多时几乎总会收敛到同一个结论——分歧主要出现在数据稀少、或者事件根本无法重复的时候（比如「这个候选人会赢」）。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">计算题</span>抛 100 次和抛 10000 次，哪一次「正面比例落在 48%–52% 之间」的概率更高？哪一次「正反次数差超过 20 次」的概率更高？</summary>
+      <div class="answer">
+        <p><b>比例题：抛 10000 次的概率高得多。</b>100 次时，标准差约 5 次，也就是 5 个百分点，落进 ±2 个百分点的窗口概率只有三成多；10000 次时标准差约 50 次，只有 0.5 个百分点，落进 ±2 个百分点几乎是必然（约 99.99%）。</p>
+        <p><b>次数差题：也是抛 10000 次的概率高。</b>100 次时次数差的典型量级约 8 次，超过 20 次的概率不到 5%；10000 次时典型量级约 80 次，超过 20 次的概率约 <b>84%</b>——十有八九。</p>
+        <p>这两个答案放在一起，就是本章最重要的一句话：<b>抛得越多，比例越准，次数差却越大。</b>收敛靠的是分母膨胀带来的稀释，不是靠「把欠的补回来」。如果你答对了比例题却答错了次数差题，说明赌徒谬误的种子还在——去 <a href="4-1-gamblers-fallacy.html">4.1 章</a>拔掉它。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>天气预报说「明天降水概率 70%」，结果第二天没下雨。有人说「预报错了」。这个批评成立吗？要怎样才能判断一个气象台准不准？</summary>
+      <div class="answer">
+        <p><b>不成立。</b>单独一天的结果无法证伪一个概率预报——70% 意味着这类日子里有三成是不下雨的，昨天恰好是那三成之一，完全不矛盾。用一次结果去判断概率陈述，等于用抛一次硬币的结果去判断硬币公不公平。</p>
+        <p>正确的检验方法叫<b>校准</b>（calibration）：把这个气象台所有说过「70%」的日子挑出来——比如三年里有 200 天——数一数其中真正下雨的有多少天。如果接近 140 天（70%），这个气象台在 70% 这一档上是校准良好的。再对 10%、20%……每一档都这么查一遍，就得到了完整的成绩单。</p>
+        <p>这正是频率派思路的实际用法：<b>单个一次性事件无法验证，但把「所有说过同一个数的场合」攒成一类，参照类就造出来了，概率也就重新变得可检验了。</b>这也是为什么专业预测者会被要求给出数字而不是「很有可能」——只有数字才能被记账。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>本章开头那句「敌方很有可能在本月内行动」，如果你是收件人，你能做什么来避免 Kent 遇到的那种误读？</summary>
+      <div class="answer">
+        <p>最直接的一招：<b>把词翻译成赌注</b>。问对方（或问自己）：「如果这件事没发生你赔我 100 块，发生了我赔你 X 块——X 是多少你才觉得公平？」这个问题逼出的是一个具体数字，而且比直接问「你觉得多少概率」更容易回答，因为人对赌注的直觉比对百分比的直觉好。</p>
+        <p>第二招：<b>问「十次里有几次」</b>。把它翻译成自然频率，也就是本书通篇在做的事。「如果这样的局面出现十次，有几次会真的动手？」——比「多少概率」好回答得多。</p>
+        <p>第三招（组织层面）：<b>建立措辞表</b>，像 Kent 和 IPCC 那样把词钉死在区间上，并且要求写和读的人共用同一张表。注意这一招只在双方都认这张表时才有效——否则你只是把歧义从「很有可能」搬到了「你说的很有可能是按哪张表」。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="0-1-intro.html">← 0 你的大脑不是为概率设计的</a></span>
+  <span><a href="0-1-intro.html">← 0 导读</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="1-2-conditional.html">1.2 条件概率与独立性：方向反了，答案就反了 →</a></span>
+  <span><a href="1-2-conditional.html">1.2 条件概率与独立性 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/1-1-what-is-probability.js"></script>
 </body>
 </html>
