@@ -218,6 +218,17 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .toggles button.on{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
 .toggles button.against.on{border-color:var(--fp);background:var(--fp-soft)}
 
+/* 门（3.1 蒙提霍尔）：列数走 --dcols，门数很多时自动变小 */
+.doors{display:grid;grid-template-columns:repeat(var(--dcols,3),1fr);gap:6px;margin:12px 0 14px}
+.doors button{aspect-ratio:2/3;border-radius:6px;border:2px solid var(--line);background:var(--paper);
+  color:var(--ink-soft);font-family:var(--disp);font-weight:600;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:clamp(9px,2.2vw,17px);padding:0}
+.doors button:hover:not(:disabled){border-color:var(--accent)}
+.doors button.picked{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.doors button.open{border-style:dashed;opacity:.45;cursor:default}
+.doors button.car{border-color:var(--sick);background:var(--sick-soft);color:var(--ink)}
+.doors button:disabled{cursor:default}
+
 /* 证据流：一条反驳证据 + 一句「解释掉它」的说辞 + 打折后剩下的力度 */
 .evrow{display:grid;grid-template-columns:1fr 1fr 62px;gap:12px;align-items:baseline;
   padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}

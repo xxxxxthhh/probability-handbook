@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3.1 蒙提霍尔问题：换门为什么赢面翻倍 · 概率直觉手册</title>
+<title>3.1 蒙提霍尔问题 · 概率直觉手册</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/handbook.css">
@@ -17,30 +17,223 @@
 
 <header class="ch">
   <div class="dotrow" aria-hidden="true">
-    <i></i><i></i><i></i><i class="a"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="a"></i><i></i><i></i>
+    <i class="s"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i><i></i>
   </div>
   <div class="kicker">Part 3 · Classic Paradoxes 经典悖论</div>
   <h1>3.1 The Monty Hall Problem
-    <span class="zh">蒙提霍尔问题：换门为什么赢面翻倍</span>
+    <span class="zh">蒙提霍尔问题：换门为什么真的能让赢面翻倍</span>
   </h1>
-  <div class="meta"><span>本章<b>建设中</b></span></div>
+  <div class="meta">
+    <span>难度 <b>★★☆</b></span>
+    <span>阅读 + 玩 <b>~20 min</b></span>
+    <span>直觉翻车率 <b>极高</b></span>
+    <span>前置 <b><a href="1-2-conditional.html">1.2 条件概率</a></b></span>
+  </div>
 </header>
 
-<section>
-  <div class="sec-tag"><span class="cell"></span><span class="lab">Placeholder 占位</span></div>
-  <h2>本章尚未撰写</h2>
-  <p>骨架阶段占位页。正式内容将包含五要素：先猜一次 / 核心概念 / 交互实验 / 真实案例 / 章末自测。</p>
+<!-- ============ 先猜一次 ============ -->
+<section id="guess">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Guess First 先猜一次</span></div>
+  <h2>换，还是不换</h2>
+  <p>电视游戏节目。你面前三扇门，其中一扇后面是汽车，另外两扇后面各是一只羊。</p>
+  <p>你选了 1 号门。主持人——<b>他知道每扇门后面是什么</b>——打开了 3 号门，露出一只羊。然后他问你：</p>
+  <p class="big">「你要坚持 1 号，还是换到 2 号？」</p>
+  <div class="guess" id="guessBox">
+    <div class="opts">
+      <button data-g="stay">坚持 1 号更好</button>
+      <button data-g="same">都一样，各 50%</button>
+      <button data-g="switch">换到 2 号更好</button>
+      <button data-g="idk">说不好</button>
+    </div>
+    <div class="after">押好了。提示：这道题曾经让上千名有博士学位的人写信去骂一个专栏作家——而作家是对的。</div>
+  </div>
+</section>
+
+<!-- ============ 核心概念 ============ -->
+<section id="concept">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Core Concept 核心概念</span></div>
+  <h2>换门赢的概率是 2/3，而且理由很朴素</h2>
+
+  <p>直觉说「剩两扇门，一半一半」。这个直觉的错误可以用一句话点破：<b>那两扇门不是同一个来历。</b>一扇是你在什么都不知道的时候随便挑的，另一扇是主持人在<b>知道答案</b>的前提下、从剩下的门里精心留下来的。</p>
+
+  <p>用自然频率走一遍。玩 <b>900 局</b>，你每次都先选 1 号门：</p>
+
+  <div class="formula">车在 1 号（你选中了）：<b>300 局</b><br>
+  &nbsp;&nbsp;→ 主持人随便开 2 号或 3 号，剩下那扇是羊。<b>换门 = 输</b><br><br>
+  车在 2 号：<b>300 局</b><br>
+  &nbsp;&nbsp;→ 主持人<b>只能</b>开 3 号（他不会开有车的 2 号），剩下 2 号。<b>换门 = 赢</b><br><br>
+  车在 3 号：<b>300 局</b><br>
+  &nbsp;&nbsp;→ 主持人<b>只能</b>开 2 号，剩下 3 号。<b>换门 = 赢</b><br><br>
+  换门赢 600 局，输 300 局 → 胜率 <b>2/3</b>。不换正好相反，<b>1/3</b>。</div>
+
+  <p>关键在中间那两行的「<b>只能</b>」。当车不在你手上时（这占了 2/3 的局），主持人的手是被绑住的——他必须避开有车的门，于是他<b>被迫把车的位置暴露在那扇没被打开的门上</b>。你换过去，就接管了这个信息。</p>
+
+  <p>换个说法可能更顺：<b>「换门」这个策略，本质上等价于「我赌车不在我最初选的那扇门后面」。</b>而这件事的概率显然是 2/3。主持人开门这个动作没有改变你最初选对的概率（还是 1/3），它只是<b>把剩下的 2/3 全部压缩到了一扇门上</b>。</p>
+
+  <h3>把门加到一百扇，直觉立刻就通了</h3>
+  <p>如果上面的推理还是让你别扭，试试这个版本：</p>
+  <div class="callout k">
+    <p style="margin:0"><b>一百扇门</b>，一扇后面有车。你随便选了 <b>37 号</b>。然后主持人（他知道车在哪）把其余 99 扇门里的 <b>98 扇</b>全部打开，全是羊，只留下 <b>68 号</b>没开。<br><br>现在他问：坚持 37 号，还是换到 68 号？<br><br><b>几乎每个人都立刻想换。</b>因为「我一次就蒙中了那 1/100」显然不太可能，而 68 号之所以能在 98 次开门中幸存下来，太可疑了。<b>三门版的逻辑完全一样，只是 1/3 和 2/3 的差距没有 1% 和 99% 那么刺眼。</b></p>
+  </div>
+
+  <h3>一个致命的前提：主持人必须知情</h3>
+  <p>这道题的答案<b>完全依赖于主持人知道门后是什么</b>。如果他不知道、纯粹随机开了一扇门，恰好是羊——那么换门就<b>没有</b>任何优势，两扇门各 50%。</p>
+  <p>为什么？因为此时「他开出了羊」这件事本身成了一条新信息，而它<b>同时</b>提高了「车在你手上」的可能性。用 <a href="2-2-bayes-update.html">2.2 章</a>的语言说：主持人知情时，「他开出羊」是必然事件，似然比为 1，不携带信息；主持人不知情时，「他开出羊」在「车在你手上」的世界里更容易发生，于是这条证据反过来支持了你最初的选择，恰好把优势抵消掉。</p>
+  <p>下面的实验里有一个「主持人不知情」开关，你可以亲自验证这件事——<b>同样是开出一扇羊门，规则不同，答案就不同。这道题真正教给人的，是「信息从哪来」比「看到了什么」更重要。</b></p>
+</section>
+
+<!-- ============ 交互实验 ============ -->
+<section id="lab">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Interactive Lab 交互实验</span></div>
+  <h2>先手玩几局，再让电脑跑一千局</h2>
+  <p>上半部分可以真的玩：点一扇门，主持人开门，你决定换不换。下半部分是自动模拟——<b>手玩十几局说明不了什么（这正是本题反直觉的原因：样本太小时两种策略看不出差别），得跑够一千局统计才说得上话。</b></p>
+
+  <div class="lab" data-print-note="（在线版可手玩、调门数、切换主持人是否知情。打印版展示默认场景：3 扇门、主持人知情，自动模拟 1000 局的结果为——不换胜率 34.4%（344 局），换门胜率 65.6%（656 局），与理论值 1/3 与 2/3 相符。切到 100 扇门时，换门胜率 99.1%。切到「主持人不知情」时，1000 局中有 335 局因主持人提前开出汽车而作废，剩余 665 局中不换 50.8%、换门 49.2%——换门的优势完全消失。）">
+    <div class="lab-head">
+      <span class="t">Monty Hall · 三门游戏 + 千局统计板</span>
+      <span class="presets">
+        <button data-p="3,1">经典 3 门</button>
+        <button data-p="100,1">100 扇门</button>
+        <button data-p="3,0">主持人不知情</button>
+      </span>
+    </div>
+    <div class="lab-body">
+      <div class="sliders">
+        <div class="sl">
+          <label>门的数量 <b id="vDoors">3 扇</b></label>
+          <input type="range" id="sDoors" min="3" max="100" step="1" value="3">
+        </div>
+      </div>
+      <div class="controls">
+        <span class="hint">主持人：</span>
+        <span class="segmented">
+          <button type="button" data-h="1" class="on">知情（经典）</button>
+          <button type="button" data-h="0">随机开门</button>
+        </span>
+        <span class="hint" id="vHost">知情（经典规则）</span>
+      </div>
+
+      <h3 style="margin-top:8px">① 自己玩</h3>
+      <div class="doors" id="doorRow"></div>
+      <p style="font-size:14.5px;margin-bottom:10px" id="playMsg"></p>
+      <div class="controls" id="playActs"></div>
+      <p style="font-size:13.5px;color:var(--ink-soft)" id="tally"></p>
+
+      <h3>② 让电脑跑一千局</h3>
+      <div class="chart">
+        <svg viewBox="0 0 600 120" role="img" aria-label="不换与换门策略的胜率对比条形图">
+          <text x="0" y="24">不换</text>
+          <rect x="56" y="10" width="480" height="22" rx="4" class="bar"></rect>
+          <rect x="56" y="10" width="165" height="22" rx="4" class="bar a" id="barStay"></rect>
+          <text x="0" y="70">换门</text>
+          <rect x="56" y="56" width="480" height="22" rx="4" class="bar"></rect>
+          <rect x="56" y="56" width="315" height="22" rx="4" class="bar k" id="barSwitch"></rect>
+          <line x1="56" y1="94" x2="536" y2="94" class="axis"></line>
+          <text x="56" y="112">0%</text>
+          <text x="296" y="112" text-anchor="middle">50%</text>
+          <text x="536" y="112" text-anchor="end">100%</text>
+        </svg>
+      </div>
+      <div class="readout">
+        <div class="bignum"><div class="n a" id="nStay">34.4%</div><div class="l">不换的胜率</div></div>
+        <div class="bignum"><div class="n" id="nSwitch">65.6%</div><div class="l">换门的胜率</div></div>
+      </div>
+      <p style="margin-top:14px;font-size:14px;color:var(--ink-soft)" id="simNote"></p>
+      <div class="controls" style="margin-top:8px">
+        <button class="btn ghost" type="button" id="resim">再模拟一千局（换随机种子）</button>
+      </div>
+    </div>
+  </div>
+
+  <p>三个预设各有各的用处。<b>「经典 3 门」</b>给出 1/3 对 2/3 的基准。<b>「100 扇门」</b>是治直觉的特效药——换门胜率 99.1%，而且门一多，「主持人被迫留下那一扇」的可疑感扑面而来。</p>
+  <p>最值得停下来看的是<b>「主持人不知情」</b>。注意两件事：第一，<b>有大约三分之一的局直接作废了</b>，因为主持人随手开门时把汽车提前开了出来；第二，在剩下的有效局里，<b>两种策略的胜率都掉到了 50% 附近</b>。</p>
+  <p>这个对照是本章真正的收获。<b>你在两种模式下看到的画面是完全一样的：一扇你选的门，一扇被打开的羊门，一扇没开的门。但正确的决策完全不同。</b>差别不在你看到了什么，而在<b>产生这幅画面的规则是什么</b>——主持人是被迫避开汽车，还是碰巧没开到汽车。<a href="3-4-two-children.html">3.4 章</a>会把这个教训推到极致：同一个事实，因为「你是怎么知道的」不同，概率可以完全不同。</p>
+</section>
+
+<!-- ============ 真实案例 ============ -->
+<section id="case">
+  <div class="sec-tag"><span class="cell" style="background:var(--sick)"></span><span class="lab">Case Study 真实案例</span></div>
+  <h2>一万封信，其中上千封来自博士</h2>
+  <div class="case">
+    <div class="case-head"><span class="cell"></span>Marilyn vos Savant · Parade 杂志专栏, 1990–1991</div>
+    <div class="case-body">
+      <p>1990 年 9 月，美国《Parade》杂志的专栏作家 Marilyn vos Savant 在她的「Ask Marilyn」问答专栏里收到读者提问，正是这道三门问题。她给出的答案是：<b>应该换，换门的胜率是 2/3。</b></p>
+      <p>这个答案是对的。而接下来发生的事，成了数学普及史上最著名的一场公开翻车——翻车的是读者。</p>
+      <p>据 vos Savant 本人后来的记述，她收到了<b>约一万封</b>读者来信，其中绝大多数说她错了。写信人里有<b>约一千封</b>来自拥有博士学位的人，包括数学教授。有人措辞相当不客气，指责她「作为全国最高智商的持有者，你显然是错的」，还有人建议她「承认错误，为提高全国的数学水平做点贡献」。</p>
+      <div class="stats">
+        <div class="stat"><div class="n bad">约 1 万封</div><div class="l">读者来信总数（量级概括）</div></div>
+        <div class="stat"><div class="n bad">约 1000 封</div><div class="l">来自博士学位持有者</div></div>
+        <div class="stat"><div class="n good">2/3</div><div class="l">正确答案，vos Savant 从头到尾没错</div></div>
+      </div>
+      <p>vos Savant 在后续几期专栏里反复解释，包括给出上面那个「一百扇门」的类比，并建议全国的数学课堂真的去做这个实验。<b>不少班级照做了，模拟结果站在她这边。</b>争论持续了几个月，最终以她的观点被广泛接受告终。</p>
+      <p>这个事件有两层值得琢磨的地方。</p>
+      <p><b>第一层：受过高等数学训练并不能免疫。</b>这些写信的博士不是不会算条件概率——他们只是没意识到这里有条件概率要算。他们看到「剩两扇门」，直接套用了对称性。<b>错误发生在「识别问题类型」这一步，而不是「计算」这一步</b>，而前者恰恰是训练最难覆盖的地方。</p>
+      <p><b>第二层：这道题的表述确实曾经含糊。</b>后来的讨论（包括 vos Savant 自己的承认）指出，原始提问没有明确说清主持人的行为规则——他是<b>每次都必开一扇羊门</b>，还是只在这一次这么做？他<b>是否知道</b>门后是什么？如果这些前提不成立，答案确实会变（正如实验里的「不知情」模式所示）。一部分批评者争的其实是题目的歧义，而不是数学。<b>这也是为什么现代的标准表述会把主持人的规则一条条写清楚——含糊的题干让「答案是什么」变成了「你在回答哪道题」。</b></p>
+      <div class="src">来源：Marilyn vos Savant, "Ask Marilyn", Parade Magazine, 1990 年 9 月 9 日及后续各期；相关争论综述见 John Tierney, "Behind Monty Hall's Doors: Puzzle, Debate and Answer?", The New York Times, 1991 年 7 月 21 日。来信数量与博士比例为 vos Savant 本人及媒体报道的数字，未经独立审计，属量级概括。问题的更早形式见 Steve Selvin 致 The American Statistician 的通信（1975）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Quiz ============ -->
+<section id="quiz">
+  <div class="sec-tag"><span class="cell"></span><span class="lab">Quiz 自测</span></div>
+  <h2>章末自测</h2>
+  <div class="quiz">
+
+    <details>
+      <summary><span class="qtype">计算题</span>改成 4 扇门：你选 1 扇，主持人（知情）打开 2 扇羊门，剩下 1 扇。换门的胜率是多少？推广到 N 扇门呢？</summary>
+      <div class="answer">
+        <p><b>4 扇门：</b>你最初选对的概率是 1/4，这个数字不会因为主持人开门而改变。所以「车不在你手上」的概率是 3/4，而这 3/4 现在被压缩到了唯一剩下的那扇门上 → <b>换门胜率 3/4</b>。</p>
+        <p><b>N 扇门（主持人开 N−2 扇羊门）：</b>不换 = <b>1/N</b>，换门 = <b>(N−1)/N</b>。</p>
+        <p>可以在实验里验证：把门数拖到 100，换门胜率约 99%。<b>门越多，换门越划算——因为你最初一次蒙中的概率越低，而那全部的「没蒙中」都被主持人压到了同一扇门上。</b></p>
+        <p>顺便一个值得注意的变体：如果主持人只开<b>一扇</b>羊门（剩下 N−2 扇未开），换到任意一扇特定的门，胜率是 (N−1)/N ÷ (N−2)。以 N=4 为例：3/4 ÷ 2 = 3/8，仍然大于不换的 1/4，但优势小了很多。<b>优势的大小取决于主持人替你排除了多少扇门。</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">概念题</span>为什么「主持人不知情、随机开门恰好开出羊」的情况下，换门就没有优势了？请用 900 局的自然频率讲清楚。</summary>
+      <div class="answer">
+        <p>玩 900 局，你固定选 1 号，主持人从 2、3 号里随机开一扇：</p>
+        <p>· <b>车在 1 号（300 局）：</b>主持人开哪扇都是羊 → <b>300 局</b>走到「剩两扇」，换门输。</p>
+        <p>· <b>车在 2 号（300 局）：</b>主持人一半概率开 2 号（车露出来，本局作废，150 局），一半概率开 3 号（羊，150 局）→ 有效 <b>150 局</b>，换门赢。</p>
+        <p>· <b>车在 3 号（300 局）：</b>同理，有效 <b>150 局</b>，换门赢。</p>
+        <p>合计：作废 300 局；有效 600 局中，换门赢 300、输 300 → <b>各 50%</b>。</p>
+        <p>对比经典规则下的 900 局全部有效、换门赢 600 局。<b>差别的来源看得一清二楚：主持人知情时，「车在 2 号」的那 300 局全部完好地转化成了换门的胜局；主持人不知情时，其中一半被他自己毁掉了。</b>换句话说，主持人的知情不是装饰性的设定，它是那台把 2/3 的概率搬运到另一扇门上的机器。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">场景判断</span>你在找工作，手上有一个还不错的 offer。这时猎头说：「我帮你筛掉了另外 20 家不合适的，只推荐这一家。」这个情境和蒙提霍尔像在哪，又关键地不像在哪？</summary>
+      <div class="answer">
+        <p><b>像的地方：</b>猎头扮演了「知情的主持人」——他看过全部选项，替你排除了 20 个。如果他的目标真的是帮你选最好的，那么这一家「幸存」下来确实携带了大量信息，值得你把它看得比自己随手找到的那个 offer 更重。这正是换门的逻辑。</p>
+        <p><b>关键地不像：</b>蒙提霍尔的主持人有一条<b>被严格约束的规则</b>——他必须避开汽车。而猎头的目标函数不一定和你一致：他可能优先推荐<b>佣金最高的</b>，或者<b>最容易成交的</b>。一旦筛选规则不是「留下对你最好的」，那扇幸存的门就不再是那个意思了。</p>
+        <p><b>所以要问的问题是同一个：「这个筛选是按什么规则做的？」</b>规则决定了幸存者携带什么信息。这条思路可以直接推广——<b>推荐算法留给你的内容、榜单留下的书、朋友转发给你的文章，全都是「被某种规则筛过的门」。有用的问题从来不是「它是什么」，而是「它凭什么活到了我面前」。</b>这也正是 <a href="4-4-survivorship-bias.html">4.4 章</a>幸存者偏差的核心。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="qtype">思考题</span>那上千位写信反驳 vos Savant 的博士，他们的直觉具体错在哪一步？为什么「换成 100 扇门」几乎立刻能治好这个错误？</summary>
+      <div class="answer">
+        <p>错误发生在一个几乎无法察觉的替换上：<b>他们把「剩下两个选项」等同于「两个选项等概率」。</b>对称性是个极其强大的直觉，而这里的两扇门在<b>外观上</b>确实完全对称——都是关着的门。</p>
+        <p>被忽略的是<b>它们的来历不对称</b>：一扇是随机选的，一扇是筛选后的幸存者。概率不写在门上，它写在门<b>是怎么变成现在这样</b>的历史里。而人类的视觉和直觉系统只处理眼前的状态，不处理生成过程。</p>
+        <p><b>为什么 100 扇门管用？</b>因为它把「筛选」这个动作变得<b>无法忽视</b>。主持人当着你的面连开 98 扇门，每一扇都精准避开了那唯一的车——这个行为太扎眼了，你不可能再把它当成中立的背景。三门版里，他只开一扇，这个动作看起来微不足道，于是被大脑当成了噪声。</p>
+        <p><b>这是一个可以推广的解题技巧：当直觉在某个规模上失灵时，把参数推到极端。</b>把 3 变成 100，把 1% 变成 0.0001%，把两天变成两百年。极端情况下，被忽略的那个因素往往会变得刺眼——本书后面还会反复用到这一招。</p>
+      </div>
+    </details>
+
+  </div>
 </section>
 
 <nav class="next">
-  <span><a href="2-4-conspiracy.html">← 2.4 为什么阴谋论者也自认是贝叶斯主义者</a></span>
+  <span><a href="2-4-conspiracy.html">← 2.4 阴谋论者的贝叶斯</a></span>
   <span><a href="../index.html">目录</a></span>
-  <span><a href="3-2-birthday.html">3.2 生日悖论：23 个人的房间 →</a></span>
+  <span><a href="3-2-birthday.html">3.2 生日悖论 →</a></span>
 </nav>
 
 </div>
 
 <script src="../assets/theme.js"></script>
 <script src="../assets/quiz.js"></script>
+<script src="../assets/labs/3-1-monty-hall.js"></script>
 </body>
 </html>
