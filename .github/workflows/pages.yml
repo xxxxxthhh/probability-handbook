@@ -1,0 +1,44 @@
+# 部署到 GitHub Pages。
+# 只发布书籍本体（index / 两个附录 / chapters / assets）：
+# reference/ 是审定样章存档，CLAUDE.md 约定「构建时不发布」；
+# CLAUDE.md / SKELETON.md / README.md 是仓库文档，不属于站点。
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble site (book only)
+        run: |
+          mkdir -p _site
+          cp index.html glossary.html firstaid.html _site/
+          cp -R chapters assets _site/
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
