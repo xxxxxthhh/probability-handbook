@@ -11,6 +11,8 @@
 也可直接用浏览器打开 `index.html` 本地阅读，无需任何构建步骤或服务器。
 推送到 `master` 即自动部署（`.github/workflows/pages.yml`，`reference/` 不发布）。
 
+门禁：`node tools/check.mjs`（内部链接与锚点、资源引用、目录章节数、实验挂载），改动门禁后跑 `node tools/mutate.mjs`（7 条注入违规须全部报红）。部署工作流会先跑这两步，失败即不部署。
+
 ## 目录结构
 
 ```

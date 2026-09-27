@@ -27,6 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 门禁不过就不部署：链接与锚点、资源引用、目录章节数、实验挂载；再验证门禁本身能报红
+      - name: Gate
+        run: |
+          node tools/check.mjs
+          node tools/mutate.mjs
+
       - name: Assemble site (book only)
         run: |
           mkdir -p _site
