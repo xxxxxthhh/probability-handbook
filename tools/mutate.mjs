@@ -24,6 +24,8 @@ const MUTATIONS = [
   ['删掉实验挂载点', edit('chapters/2-1-medical-test.html', 'id="grid"', 'id="grid-renamed"')],
   ['目录少链接一章（章节数不符）', edit('index.html', 'href="chapters/5-4-when-to-ignore.html"', 'href="#"')],
   ['多出一个未登记的章节文件', (d) => cpSync(join(d, 'chapters', '5-4-when-to-ignore.html'), join(d, 'chapters', '5-5-extra.html'))],
+  ['链接指向存在但不发布的文件（README.md）', edit('index.html', 'href="glossary.html"', 'href="README.md"')],
+  ['章节链接指向不发布的 reference/ 样章', edit('chapters/2-1-medical-test.html', 'href="../index.html"', 'href="../reference/chapter-2-1-medical-test-sample.html"')],
   ['样式表引用失效', edit('index.html', 'assets/handbook.css', 'assets/handbook-missing.css')],
 ];
 

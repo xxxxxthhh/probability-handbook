@@ -1,0 +1,7 @@
+# 发布白名单：部署工作流与门禁共用这一份定义（每行一个文件或目录，相对仓库根）。
+# 不在这里的文件不会上线，门禁也会把指向它们的链接判为断链。
+index.html
+glossary.html
+firstaid.html
+chapters
+assets

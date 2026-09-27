@@ -37,11 +37,11 @@ jobs:
           node tools/check.mjs
           node tools/mutate.mjs
 
+      # 白名单见 tools/publish-list.txt（与门禁共用）
       - name: Assemble site (book only)
         run: |
           mkdir -p _site
-          cp index.html glossary.html firstaid.html _site/
-          cp -R chapters assets _site/
+          grep -v '^#' tools/publish-list.txt | grep -v '^$' | while read -r p; do cp -R "$p" _site/; done
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5
